@@ -1,0 +1,19 @@
+{
+  "name": "art-bazar",
+  "version": "1.0.0",
+  "description": "Kazakhstan's great handmade store",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iilinegor/art-bazar.git"
+  },
+  "author": "Ilin Egor",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/iilinegor/art-bazar/issues"
+  },
+  "homepage": "https://github.com/iilinegor/art-bazar#readme"
+}
