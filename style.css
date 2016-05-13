@@ -1,0 +1,50 @@
+
+
+.product {
+	width: 520px;
+	margin: 0px auto;
+	font-family: Arial;
+}
+
+.field {
+	margin: 20px 0px;
+	background-color: #fdf4cc;
+	padding: 15px;
+	padding-top: 15px;
+}
+
+.subfield {
+	width: 230px;
+	display: inline-block;
+	font-size: 12px;
+	vertical-align: top;
+}
+
+.subfield__title{
+	font-size: 18px;
+	margin-bottom: 10px
+}
+
+.field b {
+		width: 100%;
+}
+
+.img {
+	width: 100%;
+	position: relative;
+	display: inline-block;
+}
+
+.img img {
+	margin: 5px;
+	vertical-align: top;
+}
+
+.titleImg {
+	height: 630px;
+	margin: 0px auto;
+}
+
+.photo {
+	margin: 0px auto;	
+}

@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/iilinegor/art-bazar/issues"
   },
-  "homepage": "https://github.com/iilinegor/art-bazar#readme"
+  "homepage": "https://github.com/iilinegor/art-bazar#readme",
+  "dependencies": {
+    "mongodb": "^2.1.18"
+  },
+  "devDependencies": {}
 }
