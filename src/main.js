@@ -10,9 +10,10 @@ import App from './App.jsx';
 
 ReactDOM.render(
 			<Router history={hashHistory}>
-				<Route path="/" component={App}/>
-				<Route path="/product" component={ProductFull}/>
-				<Route path="/all" component={All}/>
+				<Route path="/" component={App}>
+					<Route path="/product/:productId" component={ProductFull}/>
+					<Route path="/all" component={All}/>
+				</Route>
 			</Router>,
 			document.getElementById("content")
 		);

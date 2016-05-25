@@ -4,7 +4,7 @@ import React from 'react';
 import MARKET from './db.js';
 
 
-require('./style.css');
+import './style.css';
 
 var currntImg = 0;
 
@@ -69,14 +69,34 @@ var currntImg = 0;
 
 
 		var ProductFull = React.createClass({
+			getInitialState() {
+				const { productId } = this.props.params;
+				return {
+					productId: productId
+				} 
+			},
+
+			componentWillReciveProps(nextProps) {
+				const { productId: prevId } = this.props.params;
+				const { productId: nextId } = nextProps.params;
+
+				if (prevId !== nextId) {
+					this.setState({
+						productId: nextId
+					})
+				}
+			},
+
 			render: function() {
 
+				const { productId } = this.state;
+
 				var pay = [];
-				for (let item of MARKET[this.props.number].pay)
+				for (let item of MARKET[productId].pay)
 							pay.push(<li key={item}>{item}</li>);
 
 				var delivery = [];
-				switch (MARKET[this.props.number].delivery) {
+				switch (MARKET[productId].delivery) {
 					case "world":
 					delivery.push(<li>Доставка по миру</li>);
 
@@ -87,38 +107,38 @@ var currntImg = 0;
 					delivery.push(<li>Доставка по области</li>);
 
 					case "city":
-					delivery.push(<li>Доставка по городу ({MARKET[this.props.number].location})</li>);
+					delivery.push(<li>Доставка по городу ({MARKET[productId].location})</li>);
 
 					case "self":
 					delivery.push(<li>Самовывоз</li>);
 				}
 
 				var material = [];
-				for (let item of MARKET[this.props.number].material)
+				for (let item of MARKET[productId].material)
 							material.push(<li><a key={item} href={"http://en.wikipedia.org/material"}>{item}</a></li>);
 
 
 
 				 return <div className="product" >
 				 			
-						 	<h1>{MARKET[this.props.number].name}</h1>
+						 	<h1>{MARKET[productId].name}</h1>
 
-							<Galery number={this.props.number}/>
+							<Galery number={productId}/>
 
-							<div className="price"><b>Цена</b> {MARKET[this.props.number].price} р.</div>
+							<div className="price"><b>Цена</b> {MARKET[productId].price} р.</div>
 							
 						 	<h2>Описание</h2>
-						 	<p>{MARKET[this.props.number].description}</p>
+						 	<p>{MARKET[productId].description}</p>
 
 
 							<div className="field">
 								 <div className="subfield">
 									 <div className="subfield__title">Размер: </div>
-									 {MARKET[this.props.number].size.eurosize}
+									 {MARKET[productId].size.eurosize}
 								 </div>
 								 <div className="subfield">
 								 	<div className="subfield__title">Срок изготовления: </div> 
-								 	{MARKET[this.props.number].craftTime == 0 ? "Готовая работа" : MARKET[this.props.number].craftTime}
+								 	{MARKET[productId].craftTime == 0 ? "Готовая работа" : MARKET[productId].craftTime}
 								 </div>
 							 </div>
 
@@ -140,7 +160,7 @@ var currntImg = 0;
 								 </div>
 							 </div>
 
-							 <div>{MARKET[this.props.number].views} просмотров</div>
+							 <div>{MARKET[productId].views} просмотров</div>
 					 	</div>
 				 }
 		});

@@ -8,11 +8,14 @@ import MARKET from './db.js';
 require('./vender/masonry.pkgd.js');
 require('./vender/imagesloaded.pkgd.js');
 
-require('./all.css');
+import './all.css';
 
 var msnry;
 
 	var All = React.createClass({
+		contextTypes: {
+	        router: React.PropTypes.object.isRequired
+	    },
 
 		getInitialState: function() {
 			return {
@@ -39,7 +42,7 @@ var msnry;
 		componentDidMount: function() {
 			var elem = this.refs.grid;
 			this.msnry = new Masonry( elem, {
-			  itemSelector: '.product',
+			  itemSelector: '.all__product',
 			  gutter: 20
 			});
 
@@ -54,20 +57,24 @@ var msnry;
 			this.msnry.layout();
 		},
 
+		handleClick(productId) {
+	        this.context.router.push(`/product/${productId}`);
+	    },
+
 		render: function(){
 			let rows = [];
 			var Mark = this.state.currentMarket;
 			for (let i of Mark) {
-			    rows.push(<Product number={i.id} key={i.id}/>);
+			    rows.push(<Product onClick={this.handleClick.bind(null, i.id)} number={i.id} key={i.id}/>);
 			}
 
 			return 	<div>
-						<div className="search">
-							<div className="searchField">
+						<div className="all__search">
+							<div className="all__searchField">
 								<input type="text" onChange={this.handleSearch} />
 							</div>
 						</div>
-						<div className="all" ref="grid">{rows}</div>
+						<div className="all__all" ref="grid">{rows}</div>
 					</div>
 			;
 		}
@@ -76,11 +83,11 @@ var msnry;
 	var Product = React.createClass({
 
 		render: function() {
-			 return <div className="product">
-						 <div className="photo">
-							 <img src={MARKET[this.props.number].image[0]} width="100%" /><div className="price">{MARKET[this.props.number].price}₸</div>
+			 return <div className="all__product" onClick={this.props.onClick}>
+						 <div className="all__photo">
+							 <img src={MARKET[this.props.number].image[0]} width="100%" /><div className="all__price">{MARKET[this.props.number].price}₸</div>
 						 </div>
-						 <div className="info">
+						 <div className="all__info">
 						 	 <h2>{MARKET[this.props.number].name}</h2>
 							 
 						 </div>
