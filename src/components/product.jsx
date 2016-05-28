@@ -73,7 +73,7 @@ var currntImg = 0;
 				const { productId } = this.props.params;
 				return {
 					productId: productId
-				} 
+				};
 			},
 
 			componentWillReciveProps(nextProps) {

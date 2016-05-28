@@ -10,7 +10,8 @@ var USERS = [
 			lacation: "Павлодар",
 			basket: [
 				1, 2, 4
-			]
+			],
+			products: [ ]
 		}
 
 

@@ -27,7 +27,7 @@ var Login = React.createClass({
 	    	if ( currentPass === USERS[userId].password ){
 	    		localStorage.setItem('userId', this.state.userId); 
 	    		this.context.router.push(`/all`);
-	    	}
+	    	};
 	    },
 
 	    handlePassCheck: function(event) {

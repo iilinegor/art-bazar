@@ -70,7 +70,7 @@ var AuthButton = React.createClass({
 
 
 	    handleProfile: function() {
-	    	this.context.router.push("/profile");
+	    	this.context.router.push(`/profile/${this.state.userId}`);
 	    },
 
 	    handleSingIn: function() {
@@ -83,7 +83,7 @@ var AuthButton = React.createClass({
 	    },
 
 		render: function() {
-			var userId = this.state.userId;
+			var { userId } = this.state;
 			
 				if ( userId === -1)
 						return (

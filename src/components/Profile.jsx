@@ -5,123 +5,37 @@ import MARKET from './db.js';
 import USERS from './users.js';
 
 
-import './Login.css';
+import './Profile.css';
 
-var Login = React.createClass({
+var Profile = React.createClass({
 		contextTypes: {
 	        router: React.PropTypes.object.isRequired
 	    },
 
-	    getInitialState: function() {
-	    	return {
-	    		isKnown: -1,
-	    		userId: -1
-	    	};
-	    },
-
-	    handleLogIn: function(event) {
-	    	var currentPass = event.target.value;
-	    	var { userId } = this.state;
-	    	console.log(currentPass);
-	    	console.log(USERS[userId].password);
-	    	if ( currentPass === USERS[userId].password ){
-	    		localStorage.setItem('userId', this.state.userId); 
-	    		this.context.router.push(`/all`);
-	    	}
-	    },
-
-	    handlePassCheck: function(event) {
-	    	if (event.target.value === document.getElementById("firstPassword").value)
-	    		console.log("correct");
-	    },
-
-	    handleCheck: function(event){
-	    	var searchQuery = event.target.value.toLowerCase();
-
-			console.log(searchQuery);
-
-			let isKnown = false;
-			let userId;
-			let domens = [".ru", ".kz", ".com", ".org"];
-			
-			var isEmail = function(Query) {
-				if (Query.indexOf("@") !== -1) {
-					for (let dom of domens) {
-						if (Query.indexOf(dom) !== -1) {
-							return true;
-						};
-					};
+    	getInitialState() {
+			const { userId } = this.props.params;
+			if (userId === undefined)
+	    		this.context.router.push(`/profile/0`)
+	    	else			
+				return {
+					userId: userId
 				};
-				return false;
-			 };
-
-			 var inBase = function (email) {
-			 	for (let user of USERS)
-					if (email === user.email){
-						userId = user.id;
-						return true;
-					}
-				return false;
-			 };
-
-
-			if (isEmail(searchQuery)) {
-				if (inBase(searchQuery)){
-					isKnown = 1;
-				}
-				else
-					isKnown = 0;
-			}
-			else 
-				isKnown = -1;
-
-			this.setState({ isKnown: isKnown, userId: userId });
-			console.log(isKnown);
-
-
-	    },
+		},
 
 		render: function() {
-			var { isKnown, userId} = this.state;
-			if (isKnown === 1) 
-				var userName = USERS[userId].name;
+			var { userId } = this.state;
 
-			switch ( this.state.isKnown ) {
-				case -1:
-					return (
-							<div className="auth">
-								<p className="first">Введите email</p>
-								<input type="text" onChange={this.handleCheck} />
-								
-							</div>
-						);
-
-				case 0:
-					return (
-							<div className="auth">
-								<p className="first">Кажется, мы не знакомы</p>
-								<input type="text" onChange={this.handleCheck} />
-								<p>Как Вас зовут?</p>
-								<input type="text" />
-								<p>Придумайте пароль</p>
-								<input type="password" id="firstPassword"/>
-								<p>Закрепим </p>
-								<input type="password" onChange={this.handlePassCheck} />				
-
-							</div>
-						);
-
-				case 1:
-					return (
-							<div className="auth">
-								<p className="first">Здравствуйте, {userName}!</p>
-								<input type="text" onChange={this.handleCheck} />
-								<p>Введите пароль</p>
-								<input type="password" onChange={this.handleLogIn} />
-							</div>
-						);
-			};	
+			return (
+					<div className="profile">
+						<img src={USERS[userId].photo} />
+						<h1 >{USERS[userId].lastName + " " + USERS[userId].name}</h1>
+						<h2>Город: {USERS[userId].lacation}</h2>
+						<h2>Почта: {USERS[userId].email}</h2>
+						<h2>О себе</h2>
+						<p> {USERS[userId].description}</p>
+					</div>
+				);
 		}
 });
 
-export default Login;
+export default Profile;

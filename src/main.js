@@ -17,7 +17,7 @@ ReactDOM.render(
 					<Route path="/product/:productId" component={ProductFull}/>
 					<Route path="/all" component={All}/>
 					<Route path="/login" component={Login}/>
-					<Route path="/profile" component={Profile}/>
+					<Route path="/profile/:userId" component={Profile}/>
 				</Route>
 			</Router>,
 			document.getElementById("content")
