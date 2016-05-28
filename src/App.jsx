@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 
 import USERS from './components/users.js';
+import Login from './components/Login.jsx';
 
 import './App.css';
 
@@ -58,10 +59,19 @@ var AuthButton = React.createClass({
 	    	/*let local = localStorage.getItem('userId');
 	    	if (local !== " ") 
 	    		this.setState({ userId: local });*/
+
+	    	// Вынести аутх отдельным модулем, 
+	    	// чтобы принимал (а, б, в) и со-
+	    	// держал методы для проверки.
+	    	// Тогда он и будет тем auth-FLUX.
+	    	// 	И вообще, давай-ка думай
+	    	// головой, а не доками по реакту.
 	    },
 
 
-
+	    handleProfile: function() {
+	    	this.context.router.push("/profile");
+	    },
 
 	    handleSingIn: function() {
 	    	this.context.router.push("/logIn");
@@ -78,13 +88,14 @@ var AuthButton = React.createClass({
 				if ( userId === -1)
 						return (
 								<div className="singIn" onClick={this.handleSingIn} >
-									Войти
+									<div> Войти </div>
 								</div>
 						)
 				else 
 						return (
-								<div className="logIn" onClick={this.handleLogOut} >
-									Привет, {USERS[userId].name}!
+								<div className="logIn" >								
+									<img src={USERS[userId].photo} onClick={this.handleProfile} />
+									<div onClick={this.handleLogOut} > {USERS[userId].name}</div>
 								</div>
 						)
 		}

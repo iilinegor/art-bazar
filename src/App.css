@@ -16,6 +16,25 @@ body {
 .logIn, .singIn {
 	color: #6e6e6e;
 	text-align: right;
-	width: 100%;
+	font-family: "Segoe UI";
+	width: 100%;	
+	line-height: 100px;
+	margin-left: -50px;
+}
+
+.logIn div {
+	display: inline-block;
+	margin-left: 10px;
+	font-size: 18px;
+}
+
+
+.logIn img {
+	display: inline-block;
+	max-width: 50px;
+	max-height: 50px;
+	border-radius: 50%;
+	margin: 0px;
+	vertical-align: middle;
 }
 
