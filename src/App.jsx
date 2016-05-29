@@ -87,8 +87,8 @@ var AuthButton = React.createClass({
 			
 				if ( userId === -1)
 						return (
-								<div className="singIn" onClick={this.handleSingIn} >
-									<div> Войти </div>
+								<div className="singIn"  >
+									<div onClick={this.handleSingIn}> Войти </div>
 								</div>
 						)
 				else 

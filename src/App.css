@@ -6,6 +6,7 @@ body {
 
 .header {
 	width: 100%;
+	min-width: 520px;
 	/*background-color: #badacc;*/
 }
 
@@ -23,6 +24,13 @@ body {
 }
 
 .logIn div {
+	display: inline-block;
+	margin-left: 10px;
+	font-size: 18px;
+	padding-right: 20px;
+}
+
+.singIn div {
 	display: inline-block;
 	margin-left: 10px;
 	font-size: 18px;
