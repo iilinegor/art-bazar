@@ -4,6 +4,8 @@ import React from 'react';
 import USERS from './components/users.js';
 import Login from './components/Login.jsx';
 
+
+
 import './App.css';
 
 var App = React.createClass({
@@ -49,7 +51,6 @@ var AuthButton = React.createClass({
 	    		localStorage.setItem("userId", " ");
 	    	else {
 		    	let local = localStorage.getItem('userId');
-		    	console.log(local);
 		    	if (local !== " ") 
 		    		this.setState({ userId: local });
 		    };

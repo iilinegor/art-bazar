@@ -3,14 +3,26 @@ import React from 'react';
 
 import MARKET from './db.js';
 
+import ProductStore from '../stores/ProductStore';
+import ProductActions from '../actions/ProductActions';
 
 import './style.css';
 
 var currntImg = 0;
 
+		function getStateFromFlux(productId) {
+		    return {
+					productId: productId,
+			        isLoading: ProductStore.isLoading(),
+			        products: ProductStore.getProduct(productId)[0]
+				};
+		};
+
 		var Galery = React.createClass({
 			getInitialState: function() {
+
 				return {
+					MARKET: "",
 					currentImg : 0
 				};
 			},
@@ -70,11 +82,26 @@ var currntImg = 0;
 
 		var ProductFull = React.createClass({
 			getInitialState() {
-				const { productId } = this.props.params;
+				/*const { productId } = this.props.params;
 				return {
-					productId: productId
-				};
+					productId: productId,
+			        isLoading: ProductStore.isLoading(),
+			        product: ProductStore.getProduct(productId)
+				};*/
+    		    return getStateFromFlux(this.props.params.productId);
 			},
+
+			componentWillMount() {
+		        ProductActions.loadProduct(this.props.params.productId);
+		    },
+
+		    componentDidMount() {
+		        ProductStore.addChangeListener(this._onChange);
+		    },
+
+		    componentWillUnmount() {
+        		ProductStore.removeChangeListener(this._onChange);
+		    },
 
 			componentWillReciveProps(nextProps) {
 				const { productId: prevId } = this.props.params;
@@ -89,80 +116,87 @@ var currntImg = 0;
 
 			render: function() {
 
-				const { productId } = this.state;
+				const { productId, products } = this.state;
+				if (products){
+								var pay = [];
+								for (let item of products.pay)
+											pay.push(<li key={item}>{item}</li>);
+				
+								var delivery = [];
+								switch (products.delivery) {
+									case "world":
+									delivery.push(<li>Доставка по миру</li>);
+				
+									case "country":
+									delivery.push(<li>Доставка по Казахстану</li>);
+				
+									case "region":
+									delivery.push(<li>Доставка по области</li>);
+				
+									case "city":
+									delivery.push(<li>Доставка по городу ({products.location})</li>);
+				
+									case "self":
+									delivery.push(<li>Самовывоз</li>);
+								}
+				
+								var material = [];
+								for (let item of products.material)
+											material.push(<li><a key={item} href={"http://en.wikipedia.org/material"}>{item}</a></li>);
+				
+				
+				
+								 return <div className="product" >
+								 			
+										 	<h1>{products.name}</h1>
+				
+											<Galery number={productId}/>
+				
+											<div className="price"><b>Цена</b> {products.price} р.</div>
+											
+										 	<h2>Описание</h2>
+										 	<p>{products.description}</p>
+				
+				
+											<div className="field">
+												 <div className="subfield">
+													 <div className="subfield__title">Размер: </div>
+													 {products.size.eurosize}
+												 </div>
+												 <div className="subfield">
+												 	<div className="subfield__title">Срок изготовления: </div> 
+												 	{products.craftTime == 0 ? "Готовая работа" : products.craftTime}
+												 </div>
+											 </div>
+				
+											 <div className="field">
+												 <div className="subfield">
+													 <div className="subfield__title">Оплата: </div> 
+													 {pay}
+												 </div>
+												 <div className="subfield">
+													 <div className="subfield__title">Доставка: </div>
+													 {delivery}
+												 </div>
+											 </div>
+				
+											 <div className="field">
+												 <div className="subfield">
+													 <div className="subfield__title">Материалы:</div> 
+													 {material}
+												 </div>
+											 </div>
+				
+											 <div>{products.views} просмотров</div>
+									 	</div>}
+						else {
+							return false;
+						}
+			},
 
-				var pay = [];
-				for (let item of MARKET[productId].pay)
-							pay.push(<li key={item}>{item}</li>);
-
-				var delivery = [];
-				switch (MARKET[productId].delivery) {
-					case "world":
-					delivery.push(<li>Доставка по миру</li>);
-
-					case "country":
-					delivery.push(<li>Доставка по Казахстану</li>);
-
-					case "region":
-					delivery.push(<li>Доставка по области</li>);
-
-					case "city":
-					delivery.push(<li>Доставка по городу ({MARKET[productId].location})</li>);
-
-					case "self":
-					delivery.push(<li>Самовывоз</li>);
-				}
-
-				var material = [];
-				for (let item of MARKET[productId].material)
-							material.push(<li><a key={item} href={"http://en.wikipedia.org/material"}>{item}</a></li>);
-
-
-
-				 return <div className="product" >
-				 			
-						 	<h1>{MARKET[productId].name}</h1>
-
-							<Galery number={productId}/>
-
-							<div className="price"><b>Цена</b> {MARKET[productId].price} р.</div>
-							
-						 	<h2>Описание</h2>
-						 	<p>{MARKET[productId].description}</p>
-
-
-							<div className="field">
-								 <div className="subfield">
-									 <div className="subfield__title">Размер: </div>
-									 {MARKET[productId].size.eurosize}
-								 </div>
-								 <div className="subfield">
-								 	<div className="subfield__title">Срок изготовления: </div> 
-								 	{MARKET[productId].craftTime == 0 ? "Готовая работа" : MARKET[productId].craftTime}
-								 </div>
-							 </div>
-
-							 <div className="field">
-								 <div className="subfield">
-									 <div className="subfield__title">Оплата: </div> 
-									 {pay}
-								 </div>
-								 <div className="subfield">
-									 <div className="subfield__title">Доставка: </div>
-									 {delivery}
-								 </div>
-							 </div>
-
-							 <div className="field">
-								 <div className="subfield">
-									 <div className="subfield__title">Материалы:</div> 
-									 {material}
-								 </div>
-							 </div>
-
-							 <div>{MARKET[productId].views} просмотров</div>
-					 	</div>
-				 }
+		    _onChange() {
+		        this.setState(getStateFromFlux(this.props.params.productId));
+		    }
 		});
 
 		/*ReactDOM.render(
