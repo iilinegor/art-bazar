@@ -35,6 +35,12 @@ module.exports = {
 				exclude: [/node_modules/, /public/]
 			},
 
+            {
+                test: /\.styl$/,
+                loader: "style-loader!css-loader!autoprefixer-loader!stylus	-loader",
+                exclude: [/node_modules/, /public/]
+            },
+
 			{
 				test: /\.gif$/,
 				loader: "url-loader&limit=10000&mimetype=image/gif"
