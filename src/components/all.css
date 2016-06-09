@@ -1,9 +1,26 @@
-.all__all {
-	background-color: #ffffff;
+.NotesGrid {
 	margin: 0px auto;
-	width: 80%;
-	
+	width: 650px;
 }
+
+@media screen and (min-device-width: 1090px){
+    .NotesGrid {
+		width: 1090px;
+	}
+}
+
+@media screen and (max-device-width: 1089px) and (min-device-width: 870px){
+    .NotesGrid {
+		width: 870px;
+	}
+}
+
+@media screen and (max-device-width: 650px) {
+    .NotesGrid {
+		width: 650px;
+	}
+}
+
 
 .all__all:hover{
 

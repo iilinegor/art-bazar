@@ -3,11 +3,14 @@ import mongoose from "mongoose";
 import config from '../../etc/config.json';
 
 import '../models/Market';
+import '../models/User';
+
 
 const Market = mongoose.model('market');
+const User = mongoose.model('user');
 
 export function setUpConnection() {
-    mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`);
+    mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`);    
 }
 
 export function listProducts(id) {
@@ -16,6 +19,30 @@ export function listProducts(id) {
 
 export function getProduct(id) {
     return Market.find({ id : id });
+}
+
+    export function listUsers(id) {
+        return User.find();
+    }
+
+    export function getUser(id) {
+        return User.find({ id : id });
+    }
+
+
+export function createUser(data) {
+    const product = new User({
+            id: data.id,
+            email: data.email,
+            password: data.password,
+            name: data.name,
+            lastName: data.lastName,
+            description: data.description,
+            photo: data.photo,
+            location: data.location,
+            basket: data.basket
+    });
+    return product.save();
 }
 
 export function createProduct(data) {
@@ -38,7 +65,6 @@ export function createProduct(data) {
             bays: data.bays,
             image: data.image
     });
-
     return product.save();
 }
 

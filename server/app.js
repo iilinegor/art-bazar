@@ -35,6 +35,15 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
+//Отладочное, потом удалить! 
+	app.get('/user', (req, res) => {
+	    db.listUsers().then(data => res.send(data));
+	});
+	app.get('/user/:id', (req, res) => {
+		db.getUser(req.params.id).then(data => res.send(data));
+		console.log(req.params.id);
+	});
+
 const server = app.listen(serverPort, function() {
     console.log(`Server is up and running on port ${serverPort}`);
 });

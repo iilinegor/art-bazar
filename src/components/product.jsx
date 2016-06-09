@@ -1,8 +1,6 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 
-import MARKET from './db.js';
-
 import ProductStore from '../stores/ProductStore';
 import ProductActions from '../actions/ProductActions';
 
@@ -31,7 +29,7 @@ var currntImg = 0;
 				if (i !== this.state.currentImg) 
 					this.setState({currentImg : i})
 				else {
-					if (i === MARKET[this.props.number].image.length - 1)
+					if (i === this.props.imagesArray.length - 1)
 						this.setState({currentImg : 0})
 					else
 						this.setState({currentImg : (i + 1)});
@@ -40,11 +38,11 @@ var currntImg = 0;
 
 			render: function() {
 				let currentImg = this.state.currentImg;
-				let marketImage = MARKET[this.props.number].image;
+				let marketImages = this.props.imagesArray;
 
 				let rows = [];
 				let i = 0;
-				for (let img of marketImage) {
+				for (let img of marketImages) {
 					if (i !== currentImg) 
 				    	rows.push(<Image 
 				    					src={img} 
@@ -58,7 +56,7 @@ var currntImg = 0;
 				}
 				return (<div className="galery" >
 							<div className="galery__fullbox">
-								<Image  src={marketImage[currentImg]}
+								<Image  src={marketImages[currentImg]}
 										className="galery__full" 
 										key={i} 
 										onSelect={this.handleSelect.bind(null, currentImg)} />
@@ -82,12 +80,6 @@ var currntImg = 0;
 
 		var ProductFull = React.createClass({
 			getInitialState() {
-				/*const { productId } = this.props.params;
-				return {
-					productId: productId,
-			        isLoading: ProductStore.isLoading(),
-			        product: ProductStore.getProduct(productId)
-				};*/
     		    return getStateFromFlux(this.props.params.productId);
 			},
 
@@ -123,26 +115,31 @@ var currntImg = 0;
 											pay.push(<li key={item}>{item}</li>);
 				
 								var delivery = [];
+								var del = 0;
 								switch (products.delivery) {
 									case "world":
-									delivery.push(<li>Доставка по миру</li>);
-				
+									delivery.push(<li key={del}>Доставка по миру</li>);
+									del++;
+
 									case "country":
-									delivery.push(<li>Доставка по Казахстану</li>);
+									delivery.push(<li key={del}>Доставка по Казахстану</li>);
+									del++;
 				
 									case "region":
-									delivery.push(<li>Доставка по области</li>);
+									delivery.push(<li key={del}>Доставка по области</li>);
+									del++;
 				
 									case "city":
-									delivery.push(<li>Доставка по городу ({products.location})</li>);
+									delivery.push(<li key={del}>Доставка по городу ({products.location})</li>);
+									del++;
 				
 									case "self":
-									delivery.push(<li>Самовывоз</li>);
+									delivery.push(<li key={del}>Самовывоз</li>);
 								}
 				
 								var material = [];
 								for (let item of products.material)
-											material.push(<li><a key={item} href={"http://en.wikipedia.org/material"}>{item}</a></li>);
+											material.push(<li key={item}><a href={"http://en.wikipedia.org/material"}>{item}</a></li>);
 				
 				
 				
@@ -150,7 +147,7 @@ var currntImg = 0;
 								 			
 										 	<h1>{products.name}</h1>
 				
-											<Galery number={productId}/>
+											<Galery imagesArray={products.image}/>
 				
 											<div className="price"><b>Цена</b> {products.price} р.</div>
 											

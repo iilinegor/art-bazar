@@ -2,36 +2,57 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import jquery from 'jquery';
 
+import Masonry from 'react-masonry-component';
+
 import MARKET from './db.js';
 
-
-require('./vender/masonry.pkgd.js');
-require('./vender/imagesloaded.pkgd.js');
+import ProductStore from '../stores/ProductStore';
+import ProductActions from '../actions/ProductActions';
 
 import './all.css';
 
 var msnry;
+
+	function getStateFromFlux() {
+	    return {
+		        isLoading: ProductStore.isLoading(),
+		        Market: ProductStore.getProducts(),
+		        currentMarket: ProductStore.getProducts()
+			};
+	};
+
+	const masonryOptions = {
+            itemSelector: '.all__product',
+		  	gutter: 20
+        };
 
 	var All = React.createClass({
 		contextTypes: {
 	        router: React.PropTypes.object.isRequired
 	    },
 
-		getInitialState: function() {
-			return {
-				currentMarket: MARKET
-			};
+		getInitialState() {
+		    return getStateFromFlux();
 		},
+
+		componentWillMount() {
+	        ProductActions.loadProducts();
+	    },
+
+	    componentWillUnmount() {
+    		ProductStore.removeChangeListener(this._onChange);
+	    },
 
 		handleSearch: function(event) {
 			var searchQuery = event.target.value.toLowerCase();
-			var CurrentMarket = MARKET.filter( function (el){
-				var location = el.location.toLowerCase();
-				var name = el.name.toLowerCase();
-				var description = el.description.toLowerCase();
-				var material = el.material[0].toLowerCase();
-				var type = el.type.toLowerCase();
-				var subtype = el.subtype.toLowerCase();
+			var { Market } = this.state;
+			var CurrentMarket = Market.filter( function (el){
+				let location = el.location.toLowerCase();
+				let name = el.name.toLowerCase();
+				let description = el.description.toLowerCase();
+				let material = el.material[0].toLowerCase();
+				let type = el.type.toLowerCase();
+				let subtype = el.subtype.toLowerCase();
 				return ((location.indexOf(searchQuery) !== -1) || (name.indexOf(searchQuery) !== -1) || (description.indexOf(searchQuery) !== -1) || (material.indexOf(searchQuery) !== -1) || (type.indexOf(searchQuery) !== -1) || (subtype.indexOf(searchQuery) !== -1));
 			});
 			this.setState({
@@ -40,33 +61,26 @@ var msnry;
 		},
 
 		componentDidMount: function() {
-			var elem = this.refs.grid;
-			this.msnry = new Masonry( elem, {
-			  itemSelector: '.all__product',
-			  gutter: 20
-			});
-
-			imagesLoaded(elem).on('progress', () => {
-			  this.msnry.layout();
-			});
-
+	        ProductStore.addChangeListener(this._onChange);
 		},
 
-		componentDidUpdate: function(prevProps) {
-			this.msnry.reloadItems();
-			this.msnry.layout();
+		componentDidUpdate() {
 		},
 
 		handleClick(productId) {
 	        this.context.router.push(`/product/${productId}`);
 	    },
 
-		render: function(){
-			let rows = [];
+		render() {
+			var rows = [];
+			var tmpId = 0;
 			var Mark = this.state.currentMarket;
 			for (let i of Mark) {
-			    rows.push(<Product onClick={this.handleClick.bind(null, i.id)} number={i.id} key={i.id}/>);
-			}
+				{
+			    	rows.push(<Product onClick={this.handleClick.bind(null, i.id)} product={i} key={tmpId++}/>);
+					//tmpId++;
+				}
+			};
 
 			return 	<div>
 						<div className="all__search">
@@ -74,10 +88,20 @@ var msnry;
 								<input type="text" onChange={this.handleSearch} />
 							</div>
 						</div>
-						<div className="all__all" ref="grid">{rows}</div>
+						<Masonry
+			                className='NotesGrid'
+			                options={masonryOptions}
+			                ref={function(c) {if (c) this.masonry = c.masonry;}.bind(this)}
+			            >
+							<div className="all__all" ref="grid">{rows}</div>
+						</Masonry>
 					</div>
-			;
-		}
+			
+		},
+
+	    _onChange() {
+	        this.setState(getStateFromFlux());
+	    }
 	});
 
 	var Product = React.createClass({
@@ -85,10 +109,10 @@ var msnry;
 		render: function() {
 			 return <div className="all__product" onClick={this.props.onClick}>
 						 <div className="all__photo">
-							 <img src={MARKET[this.props.number].image[0]} width="100%" /><div className="all__price">{MARKET[this.props.number].price}₸</div>
+							 <img src={this.props.product.image[0]} width="100%" /><div className="all__price">{MARKET[this.props.number].price}₸</div>
 						 </div>
 						 <div className="all__info">
-						 	 <h2>{MARKET[this.props.number].name}</h2>
+						 	 <h2>{this.props.product.name}</h2>
 							 
 						 </div>
 				 	</div>
