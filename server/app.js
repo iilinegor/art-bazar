@@ -43,6 +43,10 @@ app.get('/', (req, res) => {
 		db.getUser(req.params.id).then(data => res.send(data));
 		console.log(req.params.id);
 	});
+	app.get('/user/inbase/:email', (req, res) => {
+		db.inBase(req.params.email).then(data => res.send(data));
+		console.log(req.params.email);
+	});
 
 const server = app.listen(serverPort, function() {
     console.log(`Server is up and running on port ${serverPort}`);

@@ -36,6 +36,10 @@ const TasksStore = Object.assign({}, EventEmitter.prototype, {
         return _users;
     },
 
+    inBase(email) {
+        return _users;
+    },
+
     emitChange: function() {
         this.emit(CHANGE_EVENT);
     },

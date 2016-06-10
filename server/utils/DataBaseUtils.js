@@ -29,6 +29,14 @@ export function getProduct(id) {
         return User.find({ id : id });
     }
 
+    export function getUser(id) {
+        return User.find({ id : id });
+    }
+
+    export function inBase(email) {
+        return User.find({ email : email });
+    }
+
 
 export function createUser(data) {
     const product = new User({

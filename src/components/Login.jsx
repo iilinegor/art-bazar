@@ -1,11 +1,23 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 
-import MARKET from './db.js';
 import USERS from './users.js';
+
+import UserStore from '../stores/UserStore';
+import UserActions from '../actions/UserActions';
 
 
 import './Login.css';
+
+
+	function getStateFromFlux(first) {
+		if (first) var isKnown = -1;
+	    return {
+		        isLoading: UserStore.isLoading(),
+	    		isKnown: -1,
+	    		user: UserStore.inBase(-1)
+			};
+	};
 
 var Login = React.createClass({
 		contextTypes: {
@@ -13,20 +25,15 @@ var Login = React.createClass({
 	    },
 
 	    getInitialState: function() {
-	    	return {
-	    		isKnown: -1,
-	    		userId: -1
-	    	};
+		    return getStateFromFlux(true);
 	    },
 
 	    handleLogIn: function(event) {
 	    	var currentPass = event.target.value;
-	    	var { userId } = this.state;
-	    	console.log(currentPass);
-	    	console.log(USERS[userId].password);
-	    	if ( currentPass === USERS[userId].password ){
-	    		localStorage.setItem('userId', this.state.userId); 
-	    		this.context.router.push(`/all`);
+	    	var { user } = this.state;
+	    	if ( currentPass === user.password ){
+	    		localStorage.setItem('userId', user.id); 
+	    		this.context.router.push(`/all`, 1000);
 	    	};
 	    },
 
@@ -40,8 +47,9 @@ var Login = React.createClass({
 
 			console.log(searchQuery);
 
-			let isKnown = false;
+			let isKnown;
 			let userId;
+			var user;
 			let domens = [".ru", ".kz", ".com", ".org"];
 			
 			var isEmail = function(Query) {
@@ -56,8 +64,8 @@ var Login = React.createClass({
 			 };
 
 			 var inBase = function (email) {
-			 	for (let user of USERS)
-					if (email === user.email){
+		        user = UserStore.inBase(email)[0];
+					if (user) {
 						userId = user.id;
 						return true;
 					}
@@ -71,6 +79,8 @@ var Login = React.createClass({
 				}
 				else
 					isKnown = 0;
+				this.setState({ user : user });
+
 			}
 			else 
 				isKnown = -1;
@@ -78,15 +88,24 @@ var Login = React.createClass({
 			this.setState({ isKnown: isKnown, userId: userId });
 			console.log(isKnown);
 
+	    },
 
+	    componentDidMount: function() {
+	        UserStore.addChangeListener(this._onChange);
+		},
+
+		componentWillMount() {
+	        UserActions.loadUsers();
+	    },
+
+	    componentWillUnmount() {
+    		UserStore.removeChangeListener(this._onChange);
 	    },
 
 		render: function() {
-			var { isKnown, userId} = this.state;
-			if (isKnown === 1) 
-				var userName = USERS[userId].name;
+			var { isKnown, user } = this.state;
 
-			switch ( this.state.isKnown ) {
+			switch ( isKnown ) {
 				case -1:
 					return (
 							<div className="auth">
@@ -114,14 +133,18 @@ var Login = React.createClass({
 				case 1:
 					return (
 							<div className="auth">
-								<p className="first">Здравствуйте, {userName}!</p>
+								<p className="first">Здравствуйте, {user.name}!</p>
 								<input type="text" onChange={this.handleCheck} />
 								<p>Введите пароль</p>
 								<input type="password" onChange={this.handleLogIn} />
 							</div>
 						);
 			};	
-		}
+		},
+
+		_onChange() {
+	        this.setState(getStateFromFlux(false));
+	    }
 });
 
 export default Login;

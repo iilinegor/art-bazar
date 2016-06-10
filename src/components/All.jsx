@@ -4,10 +4,9 @@ import jquery from 'jquery';
 
 import Masonry from 'react-masonry-component';
 
-import MARKET from './db.js';
-
 import ProductStore from '../stores/ProductStore';
 import ProductActions from '../actions/ProductActions';
+
 
 import './all.css';
 
@@ -109,7 +108,7 @@ var msnry;
 		render: function() {
 			 return <div className="all__product" onClick={this.props.onClick}>
 						 <div className="all__photo">
-							 <img src={this.props.product.image[0]} width="100%" /><div className="all__price">{MARKET[this.props.number].price}₸</div>
+							 <img src={this.props.product.image[0]} width="100%" /><div className="all__price">{this.props.product.price}₸</div>
 						 </div>
 						 <div className="all__info">
 						 	 <h2>{this.props.product.name}</h2>

@@ -11,6 +11,14 @@ export default {
         return axios.get(`${apiPrefix}/products/${productId}`);
     },
 
+    listUsers() {
+        return axios.get(`${apiPrefix}/user`);
+    },
+
+    getUser(userId) {
+        return axios.get(`${apiPrefix}/user/${userId}`);
+    },
+
     createProduct(data) {
         return axios.post(`${apiPrefix}/products`, data);
     },

@@ -4,7 +4,8 @@ import React from 'react';
 import USERS from './components/users.js';
 import Login from './components/Login.jsx';
 
-
+import UserStore from './stores/UserStore';
+import UserActions from './actions/UserActions';
 
 import './App.css';
 
@@ -33,6 +34,24 @@ var App = React.createClass({
 		}
 });
 
+function getStateFromFlux(userId) {
+    return {
+			isLoading: UserStore.isLoading(),
+			user: UserStore.getUser(userId)[userId],
+			userId: userId
+		};
+};
+
+function inLocalStorage() {
+	let local = -1;
+	/*if (localStorage.getItem('userId') === undefined)
+		localStorage.setItem("userId", -1);
+	else {
+    	local = localStorage.getItem('userId');
+    };*/
+    	local = localStorage.getItem('userId');
+    return getStateFromFlux(local);
+};
 
 var AuthButton = React.createClass({
 		contextTypes: {
@@ -41,25 +60,8 @@ var AuthButton = React.createClass({
 
 
 	    getInitialState: function() {
-	    	return {
-	    		userId: -1
-	    	};
+	    	return inLocalStorage();
 	    },
-
-	    componentWillMount: function() {
-	    	if (localStorage.length === 0)
-	    		localStorage.setItem("userId", " ");
-	    	else {
-		    	let local = localStorage.getItem('userId');
-		    	if (local !== " ") 
-		    		this.setState({ userId: local });
-		    };
-	    },
-
-	    componentWillUpdate: function() {
-	    	/*let local = localStorage.getItem('userId');
-	    	if (local !== " ") 
-	    		this.setState({ userId: local });*/
 
 	    	// Вынести аутх отдельным модулем, 
 	    	// чтобы принимал (а, б, в) и со-
@@ -67,6 +69,17 @@ var AuthButton = React.createClass({
 	    	// Тогда он и будет тем auth-FLUX.
 	    	// 	И вообще, давай-ка думай
 	    	// головой, а не доками по реакту.
+
+	    componentDidMount: function() {
+	        UserStore.addChangeListener(this._onChange);
+		},
+
+		componentWillMount() {
+	        UserActions.loadUsers();
+	    },
+
+	    componentWillUnmount() {
+    		UserStore.removeChangeListener(this._onChange);
 	    },
 
 
@@ -79,27 +92,30 @@ var AuthButton = React.createClass({
 	    },
 
 	    handleLogOut: function() {
-	    	localStorage.setItem("userId", " ");
-	    	this.setState({ userId: -1 });
+	    	localStorage.setItem("userId", -1);
+	    	this.setState({ user: undefined});
 	    },
 
 		render: function() {
-			var { userId } = this.state;
-			
-				if ( userId === -1)
-						return (
-								<div className="singIn"  >
-									<div onClick={this.handleSingIn}> Войти </div>
-								</div>
-						)
-				else 
-						return (
-								<div className="logIn" >								
-									<img src={USERS[userId].photo} onClick={this.handleProfile} />
-									<div onClick={this.handleLogOut} > {USERS[userId].name}</div>
-								</div>
-						)
-		}
+			var { user } = this.state;
+			if ( user === undefined)
+					return (
+							<div className="singIn"  >
+								<div onClick={this.handleSingIn}> Войти </div>
+							</div>
+					)
+			else 
+					return (
+							<div className="logIn" >								
+								<img src={user.photo} onClick={this.handleProfile} />
+								<div onClick={this.handleLogOut} > {user.name}</div>
+							</div>
+					)
+		},
+
+		_onChange() {
+	        this.setState(inLocalStorage());
+	    }
 });
 
 export default App;

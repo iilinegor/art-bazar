@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "babel-node server/app.js --presets es2015",
-    "devserver": "webpack-dev-server --debug --hot --devtool eval-source-map --outputpathinfo --watch --colors --inline --content-base public --port 8090 --host 192.168.100.3"
+    "devserver": "webpack-dev-server --debug --hot --devtool eval-source-map --outputpathinfo --watch --colors --inline --content-base public --port 8090 --host 0.0.0.0"
   },
   "repository": {
     "type": "git",

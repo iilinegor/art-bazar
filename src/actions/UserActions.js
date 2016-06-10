@@ -65,4 +65,4 @@ const UserActions = {
     }
 };
 
-export default UsertActions;
+export default UserActions;
