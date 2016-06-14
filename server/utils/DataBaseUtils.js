@@ -40,7 +40,7 @@ export function getProduct(id) {
 
 export function createUser(data) {
     const product = new User({
-            id: User.find().count(),
+            id: 1,
             email: data.email,
             password: data.password,
             name: data.name,
