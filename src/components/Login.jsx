@@ -52,6 +52,7 @@ var Login = React.createClass({
 	    	let id = UserStore.getUsers().count();
 	    	if (name && email && password) {
 	    		const newUser = {
+	    			id: id,
 	    			name : name,
 	    			email : email,
 	    			password : password
