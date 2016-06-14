@@ -40,7 +40,7 @@ export function getProduct(id) {
 
 export function createUser(data) {
     const product = new User({
-            id: data.id,
+            id: User.find().length(),
             email: data.email,
             password: data.password,
             name: data.name,

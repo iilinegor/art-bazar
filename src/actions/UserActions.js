@@ -44,6 +44,26 @@ const UserActions = {
         );
     },
 
+    inBase(email) {
+        AppDispatcher.dispatch({
+            type: Constants.LOAD_USER_REQUEST
+        });
+
+        api.inBase(email)
+        .then(({ data }) =>
+            AppDispatcher.dispatch({
+                type: Constants.LOAD_USER_SUCCESS,
+                users: data
+            })
+        )
+        .catch(err =>
+            AppDispatcher.dispatch({
+                type: Constants.LOAD_USER_FAIL,
+                error: err
+            })
+        );
+    },
+
     createUser(note) {
         api.createUser(note)
         .then(() =>

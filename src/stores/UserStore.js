@@ -79,7 +79,7 @@ AppDispatcher.register(function(action) {
         }
 
         default: {
-            console.log('No such handler');
+            //console.log('No such handler');
         }
     }
 });

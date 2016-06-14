@@ -12,11 +12,11 @@ import './all.css';
 
 var msnry;
 
-	function getStateFromFlux() {
+	function getStateFromFlux(first) {
 	    return {
 		        isLoading: ProductStore.isLoading(),
 		        Market: ProductStore.getProducts(),
-		        currentMarket: ProductStore.getProducts()
+		        currentMarket: first ? [] : ProductStore.getProducts()
 			};
 	};
 
@@ -31,7 +31,7 @@ var msnry;
 	    },
 
 		getInitialState() {
-		    return getStateFromFlux();
+		    return getStateFromFlux(true);
 		},
 
 		componentWillMount() {
@@ -61,9 +61,6 @@ var msnry;
 
 		componentDidMount: function() {
 	        ProductStore.addChangeListener(this._onChange);
-		},
-
-		componentDidUpdate() {
 		},
 
 		handleClick(productId) {

@@ -19,8 +19,16 @@ export default {
         return axios.get(`${apiPrefix}/user/${userId}`);
     },
 
+    inBase(email) {
+        return axios.get(`${apiPrefix}/user/inbase/${email}`);
+    },
+
     createProduct(data) {
         return axios.post(`${apiPrefix}/products`, data);
+    },
+
+    createUser(data) {
+        return axios.post(`${apiPrefix}/user`, data);
     },
 
     deleteProduct(noteId) {

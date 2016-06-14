@@ -18,7 +18,7 @@ function getStateFromFlux(productId) {
 		};
 };
 
-var ProductFull = React.createClass({
+var ProductAdd = React.createClass({
 	getInitialState() {
 	    return getStateFromFlux(this.props.params.productId);
 	},
@@ -137,8 +137,8 @@ var ProductFull = React.createClass({
 });
 
 		/*ReactDOM.render(
-			<ProductFull number={Math.floor(Math.random() * (MARKET.length) + 0)} />,
+			<ProductAdd number={Math.floor(Math.random() * (MARKET.length) + 0)} />,
 			document.getElementById("content")
 		);*/
 
-export default ProductFull;
+export default ProductAdd;

@@ -27,6 +27,7 @@ app.post('/notes', (req, res) => {
     db.createProduct(req.body).then(data => res.send(data));
 });
 
+
 app.delete('/notes/:id', (req, res) => {
     db.deleteNote(req.params.id).then(data => res.send(data));
 });
@@ -36,6 +37,9 @@ app.get('/', (req, res) => {
 });
 
 //Отладочное, потом удалить! 
+	app.post('/user', (req, res) => {
+	    db.createUser(req.body).then(data => res.send(data));
+	});
 	app.get('/user', (req, res) => {
 	    db.listUsers().then(data => res.send(data));
 	});

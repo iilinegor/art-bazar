@@ -41,7 +41,7 @@ const TasksStore = Object.assign({}, EventEmitter.prototype, {
     },
 
     getProduct(id) {
-        return _products;
+        return _products[0];
     },
 
     emitChange: function() {
@@ -83,7 +83,7 @@ AppDispatcher.register(function(action) {
         }
 
         default: {
-            console.log('No such handler');
+            //console.log('No such handler');
         }
     }
 });

@@ -10,12 +10,9 @@ import UserActions from '../actions/UserActions';
 import './Login.css';
 
 
-	function getStateFromFlux(first) {
-		if (first) var isKnown = -1;
+	function getStateFromFlux() {
 	    return {
 		        isLoading: UserStore.isLoading(),
-	    		isKnown: -1,
-	    		user: UserStore.inBase(-1)
 			};
 	};
 
@@ -25,7 +22,11 @@ var Login = React.createClass({
 	    },
 
 	    getInitialState: function() {
-		    return getStateFromFlux(true);
+		    return {
+		        isLoading: UserStore.isLoading(),
+	    		isKnown: -1,
+	    		user: UserStore.inBase(-1)
+			};
 	    },
 
 	    handleLogIn: function(event) {
@@ -33,19 +34,34 @@ var Login = React.createClass({
 	    	var { user } = this.state;
 	    	if ( currentPass === user.password ){
 	    		localStorage.setItem('userId', user.id); 
-	    		this.context.router.push(`/all`, 1000);
+	    		this.context.router.push(`/all`);
 	    	};
 	    },
 
 	    handlePassCheck: function(event) {
 	    	if (event.target.value === document.getElementById("firstPassword").value)
-	    		console.log("correct");
+	    		this.setState({ password : event.target.value });
+	    },
+
+	    handleNewName(event) {
+	    	this.setState({ name : event.target.value });
+	    },
+
+	    handleSubmit() {
+	    	let { name, email, password } = this.state;
+	    	if (name && email && password) {
+	    		const newUser = {
+	    			name : name,
+	    			email : email,
+	    			password : password
+	    		};
+	    		console.info(newUser);
+	    		UserActions.createUser(newUser)
+	    	};
 	    },
 
 	    handleCheck: function(event){
 	    	var searchQuery = event.target.value.toLowerCase();
-
-			console.log(searchQuery);
 
 			let isKnown;
 			let userId;
@@ -56,6 +72,7 @@ var Login = React.createClass({
 				if (Query.indexOf("@") !== -1) {
 					for (let dom of domens) {
 						if (Query.indexOf(dom) !== -1) {
+			 				UserActions.inBase(Query);
 							return true;
 						};
 					};
@@ -64,29 +81,31 @@ var Login = React.createClass({
 			 };
 
 			 var inBase = function (email) {
+			 	//UserActions.inBase(email);
 		        user = UserStore.inBase(email)[0];
-					if (user) {
+		        if (user)
+					if (user.email === email) {
 						userId = user.id;
 						return true;
 					}
 				return false;
 			 };
 
-
 			if (isEmail(searchQuery)) {
 				if (inBase(searchQuery)){
 					isKnown = 1;
+					this.setState({ user : user });
 				}
-				else
+				else {
 					isKnown = 0;
-				this.setState({ user : user });
-
+					this.setState({ email : searchQuery });
+				}
 			}
 			else 
 				isKnown = -1;
 
 			this.setState({ isKnown: isKnown, userId: userId });
-			console.log(isKnown);
+			//console.log(isknown);
 
 	    },
 
@@ -121,12 +140,12 @@ var Login = React.createClass({
 								<p className="first">Кажется, мы не знакомы</p>
 								<input type="text" onChange={this.handleCheck} />
 								<p>Как Вас зовут?</p>
-								<input type="text" />
+								<input type="text"onChange={this.handleNewName} />
 								<p>Придумайте пароль</p>
 								<input type="password" id="firstPassword"/>
 								<p>Закрепим </p>
 								<input type="password" onChange={this.handlePassCheck} />				
-
+								<button onClick={this.handleSubmit}>Поехали!</button>
 							</div>
 						);
 
