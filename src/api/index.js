@@ -28,7 +28,7 @@ export default {
     },
 
     createUser(data) {
-        return axios.post(`${apiPrefix}/user`, data);
+        return axios.post(`${apiPrefix}/user/new`, data);
     },
 
     deleteProduct(noteId) {

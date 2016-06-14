@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 });
 
 //Отладочное, потом удалить! 
-	app.post('/user', (req, res) => {
+	app.post('/user/new', (req, res) => {
 	    db.createUser(req.body).then(data => res.send(data));
 	});
 	app.get('/user', (req, res) => {
