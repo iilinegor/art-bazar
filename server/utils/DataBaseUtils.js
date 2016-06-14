@@ -29,17 +29,13 @@ export function getProduct(id) {
         return User.find({ id : id });
     }
 
-    export function getUser(id) {
-        return User.find({ id : id });
-    }
-
     export function inBase(email) {
         return User.find({ email : email });
     }
 
 
 export function createUser(data) {
-    const { id } = User.find().sort({ id : -1 }).limit(1)[0];
+    const id = listUsers(0).count();
     const product = new User({
             id: id + 1,
             email: data.email,
