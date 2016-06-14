@@ -39,8 +39,9 @@ export function getProduct(id) {
 
 
 export function createUser(data) {
+    const { id } = User.find().sort({ id : -1 }).limit(1);
     const product = new User({
-            id: 1,
+            id: id + 1,
             email: data.email,
             password: data.password,
             name: data.name,
