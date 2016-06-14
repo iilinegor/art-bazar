@@ -35,9 +35,8 @@ export function getProduct(id) {
 
 
 export function createUser(data) {
-    const id = listUsers(0).count();
     const product = new User({
-            id: id + 1,
+            id: data.id,
             email: data.email,
             password: data.password,
             name: data.name,

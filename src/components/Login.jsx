@@ -49,6 +49,7 @@ var Login = React.createClass({
 
 	    handleSubmit() {
 	    	let { name, email, password } = this.state;
+	    	let id = UserStore.getUsers().count();
 	    	if (name && email && password) {
 	    		const newUser = {
 	    			name : name,
@@ -98,6 +99,7 @@ var Login = React.createClass({
 				}
 				else {
 					isKnown = 0;
+					UserActions.loadUsers();
 					this.setState({ email : searchQuery });
 				}
 			}
