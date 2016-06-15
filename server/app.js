@@ -18,6 +18,10 @@ app.get('/products', (req, res) => {
     db.listProducts().then(data => res.send(data));
 });
 
+app.post('/products/new', (req, res) => {
+    db.createProduct(req.body).then(data => res.send(data));
+});
+
 app.get('/products/:id', (req, res) => {
 	db.getProduct(req.params.id).then(data => res.send(data));
 	console.log(req.params.id);
