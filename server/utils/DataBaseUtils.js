@@ -35,7 +35,7 @@ export function getProduct(id) {
 
 
 export function createUser(data) {
-    const product = new User({
+    const user = new User({
             id: data.id,
             email: data.email,
             password: data.password,
@@ -44,9 +44,11 @@ export function createUser(data) {
             description: data.description,
             photo: data.photo,
             location: data.location,
-            basket: data.basket
+            basket: data.basket,
+            access: data.access,
+            registerAt: new Date()
     });
-    return product.save();
+    return user.save();
 }
 
 export function createProduct(data) {

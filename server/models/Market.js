@@ -18,10 +18,10 @@ var marketSchema = new Schema({
 					tall: String,
 					eurosize: String
 				},
-				material: [ String ],
-				craftTime: Number,
+				material: String,
+				craftTime: String,
 				delivery: String,
-				pay: [ String ],
+				pay: String,
 				price: Number,
 				views: Number,
 				bays: Number,

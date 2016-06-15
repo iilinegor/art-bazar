@@ -19,7 +19,9 @@ function formatProduct(data) {
             description: data.description,
             photo: data.photo,
             location: data.location,
-            basket: data.basket
+            basket: data.basket,
+            access: data.access,
+            registerAt: data.registerAt
     };
 }
 

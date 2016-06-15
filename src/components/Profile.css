@@ -37,3 +37,17 @@
 	max-height: 200px;
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
+
+.profile .upgrade {
+	background: #baffaa;
+	border: 0px;
+	padding: 3px;
+	position: absolute;
+	height: 30px;
+	border-radius: 10px;
+}
+
+.profile .upgrade:hover {
+	opacity: 0.4;
+	transition: all 0.2s;
+}

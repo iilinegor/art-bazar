@@ -1,0 +1,136 @@
+.product {
+	width: 520px;
+	margin: 0px auto;
+	font-family: 'Segoe UI';
+}
+
+.product p {
+	font-size: 16px;
+}
+
+.field {
+	margin: 20px 0px;
+}
+
+.subfield {
+	padding: 15px;
+	width: 210px;
+	margin-right: 10px;
+	display: inline-block;
+	font-size: 12px;
+	vertical-align: top;
+	border-radius: 10px;
+	background-color: #fdf4cc;
+	text-align: center;
+}
+
+.subfield__title {
+	font-size: 16px;
+	margin-bottom: 10px;
+	font-weight: lighter;
+}
+
+.subfield li {
+	text-align: left;	
+	margin-left: 10px
+}
+
+
+.photofield {
+	padding: 15px;
+	width: 280px;
+	font-size: 12px;
+	vertical-align: top;
+	border-radius: 10px;
+	background-color: #fdf4cc;
+	text-align: center;
+	margin: 20px auto;
+}
+
+.field b {
+	width: 100%;
+}
+
+h1, h2, h3 {
+	font-family: "Segoe UI";
+	text-align: center;
+	font-weight: lighter;
+	width: 100%;
+}
+
+/*.price b { 
+	margin: 10px 0px;
+	font-weight: lighter;
+}*/
+
+/*.price {
+	position: absolute;
+}*/
+
+.galery {
+	display: flex;
+	width: 520px;
+}
+
+.galery__min {
+	width: 82px;
+	margin: 1px 2px;
+}
+
+.galery__minbox {
+	position: absolute;
+	width: 190px;
+}
+
+.galery__min_current {
+	width: 82px;
+	margin: 1px 2px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.6);
+	opacity: 0.8;
+	transition: all 0.3s;
+}
+
+.galery__fullbox {
+	width: 520px;
+	text-align: center;
+	margin-top: 0px;
+	margin-bottom: 10px;
+}
+
+.galery__full {
+	transition: all 0.3s;
+	margin: 0px auto;
+	max-width: 520px;
+	max-height: 500px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+input {
+	width: 90%;
+	border: 1px solid #aa7733;
+	font-family: "Segoe UI";
+	font-size: 14px;
+	padding: 2px 5px;
+	margin: 5px;
+}
+
+
+/*.img {
+	width: 100%;
+	position: relative;
+	display: inline-block;
+}
+
+.img img {
+	margin: 5px;
+	vertical-align: top;
+}
+
+.titleImg {
+	height: 630px;
+	margin: 0px auto;
+}
+
+.photo {
+	margin: 0px auto;	
+}*/

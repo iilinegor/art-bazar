@@ -1,8 +1,6 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 
-import USERS from './users.js';
-
 import UserStore from '../stores/UserStore';
 import UserActions from '../actions/UserActions';
 
@@ -12,7 +10,7 @@ import './Login.css';
 
 	function getStateFromFlux() {
 	    return {
-		        isLoading: UserStore.isLoading(),
+		        isLoading: UserStore.isLoading()
 			};
 	};
 
@@ -25,7 +23,8 @@ var Login = React.createClass({
 		    return {
 		        isLoading: UserStore.isLoading(),
 	    		isKnown: -1,
-	    		user: UserStore.inBase(-1)
+	    		user: UserStore.inBase(-1),
+	    		length: UserStore.getUsers().length
 			};
 	    },
 
@@ -33,7 +32,8 @@ var Login = React.createClass({
 	    	var currentPass = event.target.value;
 	    	var { user } = this.state;
 	    	if ( currentPass === user.password ){
-	    		localStorage.setItem('userId', user.id); 
+	    		console.log(user);
+	    		localStorage.setItem('userId', this.state.user.id); 
 	    		this.context.router.push(`/all`);
 	    	};
 	    },
@@ -48,17 +48,23 @@ var Login = React.createClass({
 	    },
 
 	    handleSubmit() {
-	    	let { name, email, password } = this.state;
-	    	let id = UserStore.getUsers().count();
+	    	let { name, email, password, length } = this.state;
+	    	let access = 2;
+	    	
+	    	if (length < 3) access = 0;
 	    	if (name && email && password) {
-	    		const newUser = {
-	    			id: id,
+	    		let newUser = {
+	    			id: length,
 	    			name : name,
 	    			email : email,
-	    			password : password
+	    			password : password,
+	    			photo: "http://mediascapeproject.eu/images/user.png",
+	    			access: access
 	    		};
-	    		console.info(newUser);
-	    		UserActions.createUser(newUser)
+	    	this.setState({ userId : length});
+    		UserActions.createUser(newUser);
+    		localStorage.setItem('userId', newUser.id);
+    		this.context.router.push(`/all`);
 	    	};
 	    },
 
@@ -90,24 +96,24 @@ var Login = React.createClass({
 						userId = user.id;
 						return true;
 					}
+				//UserActions.loadUsers();
 				return false;
 			 };
 
 			if (isEmail(searchQuery)) {
 				if (inBase(searchQuery)){
 					isKnown = 1;
-					this.setState({ user : user });
+					this.setState({ user : user, userId: userId });
 				}
 				else {
 					isKnown = 0;
-					UserActions.loadUsers();
 					this.setState({ email : searchQuery });
 				}
 			}
 			else 
 				isKnown = -1;
 
-			this.setState({ isKnown: isKnown, userId: userId });
+			this.setState({ isKnown: isKnown });
 			//console.log(isknown);
 
 	    },
@@ -165,7 +171,7 @@ var Login = React.createClass({
 		},
 
 		_onChange() {
-	        this.setState(getStateFromFlux(false));
+	        this.setState(getStateFromFlux());
 	    }
 });
 

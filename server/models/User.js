@@ -11,7 +11,9 @@ var userSchema = new Schema({
 				description: String,
 				photo: String,
 				lacation: String,
-				basket: [ Number ]
+				basket: [ Number ],
+				access: Number,
+				registerAt: Number
 			});
 
 mongoose.model('user', userSchema, 'user');

@@ -22,30 +22,33 @@ var Galery = React.createClass({
 	render: function() {
 		let currentImg = this.state.currentImg;
 		let marketImages = this.props.imagesArray;
-
-		let rows = [];
-		let i = 0;
-		for (let img of marketImages) {
-			if (i !== currentImg) 
-		    	rows.push(<Image 
-		    					src={img} 
-		    					className="galery__min" 
-		    					key={i} 
-		    					onSelect={this.handleSelect.bind(null, i)}
-		    			/>);
-		    else
-		    	rows.push(<Image src={img} className="galery__min_current" key={i} />);
-		    i++;
-		}
-		return (<div className="galery" >
-					<div className="galery__fullbox">
-						<Image  src={marketImages[currentImg]}
-								className="galery__full" 
-								key={i} 
-								onSelect={this.handleSelect.bind(null, currentImg)} />
-					</div>
-					<div className="galery__minbox">{rows}</div>								
-				</div>);
+		if (marketImages !== []) {
+				let rows = [];
+				let i = 0;
+				for (let img of marketImages) {
+					if (i !== currentImg) 
+				    	rows.push(<Image 
+				    					src={img} 
+				    					className="galery__min" 
+				    					key={i} 
+				    					onSelect={this.handleSelect.bind(null, i)}
+				    			/>);
+				    else
+				    	rows.push(<Image src={img} className="galery__min_current" key={i} />);
+				    i++;
+				}
+				return (<div className="galery" >
+							<div className="galery__fullbox">
+								<Image  src={marketImages[currentImg]}
+										className="galery__full" 
+										key={i} 
+										onSelect={this.handleSelect.bind(null, currentImg)} />
+							</div>
+							<div className="galery__minbox">{rows}</div>								
+						</div>);
+			}
+			else 
+				return false;
 	},
 });
 
