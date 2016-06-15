@@ -46,7 +46,7 @@ export function createUser(data) {
             location: data.location,
             basket: data.basket,
             access: data.access,
-            registerAt: new Date()
+            registerAt: data.registerAt
     });
     return user.save();
 }
