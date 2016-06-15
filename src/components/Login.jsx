@@ -59,7 +59,8 @@ var Login = React.createClass({
 	    			email : email,
 	    			password : password,
 	    			photo: "http://mediascapeproject.eu/images/user.png",
-	    			access: access
+	    			access: access,
+	    			registerAt: new Date()
 	    		};
 	    	this.setState({ userId : length});
     		UserActions.createUser(newUser);
