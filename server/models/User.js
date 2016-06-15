@@ -13,7 +13,7 @@ var userSchema = new Schema({
 				lacation: String,
 				basket: [ Number ],
 				access: Number,
-				registerAt: Number
+				registerAt: String
 			});
 
 mongoose.model('user', userSchema, 'user');
