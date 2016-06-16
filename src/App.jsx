@@ -45,12 +45,11 @@ function getStateFromFlux(userId) {
 
 function inLocalStorage() {
 	let local = -1;
-	/*if (localStorage.getItem('userId') === undefined)
+	if (localStorage.getItem('userId') === undefined)
 		localStorage.setItem("userId", -1);
 	else {
     	local = localStorage.getItem('userId');
-    };*/
-    	local = localStorage.getItem('userId');
+    };
     return getStateFromFlux(local);
 };
 
