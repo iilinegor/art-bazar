@@ -22,7 +22,8 @@ var App = React.createClass({
 			return (
 					<div className="app">
 						<div className='header'>
-							<img onClick={this.handleLogoClick} src="http://static.wixstatic.com/media/a026b6_c9cca4ab2ae748ad93e6886864d8518f.jpg/v1/fill/w_620,h_107/a026b6_c9cca4ab2ae748ad93e6886864d8518f.jpg"/>
+							
+		                	<div className="logo" onClick={this.handleLogoClick}><b className="bcolor">А</b>рт <b className="bcolor2">Б</b>азар</div>
 		                	<AuthButton />
 		                </div>
 

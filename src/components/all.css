@@ -108,3 +108,20 @@
 	transition: box-shadow 0.3s;
 }
 
+.all__add {
+	font-family: "Segoe UI";
+	font-size: 16px;
+	height: 30px;
+	width: 500px;
+	text-align: center;
+	margin: 10px;
+	color: #777;
+	transition: all 0.2s;
+}
+
+.all__add:hover {
+	color: #333;
+	font-size: 17px;
+	transition: all 0.2s;
+}
+

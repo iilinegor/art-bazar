@@ -52,3 +52,16 @@ body {
 	margin-right: -15.5px;
 }
 
+.header .logo {
+	font-family: "Segoe UI";
+	font-size: 80px;
+	width: 100%;
+	text-align: center;
+}
+
+.bcolor {
+	color: #c76864;
+}
+.bcolor2 {
+	color: #c76864;
+}

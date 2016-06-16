@@ -24,7 +24,7 @@ export default {
     },
 
     createProduct(data) {
-        return axios.post(`${apiPrefix}/products`, data);
+        return axios.post(`${apiPrefix}/products/new`, data);
     },
 
     createUser(data) {

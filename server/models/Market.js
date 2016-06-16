@@ -11,13 +11,7 @@ var marketSchema = new Schema({
 				subtype: String,
 				location: String,
 				color: String,
-				size: {
-					width: Number,
-					height: Number,
-					diametr: String,
-					tall: String,
-					eurosize: String
-				},
+				size: String,
 				material: String,
 				craftTime: String,
 				delivery: String,

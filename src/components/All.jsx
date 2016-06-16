@@ -46,17 +46,21 @@ var msnry;
 			var searchQuery = event.target.value.toLowerCase();
 			var { Market } = this.state;
 			var CurrentMarket = Market.filter( function (el){
-				let location = el.location.toLowerCase();
+				// let location = el.location.toLowerCase();
 				let name = el.name.toLowerCase();
 				let description = el.description.toLowerCase();
-				let material = el.material[0].toLowerCase();
+				let material = el.material ? el.material.toLowerCase() : "gggggggggggggggggggggggggggg";
 				let type = el.type.toLowerCase();
-				let subtype = el.subtype.toLowerCase();
-				return ((location.indexOf(searchQuery) !== -1) || (name.indexOf(searchQuery) !== -1) || (description.indexOf(searchQuery) !== -1) || (material.indexOf(searchQuery) !== -1) || (type.indexOf(searchQuery) !== -1) || (subtype.indexOf(searchQuery) !== -1));
+				// let subtype = el.subtype.toLowerCase();
+				return ((name.indexOf(searchQuery) !== -1) || (description.indexOf(searchQuery) !== -1) || (material.indexOf(searchQuery) !== -1) || (type.indexOf(searchQuery) !== -1));
 			});
 			this.setState({
 				currentMarket: CurrentMarket
 			});
+		},
+
+		handleNew() {
+			this.context.router.push(`/add`);
 		},
 
 		componentDidMount: function() {
@@ -82,6 +86,7 @@ var msnry;
 						<div className="all__search">
 							<div className="all__searchField">
 								<input type="text" onChange={this.handleSearch} />
+								<div className="all__add" onClick={this.handleNew}>Добавить</div>
 							</div>
 						</div>
 						<Masonry

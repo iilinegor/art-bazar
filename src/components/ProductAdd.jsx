@@ -11,26 +11,28 @@ import './ProductAdd.css';
 var currntImg = 0;
 var tmpPhotos = ["", "", "", "", "", ""]
 
-function getStateFromFlux(productId) {
+function getStateFromFlux() {
     return {
-			productId: productId,
-	        isLoading: ProductStore.isLoading(),
-	        products: ProductStore.getProduct(productId)
+			length: ProductStore.getProducts().length
 		};
 };
 
 var ProductAdd = React.createClass({
+	contextTypes: {
+		router: React.PropTypes.object.isRequired
+	},
+
 	getInitialState() {
 	    return {
 			productId: 0,
-	        isLoading: ProductStore.isLoading(),
-	        products: ProductStore.getProduct(0),
-	        photos: []
+			photos: [],
+			length: ProductStore.getProducts().length,
+			user: localStorage.getItem('userId')
 		};
 	},
 
 	componentWillMount() {
-        ProductActions.loadProduct(0);
+        ProductActions.loadProducts();
     },
 
     componentDidMount() {
@@ -52,6 +54,42 @@ var ProductAdd = React.createClass({
 		}
 	},
 
+	handleNewName(event) {
+		this.setState({ name : event.target.value });
+	},
+
+	handleNewDescription(event) {
+		this.setState({ description : event.target.value });
+	},
+
+	handleNewType(event) {
+		this.setState({ type : event.target.value });
+	},
+
+	handleNewSize(event) {
+		this.setState({ size : event.target.value });
+	},
+
+	handleNewMaterial(event) {
+		this.setState({ material : event.target.value });
+	},
+
+	handleNewCraftTime(event) {
+		this.setState({ craftTime : event.target.value });
+	},
+
+	handleNewDelivery(event) {
+		this.setState({ delivery : event.target.value });
+	},
+
+	handleNewPay(event) {
+		this.setState({ pay : event.target.value });
+	},
+
+	handleNewPrice(event) {
+		this.setState({ price : event.target.value });
+	},
+
 	handlePushPhoto(number, event) {
 		let tmp = [];
 		tmpPhotos[number] = event.target.value;
@@ -61,52 +99,52 @@ var ProductAdd = React.createClass({
 		this.setState({ photos : tmp });
 	},
 
-	 handleSubmit() {
-	    // 	let {	    length, 
-		   //  			name, 
-		   //  			description, 
-		   //  			type, 
-		   //  			size, 
-		   //  			material, 
-		   //  			craftTime, 
-		   //  			delivery, 
-		   //  			pay, 
-		   //  			price,
-		   //  			photos 		} = this.state;
+	handleSubmit() {
+	    	let {	    length, 
+		    			name, 
+		    			description,
+		    			userId, 
+		    			type, 
+		    			size, 
+		    			material, 
+		    			craftTime, 
+		    			delivery, 
+		    			pay, 
+		    			price,
+		    			photos 		} = this.state;
 	    	
-	    // 	// if (name && email && password) {
-	    // 		let newProduct = {
-					// id: length,
-					// name : name,
-					// description: description,
-					// authorId: data.authorId,
-					// type: type,
-					// location: data.location,
-					// size: size,
-					// material: material,
-					// craftTime: craftTime,
-					// delivery: delivery,
-					// pay: pay,
-					// price: price,
-					// image: photos
-	    		// };
-	    	// this.setState({ userId : length});
-    		// ProductActions.createProduct(newProduct);
-    		// localStorage.setItem('userId', newUser.id);
-    		// this.context.router.push(`/all`);
-	    //	};
-	    },
+	    	// if (name && email && password) {
+	    		let newProduct = {
+					id: length,
+					name : name,
+					description: description,
+					authorId: userId,
+					type: type,
+					/*location: data.location,*/
+					size: size,
+					material: material,
+					craftTime: craftTime,
+					delivery: delivery,
+					pay: pay,
+					price: price,
+					image: photos
+	    		};
+			//this.setState({ userId : length});
+    		ProductActions.createProduct(newProduct);
+			//localStorage.setItem('userId', newUser.id);
+    		this.context.router.push(`/all`);
+	},
 
 	render: function() {
 		const { productId, products, photos } = this.state;
-		if (products){
+		if (true){
 			return <div className="product" >
 			 			
 					 	<h1>Наименование продукта</h1>
-					 	<input type="text" id="name"/>
+					 	<input type="text" id="name" onChange={this.handleNewName} />
 
 						<div className="photofield">
-							<h2>Фотографии</h2>
+							<h2>Ссылки на фотографии</h2>
 							<input type="text" id="photo-0" onChange={this.handlePushPhoto.bind(null, 0)}/>
 							<input type="text" id="photo-1" onChange={this.handlePushPhoto.bind(null, 1)}/>
 							<input type="text" id="photo-2" onChange={this.handlePushPhoto.bind(null, 2)}/>
@@ -119,47 +157,52 @@ var ProductAdd = React.createClass({
 						<Galery imagesArray={photos}/>
 
 						<h2>Цена</h2>
-						<input type="text" id="price"/>
+						<input type="text" id="price" onChange={this.handleNewPrice}/>
 						
 					 	<h2>Описание</h2>
-					 	<input type="text" id="description"/>
+					 	<input type="text" id="description" onChange={this.handleNewDescription}/>
 
 
 						<div className="field">
 							 <div className="subfield">
 								 <div className="subfield__title">Размер: </div>
-								 <input type="text" id="eurosize"/>
+								 <input type="text" id="eurosize" onChange={this.handleNewSize}/>
 							 </div>
 							 <div className="subfield">
 							 	<div className="subfield__title">Срок изготовления: </div> 
-							 	<input type="text" id="craftTime"/>
+							 	<input type="text" id="craftTime" onChange={this.handleNewCraftTime}/>
 							 </div>
 						 </div>
 
 						 <div className="field">
 							 <div className="subfield">
 								 <div className="subfield__title">Методы оплаты: </div> 
-								 <input type="text" id="pay"/>
+								 <input type="text" id="pay" onChange={this.handleNewPay}/>
 							 </div>
 							 <div className="subfield">
 								 <div className="subfield__title">Доставка: </div>
-								 <input type="text" id="delivery"/>
+								 <input type="text" id="delivery" onChange={this.handleNewDelivery}/>
 							 </div>
 						 </div>
 
 						 <div className="field">
 							 <div className="subfield">
 								 <div className="subfield__title">Материалы:</div> 
-								 <input type="text" id="material"/>
+								 <input type="text" id="material" onChange={this.handleNewMaterial}/>
+							 </div>
+							 <div className="subfield">
+								 <div className="subfield__title">Тип товара:</div> 
+								 <input type="text" id="type" onChange={this.handleNewType}/>
 							 </div>
 						 </div>
+						 <button onClick={this.handleSubmit}>Поехали!</button>
 				 	</div>
 				 }
 				 else return false;
 	},
 
     _onChange() {
-        this.setState(getStateFromFlux(0));
+        this.setState(getStateFromFlux());
     }
 });
 

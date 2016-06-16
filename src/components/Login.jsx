@@ -8,11 +8,11 @@ import UserActions from '../actions/UserActions';
 import './Login.css';
 
 
-	function getStateFromFlux() {
-	    return {
-		        isLoading: UserStore.isLoading()
-			};
-	};
+function getStateFromFlux() {
+    return {
+	        isLoading: UserStore.isLoading()
+		};
+};
 
 var Login = React.createClass({
 		contextTypes: {
@@ -21,10 +21,10 @@ var Login = React.createClass({
 
 	    getInitialState: function() {
 		    return {
-		        isLoading: UserStore.isLoading(),
-	    		isKnown: -1,
-	    		user: UserStore.inBase(-1),
-	    		length: UserStore.getUsers().length
+				isLoading: UserStore.isLoading(),
+				isKnown: -1,
+				user: UserStore.inBase(-1),
+				length: UserStore.getUsers().length
 			};
 	    },
 
@@ -32,7 +32,6 @@ var Login = React.createClass({
 	    	var currentPass = event.target.value;
 	    	var { user } = this.state;
 	    	if ( currentPass === user.password ){
-	    		console.log(user);
 	    		localStorage.setItem('userId', this.state.user.id); 
 	    		this.context.router.push(`/all`);
 	    	};
@@ -59,9 +58,9 @@ var Login = React.createClass({
 	    			email : email,
 	    			password : password,
 	    			photo: "http://mediascapeproject.eu/images/user.png",
-	    			access: access,
-	    			registerAt: new Date()
+	    			access: access
 	    		};
+	    		console.log(newUser);
 	    	this.setState({ userId : length});
     		UserActions.createUser(newUser);
     		localStorage.setItem('userId', newUser.id);
