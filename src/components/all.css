@@ -22,8 +22,8 @@
 }
 
 
-.all__all:hover{
-
+.all__all{
+	/*background-color: #fafafa;*/
 }
 
 .all__product {
@@ -71,11 +71,77 @@
 
 }
 
+		.all__product-insta {
+			/*max-width: 300px;*/
+			display: inline-block;
+			font-family: Arial;
+			/*margin: 10px;*/
+			min-height: 100px;
+			width: 400px;
+			margin: auto;
+			margin-left: 90px;
+			border: 1px solid #dedede;
+			padding-bottom: 20px;
+			background-color: #ffffff;
+			margin-bottom: 30px;
+		}
+
+		.all__photo-insta {
+			width: 400px;
+			display: block;
+		}
+
+		.all__author {
+			margin-bottom: -5px;
+			padding: 10px 10px;
+		}
+
+		.all__author img{
+			display: inline-block;
+			width: 20px;
+			border-radius: 50%;
+		}
+
+		.all__author p{
+			display: inline-block;
+			vertical-align: 6px;
+			margin: 0px 5px;
+			font-size: 12px;
+		}
+
+		.all__price-insta{
+			position: relative;
+			top: -60px;
+			font-size: 20px;
+			color: #ffffff;
+			width: 70px;
+			background-color: rgba(255, 80, 80, 0.6);
+		}
+
+		.all__info-insta {
+			padding: 0px 10px;
+			text-align: left;
+		}
+
+		.all__info-insta h2 {
+			font-weight: lighter;
+			margin-top: -20px;
+			font-size: 16px;
+			text-align: left;
+		}
+
+		.all__info-insta p {
+			font-weight: lighter;
+			margin: 0px 0px;
+			font-size: 12px;
+			text-align: left;
+		}
+
 .all__search{
 	width: 100%;
 	height: 70px;
 	/*background-color: rgba(255, 255, 70, 0.3);*/
-	margin-bottom: 40px;
+	margin-bottom: 60px;
 }
 
 .all__searchField {

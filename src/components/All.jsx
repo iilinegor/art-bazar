@@ -7,6 +7,9 @@ import Masonry from 'react-masonry-component';
 import ProductStore from '../stores/ProductStore';
 import ProductActions from '../actions/ProductActions';
 
+import UserStore from '../stores/UserStore';
+import UserActions from '../actions/UserActions';
+
 
 import './all.css';
 
@@ -16,14 +19,21 @@ var msnry;
 	    return {
 		        isLoading: ProductStore.isLoading(),
 		        Market: ProductStore.getProducts(),
-		        currentMarket: first ? [] : ProductStore.getProducts()
+		        currentMarket: ProductStore.getProducts(),
+		        users: UserStore.getUsers()
 			};
 	};
 
-	const masonryOptions = {
-            itemSelector: '.all__product',
-		  	gutter: 20
-        };
+
+	var masonryOptions = {
+			itemSelector: '.all__product',
+			gutter: 20
+		};
+
+	var instaMasonryOptions = {
+			itemSelector: '.all__product-insta',
+			gutter: 20
+		};
 
 	var All = React.createClass({
 		contextTypes: {
@@ -31,11 +41,16 @@ var msnry;
 	    },
 
 		getInitialState() {
-		    return getStateFromFlux(true);
+		    return {
+		        currentMarket: [],
+		        users: [],
+		        isInsta: false
+			};
 		},
 
 		componentWillMount() {
 	        ProductActions.loadProducts();
+	        UserActions.loadUsers();
 	    },
 
 	    componentWillUnmount() {
@@ -71,13 +86,21 @@ var msnry;
 	        this.context.router.push(`/product/${productId}`);
 	    },
 
+	    handleChangeView() {
+	    	let isInsta = !this.state.isInsta;
+	        this.setState({ isInsta : isInsta});
+	    },
+
 		render() {
 			var rows = [];
 			var tmpId = 0;
 			var Mark = this.state.currentMarket;
+			let { isInsta } = this.state; 
 			for (let i of Mark) {
 				{
-			    	rows.push(<Product onClick={this.handleClick.bind(null, i.id)} product={i} key={tmpId++}/>);
+					isInsta
+						? rows.push(<InstaProduct onClick={this.handleClick.bind(null, i.id)} product={i} key={tmpId++} users={this.state.users} />)
+						: rows.push(<Product onClick={this.handleClick.bind(null, i.id)} product={i} key={tmpId++} />);
 					//tmpId++;
 				}
 			};
@@ -87,11 +110,12 @@ var msnry;
 							<div className="all__searchField">
 								<input type="text" onChange={this.handleSearch} />
 								<div className="all__add" onClick={this.handleNew}>Добавить</div>
+								<div className="all__add" onClick={this.handleChangeView}>Изменить отображение</div>
 							</div>
 						</div>
 						<Masonry
 			                className='NotesGrid'
-			                options={masonryOptions}
+			                options={this.state.isInsta ? instaMasonryOptions : masonryOptions }
 			                ref={function(c) {if (c) this.masonry = c.masonry;}.bind(this)}
 			            >
 							<div className="all__all" ref="grid">{rows}</div>
@@ -117,6 +141,32 @@ var msnry;
 							 
 						 </div>
 				 	</div>
+			 }
+	});
+
+	var InstaProduct = React.createClass({
+
+		render: function() {
+			let { users, product } = this.props;
+			let author;
+			( product.authorId === undefined ) 
+				? author = 0 
+				: author = product.authorId;
+			return (users[0] !== undefined)
+				? (<div className="all__product-insta" onClick={this.props.onClick}>
+							<div className="all__author">
+				 				<img src={users[author].photo} />
+				 				<p>{users[author].name}</p>
+				 			</div>
+							<div className="all__photo-insta">
+								<img src={product.image[0]} width="100%" /><div className="all__price-insta">{product.price}₸</div>
+							</div>
+							<div className="all__info-insta">
+								<h2>{product.name}</h2>
+								<p>{product.description}</p>
+							</div>
+					 	</div>)
+				: false;
 			 }
 	});
 
