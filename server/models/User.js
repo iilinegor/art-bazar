@@ -12,6 +12,7 @@ var userSchema = new Schema({
 				photo: String,
 				lacation: String,
 				basket: [ Number ],
+				likes: [ Number ],
 				access: Number,
 				registerAt: String
 			});

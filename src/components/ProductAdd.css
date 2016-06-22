@@ -105,7 +105,7 @@ h1, h2, h3 {
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
-input {
+input, select {
 	width: 90%;
 	border: 1px solid #aa7733;
 	font-family: "Segoe UI";

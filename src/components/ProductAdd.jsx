@@ -192,7 +192,30 @@ var ProductAdd = React.createClass({
 							 </div>
 							 <div className="subfield">
 								 <div className="subfield__title">Тип товара:</div> 
-								 <input type="text" id="type" onChange={this.handleNewType}/>
+								 <select onChange={this.handleNewType}>
+									<option value={0}>Аксессуары</option>
+									<option value={1}>Для дома и интерьера</option>
+									<option value={2}>Для домашних животных</option>
+									<option value={3}>Канцелярские товары</option>
+									<option value={4}>Картины и панно</option>
+									<option value={5}>Косметика ручной работы</option>
+									<option value={6}>Куклы и игрушки</option>
+									<option value={7}>Музыкальные инструменты</option>
+									<option value={8}>Обувь ручной работы</option>
+									<option value={9}>Одежда</option>
+									<option value={10}>Открытки</option>
+									<option value={11}>Подарки к праздникам</option>
+									<option value={12}>Посуда</option>
+									<option value={13}>Работы для детей</option>
+									<option value={14}>Национальный стиль</option>
+									<option value={15}>Свадебный салон</option>
+									<option value={16}>Субкультуры</option>
+									<option value={17}>Сувениры и подарки</option>
+									<option value={18}>Сумки и аксессуары</option>
+									<option value={19}>Украшения</option>
+									<option value={20}>Фен-шуй и эзотерика</option>
+									<option value={21}>Цветы и флористика</option>
+								</select>
 							 </div>
 						 </div>
 						 <button onClick={this.handleSubmit}>Поехали!</button>

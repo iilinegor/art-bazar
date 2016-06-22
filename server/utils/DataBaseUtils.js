@@ -45,11 +45,41 @@ export function createUser(data) {
             photo: data.photo,
             location: data.location,
             basket: data.basket,
+            likes: data.likes,
             access: data.access,
             registerAt: Date()
     });
     return user.save();
 }
+
+        export function updateUser(data) {
+            User.update( { id : data.id } , { 
+                $set: { password: data.password }, 
+                $set: { name: data.name }, 
+                $set: { lastName: data.lastName }, 
+                $set: { description: data.description }, 
+                $set: { photo: data.photo }, 
+                $set: { location: data.location }
+            } );
+        }
+
+        export function updateUserLikes(data) {
+            User.update( { id : data.id } , { 
+                $set: { likes: data.likes }
+            } );
+        }
+
+        export function updateUserBasket(data) {
+            User.update( { id : data.id } , { 
+                $set: { basket: data.basket }
+            } );
+        }
+
+        export function updateUserAccess(data) {
+            User.update( { id : data.id } , { 
+                $set: { access: data.access }
+            } );
+        }
 
 export function createProduct(data) {
     const product = new Market({
@@ -65,6 +95,7 @@ export function createProduct(data) {
             material: data.material,
             craftTime: data.craftTime,
             delivery: data.delivery,
+            likes: 0,
             pay: data.pay,
             price: data.price,
             views: data.views,
@@ -78,3 +109,14 @@ export function deleteNote(id) {
     return Market.findById(id).remove();
 }
 
+        export function ProductLikesInc(data) {
+            User.update( { id : data.id } , { 
+                $inc : { likes: 1 }
+            } );
+        }
+
+        export function ProductLikesDec(data) {
+            User.update( { id : data.id } , { 
+                $inc : { likes: -1 }
+            } );
+        }

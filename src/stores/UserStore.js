@@ -20,6 +20,7 @@ function formatProduct(data) {
             photo: data.photo,
             location: data.location,
             basket: data.basket,
+            likes: data.likes,
             access: data.access,
             registerAt: data.registerAt
     };

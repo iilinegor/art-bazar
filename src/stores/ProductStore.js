@@ -27,7 +27,8 @@ function formatProduct(data) {
             price: data.price,
             views: data.views,
             bays: data.bays,
-            image: data.image
+            image: data.image,
+            likes: data.likes
     };
 }
 
