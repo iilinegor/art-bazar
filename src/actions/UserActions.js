@@ -74,6 +74,46 @@ const UserActions = {
         );
     },
 
+    updateUser(note) {
+        api.updateUser(note)
+        .then(() =>
+            this.loadUsers()
+        )
+        .catch(err =>
+            console.error(err)
+        );
+    },
+
+    updateUserLikes(note) {
+        api.updateUserLikes(note)
+        .then(() =>
+            this.loadUsers()
+        )
+        .catch(err =>
+            console.error(err)
+        );
+    },
+
+    updateUserBasket(note) {
+        api.updateUserBasket(note)
+        .then(() =>
+            this.loadUsers()
+        )
+        .catch(err =>
+            console.error(err)
+        );
+    },
+
+    updateUserAccess(note) {
+        api.updateUserAccess(note)
+        .then(() =>
+            this.loadUsers()
+        )
+        .catch(err =>
+            console.error(err)
+        );
+    },
+
     deleteUser(noteId) {
         api.deleteUser(noteId)
         .then(() =>

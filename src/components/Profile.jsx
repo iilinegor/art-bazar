@@ -51,6 +51,57 @@ var Profile = React.createClass({
     		UserStore.removeChangeListener(this._onChange);
 	    },
 
+
+	    handleNewLocation(event) {
+	    	if (event.target.value !== "")
+				this.setState({ location : event.target.value })
+			else
+				this.setState({ location : user.location });
+		},
+
+	    handleNewDescription(event) {
+	    	if (event.target.value !== "")
+				this.setState({ description : event.target.value })
+			else
+				this.setState({ description : user.description });
+		},
+
+	    handleNewPhoto(event) {
+	    	if (event.target.value !== "")
+				this.setState({ photo : event.target.value })
+			else
+				this.setState({ photo : user.photo });
+		},
+
+		handleNewLastName(event) {
+	    	if (event.target.value !== "")
+				this.setState({ lastName : event.target.value })
+			else
+				this.setState({ lastName : user.lastName });
+		},
+
+		handleSubmit() {
+	    	let {	    user, 
+		    			location, 
+		    			description,
+		    			photo, 
+		    			lastName
+		    					 		} = this.state;
+	    	
+	    	// if (name && email && password) {
+	    		console.log(user.id);
+	    		let newProduct = {
+		    			location : location, 
+		    			description : description,
+		    			photo : photo, 
+		    			lastName : lastName
+	    		};
+			//this.setState({ userId : length});
+    		UserActions.updateUser(newProduct);
+			//localStorage.setItem('userId', newUser.id);
+    		this.context.router.push(`/all`);
+	},
+
 		render: function() {
 			var { userId, editMode, user } = this.state;
 			var info = [];
@@ -60,23 +111,48 @@ var Profile = React.createClass({
 
 
 			if (user) {
-				info.push(<button className="upgrade" onClick={this.handleEdit}>Стать мастером</button>);
-				info.push(<img src={user.photo} />);
-				if (got(user.lastName))
-					info.push(<h1>{user.lastName + " " + user.name}</h1>)
-				else
-					info.push(<h1>{user.name} </h1>);
+				if (!editMode) {
+					info.push(<button className="upgrade" onClick={this.handleEdit}>Стать мастером</button>);
+					info.push(<img src={user.photo} />);
+					if (got(user.lastName))
+						info.push(<h1>{user.lastName + " " + user.name}</h1>)
+					else
+						info.push(<h1>{user.name} </h1>);
 
-				if (got(user.lacation))
-					info.push(<h3>Город: {user.lacation}</h3>);
+					if (got(user.lacation))
+						info.push(<h3>Город: {user.lacation}</h3>);
 
-				if (got(user.email))
-					info.push(<h3>Почта: {user.email}</h3>);
+					if (got(user.email))
+						info.push(<h3>Почта: {user.email}</h3>);
 
-				if (got(user.description)) {
-					info.push(<h2>О себе</h2>);
-					info.push(<p>{user.description}</p>);
+					if (got(user.description)) {
+						info.push(<h2>О себе</h2>);
+						info.push(<p>{user.description}</p>);
+					};
+				}
+				else {
+					info.push(<img src={user.photo} />);
+					if (got(user.lastName))
+						info.push(<h1>{user.lastName + " " + user.name}</h1>)
+					else
+						info.push(<h1>{user.name} </h1>);
+
+					info.push(<h2>Фамилия:</h2>);
+					info.push(<input type="text" id="price" onChange={this.handleNewLastName}/>);
+
+					info.push(<h2>О себе:</h2>);
+					info.push(<input type="text" id="price" onChange={this.handleNewDescription}/>);
+
+					info.push(<h2>Город:</h2>);
+					info.push(<input type="text" id="price" onChange={this.handleNewLocation}/>);
+
+					info.push(<h2>Ссылка на фотографию:</h2>);
+					info.push(<input type="text" id="price" onChange={this.handleNewPhoto}/>);
+
+					info.push(<button onClick={this.handleSubmit}>Готово!</button>);					
 				};
+
+
 
 				return (
 

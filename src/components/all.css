@@ -1,8 +1,9 @@
 .NotesGrid {
 	margin: 0px auto;
-	width: 650px;
+	width: 1000px;
+	margin-left: 300px
 }
-
+/*
 @media screen and (min-device-width: 1090px){
     .NotesGrid {
 		width: 1090px;
@@ -19,7 +20,7 @@
     .NotesGrid {
 		width: 650px;
 	}
-}
+}*/
 
 
 .all__all{
@@ -78,8 +79,7 @@
 			/*margin: 10px;*/
 			min-height: 100px;
 			width: 400px;
-			margin: auto;
-			margin-left: 90px;
+			margin: 0px 40px;
 			border: 1px solid #dedede;
 			padding-bottom: 20px;
 			background-color: #ffffff;

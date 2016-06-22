@@ -117,40 +117,7 @@ var msnry;
 			};
 
 			return 	<div>
-						<div className="all__search">
-							<div className="all__searchField">
-								<input type="text" onChange={this.handleSearch} />
-								<div className="all__add" onClick={this.handleNew}>Добавить</div>
-								<div className="all__add" onClick={this.handleChangeView}>Изменить отображение</div>
-							</div>
-						</div>
-						<div className="all__category">
-							<ul>
-								<li onClick={this.handleCategory.bind(null, -1)}>Все</li>
-								<li onClick={this.handleCategory.bind(null, 0)}>Аксессуары</li>
-								<li onClick={this.handleCategory.bind(null, 1)}>Для дома и интерьера</li>
-								<li onClick={this.handleCategory.bind(null, 2)}>Для домашних животных</li>
-								<li onClick={this.handleCategory.bind(null, 3)}>Канцелярские товары</li>
-								<li onClick={this.handleCategory.bind(null, 4)}>Картины и панно</li>
-								<li onClick={this.handleCategory.bind(null, 5)}>Косметика ручной работы</li>
-								<li onClick={this.handleCategory.bind(null, 6)}>Куклы и игрушки</li>
-								<li onClick={this.handleCategory.bind(null, 7)}>Музыкальные инструменты</li>
-								<li onClick={this.handleCategory.bind(null, 8)}>Обувь ручной работы</li>
-								<li onClick={this.handleCategory.bind(null, 9)}>Одежда</li>
-								<li onClick={this.handleCategory.bind(null, 10)}>Открытки</li>
-								<li onClick={this.handleCategory.bind(null, 11)}>Подарки к праздникам</li>
-								<li onClick={this.handleCategory.bind(null, 12)}>Посуда</li>
-								<li onClick={this.handleCategory.bind(null, 13)}>Работы для детей</li>
-								<li onClick={this.handleCategory.bind(null, 14)}>Национальный стиль</li>
-								<li onClick={this.handleCategory.bind(null, 15)}>Свадебный салон</li>
-								<li onClick={this.handleCategory.bind(null, 16)}>Субкультуры</li>
-								<li onClick={this.handleCategory.bind(null, 17)}>Сувениры и подарки</li>
-								<li onClick={this.handleCategory.bind(null, 18)}>Сумки и аксессуары</li>
-								<li onClick={this.handleCategory.bind(null, 19)}>Украшения</li>
-								<li onClick={this.handleCategory.bind(null, 20)}>Фен-шуй и эзотерика</li>
-								<li onClick={this.handleCategory.bind(null, 21)}>Цветы и флористика</li>
-							</ul>
-						</div>
+						
 						<Masonry
 			                className='NotesGrid'
 			                options={this.state.isInsta ? instaMasonryOptions : masonryOptions }

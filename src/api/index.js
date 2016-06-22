@@ -33,5 +33,32 @@ export default {
 
     deleteProduct(noteId) {
         return axios.delete(`${apiPrefix}/products/${noteId}`);
+    },
+
+
+
+
+    updateUser(data) {
+        return axios.post(`${apiPrefix}/user/update`, data);
+    },
+
+    updateUserLikes(data) {
+        return axios.post(`${apiPrefix}/user/likes/update`, data);
+    },
+
+    updateUserBasket(data) {
+        return axios.post(`${apiPrefix}/user/basket/update`, data);
+    },
+
+    updateUserAccess(data) {
+        return axios.post(`${apiPrefix}/user/access/update`, data);
+    },
+
+    ProductLikesInc(data) {
+        return axios.post(`${apiPrefix}/products/likes/inc`, data);
+    },
+
+    ProductLikesDec(data) {
+        return axios.post(`${apiPrefix}/products/likes/dec`, data);
     }
 }

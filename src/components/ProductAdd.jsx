@@ -128,7 +128,8 @@ var ProductAdd = React.createClass({
 					delivery: delivery,
 					pay: pay,
 					price: price,
-					image: photos
+					image: photos,
+					likes: 0
 	    		};
 			//this.setState({ userId : length});
     		ProductActions.createProduct(newProduct);

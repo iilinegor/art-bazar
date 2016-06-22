@@ -22,7 +22,6 @@ var App = React.createClass({
 			return (
 					<div className="app">
 						<div className='header'>
-							
 		                	<div className="logo" onClick={this.handleLogoClick}><b className="bcolor">А</b>рт <b className="bcolor2">Б</b>азар</div>
 		                	<AuthButton />
 		                </div>
@@ -93,6 +92,14 @@ var AuthButton = React.createClass({
 	    	this.context.router.push("/logIn");
 	    },
 
+	    handleLikes: function() {
+	    	this.context.router.push("/likes");
+	    },
+
+	    handleHelp: function() {
+	    	this.context.router.push("/help");
+	    },
+
 	    handleLogOut: function() {
 	    	localStorage.setItem("userId", -1);
 	    	this.setState({ user: undefined});
@@ -103,14 +110,17 @@ var AuthButton = React.createClass({
 			if ( user === undefined)
 					return (
 							<div className="singIn"  >
+								<div onClick={this.handleHelp}>Помощь</div>
 								<div onClick={this.handleSingIn}> Войти </div>
 							</div>
 					)
 			else 
 					return (
-							<div className="logIn" >								
+							<div className="logIn" >	
+								<div onClick={this.handleLikes}>Избранное</div>
+								<div onClick={this.handleHelp}>Помощь</div>							
 								<img src={user.photo} onClick={this.handleProfile} />
-								<div onClick={this.handleLogOut} > {user.name}</div>
+								<div onClick={this.handleLogOut} className="name"> {user.name}</div>
 							</div>
 					)
 		},

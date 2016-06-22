@@ -54,6 +54,26 @@ const ProductActions = {
         );
     },
 
+    ProductLikesInc(note) {
+        api.ProductLikesInc(note)
+        .then(() =>
+            this.loadProducts()
+        )
+        .catch(err =>
+            console.error(err)
+        );
+    },
+
+    ProductLikesDec(note) {
+        api.ProductLikesDec(note)
+        .then(() =>
+            this.loadProducts()
+        )
+        .catch(err =>
+            console.error(err)
+        );
+    },
+
     deleteProduct(noteId) {
         api.deleteProduct(noteId)
         .then(() =>

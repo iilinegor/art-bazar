@@ -9,7 +9,7 @@ import './style.css';
 var ProductForm = React.createClass({
 
 	render() {
-		return <h1>Well, mb added who cares?</h1>;
+		return <h1>Помощь. Полный справочник</h1>;
 	}
 });
 
