@@ -7,7 +7,7 @@ var marketSchema = new Schema({
 				name: String,
 				description: String,
 				authorId: Number,
-				type: String,
+				type: Number,
 				subtype: String,
 				location: String,
 				color: String,
