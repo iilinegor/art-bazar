@@ -53,7 +53,7 @@ export function createUser(data) {
 }
 
         export function updateUser(data) {
-            User.update( { id : data.id } , { 
+            return User.update( { id : data.id } , { 
                 $set: { password: data.password }, 
                 $set: { name: data.name }, 
                 $set: { lastName: data.lastName }, 
@@ -64,19 +64,19 @@ export function createUser(data) {
         }
 
         export function updateUserLikes(data) {
-            User.update( { id : data.id } , { 
+            return User.update( { id : data.id } , { 
                 $set: { likes: data.likes }
             } );
         }
 
         export function updateUserBasket(data) {
-            User.update( { id : data.id } , { 
+            return User.update( { id : data.id } , { 
                 $set: { basket: data.basket }
             } );
         }
 
         export function updateUserAccess(data) {
-            User.update( { id : data.id } , { 
+            return User.update( { id : data.id } , { 
                 $set: { access: data.access }
             } );
         }
@@ -110,13 +110,13 @@ export function deleteNote(id) {
 }
 
         export function ProductLikesInc(data) {
-            User.update( { id : data.id } , { 
+            return User.update( { id : data.id } , { 
                 $inc : { likes: 1 }
             } );
         }
 
         export function ProductLikesDec(data) {
-            User.update( { id : data.id } , { 
+            return User.update( { id : data.id } , { 
                 $inc : { likes: -1 }
             } );
         }
