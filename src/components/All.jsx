@@ -44,7 +44,8 @@ var msnry;
 		    return {
 		        currentMarket: [],
 		        users: UserStore.getUsers(),
-		        isInsta: false
+		        isInsta: false,
+		        type: -1
 			};
 		},
 
@@ -59,15 +60,13 @@ var msnry;
 
 		handleSearch: function(event) {
 			var searchQuery = event.target.value.toLowerCase();
-			var { Market } = this.state;
+			var { Market, type } = this.state;
 			var CurrentMarket = Market.filter( function (el){
 				// let location = el.location.toLowerCase();
 				let name = el.name.toLowerCase();
 				let description = el.description.toLowerCase();
 				let material = el.material ? el.material.toLowerCase() : "gggggggggggggggggggggggggggg";
-				let type = el.type.toLowerCase();
-				// let subtype = el.subtype.toLowerCase();
-				return ((name.indexOf(searchQuery) !== -1) || (description.indexOf(searchQuery) !== -1) || (material.indexOf(searchQuery) !== -1) || (type.indexOf(searchQuery) !== -1));
+				return (((name.indexOf(searchQuery) !== -1) || (description.indexOf(searchQuery) !== -1) || (material.indexOf(searchQuery) !== -1)) && (type === el.type || type === -1));
 			});
 			this.setState({
 				currentMarket: CurrentMarket
@@ -92,7 +91,15 @@ var msnry;
 	    },
 
 	    handleCategory(number) {
-	    	alert(number);
+	    	let { Market, type } = this.state;
+	    	type !== number
+	    		? this.setState({ Market : ProductStore.getProducts().filter(function (el){ return (parseInt(el.type) === number) }), currentMarket : ProductStore.getProducts().filter(function (el){ return (parseInt(el.type) === number) }), type : number })
+	    		: this.setState({ Market : ProductStore.getProducts(), currentMarket : ProductStore.getProducts(), type : -1 });
+	    	/*this.state.type 
+	    		? this.setState({ Market : ProductStore.getProducts().filter(function (el){ return (parseInt(el.type) === type) }) })
+	    		: this.setState({ Market : ProductStore.getProducts() });*/
+	    	this.render();
+
 	    },
 
 		render() {
@@ -176,6 +183,10 @@ var msnry;
 
 	var InstaProduct = React.createClass({
 
+		handleLike() {
+			console.log(this.props.product)
+		},
+
 		render: function() {
 			let { users, product } = this.props;
 			let author;
@@ -183,15 +194,16 @@ var msnry;
 				? author = 0 
 				: author = product.authorId;
 			return (users[0] !== undefined)
-				? (<div className="all__product-insta" onClick={this.props.onClick}>
+				? (<div className="all__product-insta" >
 							<div className="all__author">
-				 				<img src={users[author].photo} />
+				 				<img src={users[author].photo} onClick={this.props.onClick} />
 				 				<p>{users[author].name}</p>
 				 			</div>
 							<div className="all__photo-insta">
 								<img src={product.image[0]} width="100%" /><div className="all__price-insta">{product.price}₸</div>
 							</div>
 							<div className="all__info-insta">
+								<h2 onClick={this.handleLike}>3 {product.likes}</h2>
 								<h2>{product.name}</h2>
 								<p>{product.description}</p>
 							</div>

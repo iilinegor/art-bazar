@@ -19,6 +19,7 @@ var marketSchema = new Schema({
 				price: Number,
 				views: Number,
 				bays: Number,
+				likes: Number
 				image: [ String ]
 			});
 

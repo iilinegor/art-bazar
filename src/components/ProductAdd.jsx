@@ -103,7 +103,7 @@ var ProductAdd = React.createClass({
 	    	let {	    length, 
 		    			name, 
 		    			description,
-		    			userId, 
+		    			user, 
 		    			type, 
 		    			size, 
 		    			material, 
@@ -114,11 +114,12 @@ var ProductAdd = React.createClass({
 		    			photos 		} = this.state;
 	    	
 	    	// if (name && email && password) {
+	    		console.log(user.id);
 	    		let newProduct = {
 					id: length,
 					name : name,
 					description: description,
-					authorId: userId,
+					authorId: user,
 					type: type,
 					/*location: data.location,*/
 					size: size,
