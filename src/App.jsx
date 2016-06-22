@@ -22,7 +22,7 @@ var App = React.createClass({
 			return (
 					<div className="app">
 						<div className='header'>
-		                	<div className="logo" onClick={this.handleLogoClick}><b className="bcolor">А</b>рт <b className="bcolor2">Б</b>азар</div>
+		                	<div className="logo" onClick={this.handleLogoClick}><img src="https://habrastorage.org/files/52c/1ab/9bd/52c1ab9bdd364f6e8a297aea7dd68684.png"/></div>
 		                	<AuthButton />
 		                </div>
 
