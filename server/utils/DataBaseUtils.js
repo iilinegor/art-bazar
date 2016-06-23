@@ -46,6 +46,8 @@ export function createUser(data) {
             location: data.location,
             basket: data.basket,
             likes: data.likes,
+            delivery: data.delivery,
+            pay: data.pay,
             access: data.access,
             registerAt: Date()
     });
@@ -54,12 +56,12 @@ export function createUser(data) {
 
         export function updateUser(data) {
             return User.update( { id : data.id } , { 
-                $set: { password: data.password }, 
-                $set: { name: data.name }, 
-                $set: { lastName: data.lastName }, 
-                $set: { description: data.description }, 
-                $set: { photo: data.photo }, 
-                $set: { location: data.location }
+                $set: { password: data.password , 
+                name: data.name , 
+                lastName: data.lastName , 
+                description: data.description , 
+                photo: data.photo , 
+                location: data.location }
             } );
         }
 
@@ -89,14 +91,11 @@ export function createProduct(data) {
             authorId: data.authorId,
             type: data.type,
             subtype: data.subtype,
-            location: data.location,
             color: data.color,
             size: data.size,
             material: data.material,
             craftTime: data.craftTime,
-            delivery: data.delivery,
             likes: 0,
-            pay: data.pay,
             price: data.price,
             views: data.views,
             bays: data.bays,

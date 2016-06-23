@@ -10,10 +10,12 @@ var userSchema = new Schema({
 				lastName: String,
 				description: String,
 				photo: String,
-				lacation: String,
+				location: String,
 				basket: [ Number ],
 				likes: [ Number ],
 				access: Number,
+				delivery: String,
+				pay: String,
 				registerAt: String
 			});
 

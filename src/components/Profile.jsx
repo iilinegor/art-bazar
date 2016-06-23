@@ -10,7 +10,7 @@ import './Profile.css';
 function getStateFromFlux(userId) {
     return {
 		isLoading: UserStore.isLoading(),
-		user: UserStore.getUser(parseInt(userId))[0]
+		user: UserStore.getUser(parseInt(userId))
 	};
 };
 
@@ -30,7 +30,7 @@ var Profile = React.createClass({
 	    	else			
 				return {
 					userId: userId,
-					user: UserStore.getUser(parseInt(this.props.params.userId))[0],
+					user: UserStore.getUser(parseInt(userId)),
 					editMode: false
 				};
 		},
@@ -44,7 +44,7 @@ var Profile = React.createClass({
 		},
 
 		componentWillMount() {
-	        UserActions.loadUser(this.state.userId);
+	        UserActions.loadUsers();
 	    },
 
 	    componentWillUnmount() {
@@ -111,6 +111,7 @@ var Profile = React.createClass({
 
 
 			if (user) {
+				console.log(user);
 				if (!editMode) {
 					info.push(<button className="upgrade" onClick={this.handleEdit}>Стать мастером</button>);
 					info.push(<img src={user.photo} />);
@@ -119,8 +120,8 @@ var Profile = React.createClass({
 					else
 						info.push(<h1>{user.name} </h1>);
 
-					if (got(user.lacation))
-						info.push(<h3>Город: {user.lacation}</h3>);
+					if (got(user.location))
+						info.push(<h3>Город: {user.location}</h3>);
 
 					if (got(user.email))
 						info.push(<h3>Почта: {user.email}</h3>);

@@ -9,10 +9,24 @@ import './Login.css';
 
 
 function getStateFromFlux() {
+	/*let isKnown;
+	if (UserStore.inBase(-1) !== [])
+		isKnown = 1
+	else 
+		isKnown = 0;*/
     return {
-	        isLoading: UserStore.isLoading()
+				users: UserStore.getUsers(),
+	        isLoading: UserStore.isLoading(),
+				length: UserStore.getUsers().length
 		};
 };
+
+
+function sleep(ms) {
+	ms += new Date().getTime();
+	while (new Date() < ms){}
+};
+
 
 var Login = React.createClass({
 		contextTypes: {
@@ -23,7 +37,7 @@ var Login = React.createClass({
 		    return {
 				isLoading: UserStore.isLoading(),
 				isKnown: -1,
-				user: UserStore.inBase(-1),
+				users: UserStore.getUsers(),
 				length: UserStore.getUsers().length
 			};
 	    },
@@ -32,7 +46,7 @@ var Login = React.createClass({
 	    	var currentPass = event.target.value;
 	    	var { user } = this.state;
 	    	if ( currentPass === user.password ){
-	    		localStorage.setItem('userId', this.state.user.id); 
+	    		localStorage.setItem('userId', this.state.user.id);
 	    		this.context.router.push(`/all`);
 	    	};
 	    },
@@ -46,8 +60,16 @@ var Login = React.createClass({
 	    	this.setState({ name : event.target.value });
 	    },
 
+	    handleNewLastName(event) {
+	    	this.setState({ lastName : event.target.value });
+	    },
+
+	    handleNewLocation(event) {
+	    	this.setState({ location : event.target.value });
+	    },
+
 	    handleSubmit() {
-	    	let { name, email, password, length } = this.state;
+	    	let { name, email, password, lastName, location, length } = this.state;
 	    	let access = 2;
 	    	
 	    	if (length < 3) access = 0;
@@ -57,6 +79,8 @@ var Login = React.createClass({
 	    			name : name,
 	    			email : email,
 	    			password : password,
+	    			lastName: lastName,
+	    			location: location,
 	    			photo: "http://mediascapeproject.eu/images/user.png",
 	    			access: access
 	    		};
@@ -70,17 +94,20 @@ var Login = React.createClass({
 
 	    handleCheck: function(event){
 	    	var searchQuery = event.target.value.toLowerCase();
-
+	    	var { isLoading, users } = this.state;
 			let isKnown;
 			let userId;
 			var user;
-			let domens = [".ru", ".kz", ".com", ".org"];
 			
+			let domens = [".ru", ".kz", ".com", ".org"];
+			for (var c = 0; c < 10; c++)
+			{
+
 			var isEmail = function(Query) {
 				if (Query.indexOf("@") !== -1) {
 					for (let dom of domens) {
 						if (Query.indexOf(dom) !== -1) {
-			 				UserActions.inBase(Query);
+			 				//UserActions.inBase(Query);
 							return true;
 						};
 					};
@@ -90,31 +117,36 @@ var Login = React.createClass({
 
 			 var inBase = function (email) {
 			 	//UserActions.inBase(email);
-		        user = UserStore.inBase(email)[0];
-		        if (user)
-					if (user.email === email) {
-						userId = user.id;
+		        // user = UserStore.inBase(email)[0];
+				// console.log(users);
+		        for (let u of users)
+					if (u.email === email) {
+						userId = u.id;
+						user = u;
 						return true;
 					}
 				//UserActions.loadUsers();
 				return false;
 			 };
 
-			if (isEmail(searchQuery)) {
+			if (isEmail(searchQuery)) {			
 				if (inBase(searchQuery)){
 					isKnown = 1;
-					this.setState({ user : user, userId: userId });
+					this.setState({ user : user, userId: userId});
 				}
 				else {
 					isKnown = 0;
 					this.setState({ email : searchQuery });
-				}
+				};
 			}
 			else 
 				isKnown = -1;
 
-			this.setState({ isKnown: isKnown });
+			
+			this.setState({ isKnown: isKnown});
+
 			//console.log(isknown);
+		};
 
 	    },
 
@@ -126,47 +158,61 @@ var Login = React.createClass({
 	        UserActions.loadUsers();
 	    },
 
+	    componentWillUpdate() {
+			/*var { isKnown, user, isLoading, email } = this.state;
+	    	if (isKnown !== -1 && user !== UserStore.inBase(email)[0])
+				this.setState({user : UserStore.inBase(email)[0]});*/
+	    },
+
 	    componentWillUnmount() {
     		UserStore.removeChangeListener(this._onChange);
 	    },
 
 		render: function() {
-			var { isKnown, user } = this.state;
-
+			var { isKnown, user, isLoading, email } = this.state;
+			
 			switch ( isKnown ) {
-				case -1:
-					return (
-							<div className="auth">
-								<p className="first">Введите email</p>
-								<input type="text" onChange={this.handleCheck} />
-								
-							</div>
-						);
+				case -1: {
+							return (
+		
+									<div className="auth">
+										<p className="first">Введите email</p>
+										<input type="text" onChange={this.handleCheck} />
+										
+									</div>
+								);
+						};
 
-				case 0:
-					return (
-							<div className="auth">
-								<p className="first">Кажется, мы не знакомы</p>
-								<input type="text" onChange={this.handleCheck} />
-								<p>Как Вас зовут?</p>
-								<input type="text"onChange={this.handleNewName} />
-								<p>Придумайте пароль</p>
-								<input type="password" id="firstPassword"/>
-								<p>Закрепим </p>
-								<input type="password" onChange={this.handlePassCheck} />				
-								<button onClick={this.handleSubmit}>Поехали!</button>
-							</div>
-						);
+				case 0: {
+							return (
+									<div className="auth">
+										<p className="first">Кажется, мы не знакомы</p>
+										<input type="text" onChange={this.handleCheck} />
+										<p>Как Вас зовут?</p>
+										<input type="text"onChange={this.handleNewName} />
+										<p>Ваша фамилия</p>
+										<input type="text"onChange={this.handleNewLastName} />
+										<p>Из какого Вы города?</p>
+										<input type="text"onChange={this.handleNewLocation} />
+										<p>Придумайте пароль</p>
+										<input type="password" id="firstPassword"/>
+										<p>Закрепим </p>
+										<input type="password" onChange={this.handlePassCheck} />				
+										<button onClick={this.handleSubmit}>Поехали!</button>
+									</div>
+							);
+						};
 
-				case 1:
-					return (
-							<div className="auth">
-								<p className="first">Здравствуйте, {user.name}!</p>
-								<input type="text" onChange={this.handleCheck} />
-								<p>Введите пароль</p>
-								<input type="password" onChange={this.handleLogIn} />
-							</div>
-						);
+				case 1: {
+							return (
+									<div className="auth">
+										<p className="first">Здравствуйте, {user.name}!</p>
+										<input type="text" onChange={this.handleCheck} />
+										<p>Введите пароль</p>
+										<input type="password" onChange={this.handleLogIn} />
+									</div>
+								);
+						};	
 			};	
 		},
 

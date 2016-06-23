@@ -37,19 +37,19 @@ var App = React.createClass({
 function getStateFromFlux(userId) {
     return {
 			isLoading: UserStore.isLoading(),
-			user: UserStore.getUser(userId)[userId],
+			user: UserStore.getUser(parseInt(userId)),
 			userId: userId
 		};
 };
 
 function inLocalStorage() {
-	let local = localStorage.getItem('userId');
-	if (local == undefined){
+	let local = parseInt(localStorage.getItem('userId'));
+	if (local === undefined){
 		local = -1;
 		localStorage.setItem("userId", local);
 	}
 	else {
-    	local = localStorage.getItem('userId');
+    	local = parseInt(localStorage.getItem('userId'));
     };
     return getStateFromFlux(local);
 };
@@ -120,7 +120,8 @@ var AuthButton = React.createClass({
 								<div onClick={this.handleLikes}>Избранное</div>
 								<div onClick={this.handleHelp}>Помощь</div>							
 								<img src={user.photo} onClick={this.handleProfile} />
-								<div onClick={this.handleLogOut} className="name"> {user.name}</div>
+								<div onClick={this.handleProfile} className="name"> {user.name}</div>
+								<div onClick={this.handleLogOut}> Выйти</div>
 							</div>
 					)
 		},

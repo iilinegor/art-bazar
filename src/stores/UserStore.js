@@ -18,7 +18,7 @@ function formatProduct(data) {
             lastName: data.lastName,
             description: data.description,
             photo: data.photo,
-            location: data.location,
+            lacation: data.lacation,
             basket: data.basket,
             likes: data.likes,
             access: data.access,
@@ -36,7 +36,7 @@ const TasksStore = Object.assign({}, EventEmitter.prototype, {
     },
 
     getUser(id) {
-        return _users;
+        return _users[id];
     },
 
     inBase(email) {
