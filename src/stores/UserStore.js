@@ -18,7 +18,7 @@ function formatProduct(data) {
             lastName: data.lastName,
             description: data.description,
             photo: data.photo,
-            lacation: data.lacation,
+            location: data.location,
             basket: data.basket,
             likes: data.likes,
             access: data.access,

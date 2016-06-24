@@ -20,6 +20,7 @@ var msnry;
 		        isLoading: ProductStore.isLoading(),
 		        Market: ProductStore.getProducts(),
 		        currentMarket: ProductStore.getProducts(),
+		        isInsta: true,
 		        users: UserStore.getUsers()
 			};
 	};
@@ -197,8 +198,8 @@ var msnry;
 				? author = 0 
 				: author = product.authorId;
 			return (users[0] !== undefined)
-				? (<div className="all__product-insta" >
-							<div className="all__author">
+				? (<div className="all__product-insta" onClick={this.props.onClick}>
+							<div className="all__author" >
 				 				<img src={users[author].photo} onClick={this.props.onClick} />
 				 				<p>{users[author].name}</p>
 				 			</div>
