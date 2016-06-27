@@ -74,10 +74,6 @@ var msnry;
 			});
 		},
 
-		handleNew() {
-			this.context.router.push(`/add`);
-		},
-
 		componentDidMount: function() {
 	        ProductStore.addChangeListener(this._onChange);
 		},
@@ -105,24 +101,28 @@ var msnry;
 
 		render() {
 			var rows = [];
+			var viewButton = [];
 			var tmpId = 0;
 			var Mark = this.state.currentMarket;
 			let { isInsta } = this.state; 
-			for (let i of Mark) {
+			for (let i of Mark)
 				{
 					isInsta
 						? rows.push(<InstaProduct onClick={this.handleClick.bind(null, i.id)} product={i} key={tmpId++} users={UserStore.getUsers()} />)
 						: rows.push(<Product onClick={this.handleClick.bind(null, i.id)} product={i} key={tmpId++} />);
-					//tmpId++;
-				}
-			};
+				};
+
+			!isInsta
+						? viewButton.push(<img src="https://habrastorage.org/files/252/597/360/2525973609d443808e4c7adff2f51635.png" />)
+						: viewButton.push(<img src="https://habrastorage.org/files/6ca/207/06d/6ca20706d9fe42dd8fe091ef308c830c.png" />);
 
 			return 	<div>
 						<div className="all__search">
-							<div className="all__searchField">
+							<div className="all__searchField">	
+								<div onClick={this.handleChangeView} className="all__viewButton">
+									{viewButton} 
+								</div>
 								<input type="text" onChange={this.handleSearch} />
-								<div className="all__add" onClick={this.handleNew}>Добавить</div>
-								<div className="all__add" onClick={this.handleChangeView}>Изменить отображение</div>
 							</div>
 						</div>
 						<div className="all__category">

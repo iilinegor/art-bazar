@@ -55,6 +55,10 @@ app.get('/user/inbase/:email', (req, res) => {
 	db.inBase(req.params.email).then(data => res.send(data));
 	console.log(req.params.email);
 });
+app.get('/user/products/:id', (req, res) => {
+	db.gotProducts(req.params.id).then(data => res.send(data));
+	console.log(req.params.id);
+});
 
 
 app.post('/user/update', (req, res) => {

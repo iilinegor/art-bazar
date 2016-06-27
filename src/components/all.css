@@ -1,6 +1,6 @@
 .NotesGrid {
 	margin: 0px auto;
-	width: 1000px;
+	/*width: 1000px;*/
 	margin-left: 300px
 }
 /*
@@ -146,14 +146,26 @@
 
 .all__searchField {
 	margin: 0 auto;
-	width: 500px;
+	width: 600px;
 	padding: 15px;
 	padding-top: 15px;
 	font-size: 18px;
 }
 
+.all__viewButton {
+	display: inline-block;
+	width: 30px;
+	vertical-align: bottom;
+	margin-right: 20px;
+}
+
+.all__viewButton img{
+	display: inline-block;
+	width: 30px;
+}
+
 .all__searchField input {
-	margin: 0 auto;
+	display: inline-block;
 	width: 500px;
 	font-size: 18px;
 	padding: 5px 20px;

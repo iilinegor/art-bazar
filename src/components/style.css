@@ -91,6 +91,12 @@ h1, h2, h3 {
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
+.product button {
+	font-family: "Segoe UI";
+	font-size: 16px;
+	position: relative;
+	left: 40%;
+}
 /*.img {
 	width: 100%;
 	position: relative;

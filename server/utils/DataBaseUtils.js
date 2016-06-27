@@ -33,6 +33,10 @@ export function getProduct(id) {
         return User.find({ email : email });
     }
 
+    export function gotProducts(id) {
+        return Market.find({ authorId : id });
+    }    
+
 
 export function createUser(data) {
     const user = new User({
@@ -55,30 +59,31 @@ export function createUser(data) {
 }
 
         export function updateUser(data) {
-            return User.update( { id : data.id } , { 
-                $set: { password: data.password , 
-                name: data.name , 
-                lastName: data.lastName , 
-                description: data.description , 
-                photo: data.photo , 
-                location: data.location }
-            } );
+            return User.update( { "id" : data.id } , { 
+                $set: { "password": data.password , 
+                "name": data.name , 
+                "lastName": data.lastName , 
+                "description": data.description , 
+                "photo": data.photo , 
+                "location": data.location } },
+                { upsert: true }, function(err, doc){ } 
+            );
         }
 
         export function updateUserLikes(data) {
-            return User.update( { id : data.id } , { 
+            return User.update( { "id" : data.id } , { 
                 $set: { likes: data.likes }
             } );
         }
 
         export function updateUserBasket(data) {
-            return User.update( { id : data.id } , { 
+            return User.update( { "id" : data.id } , { 
                 $set: { basket: data.basket }
             } );
         }
 
         export function updateUserAccess(data) {
-            return User.update( { id : data.id } , { 
+            return User.update( { "id" : data.id } , { 
                 $set: { access: data.access }
             } );
         }
@@ -99,7 +104,8 @@ export function createProduct(data) {
             price: data.price,
             views: data.views,
             bays: data.bays,
-            image: data.image
+            image: data.image,
+            delete: false
     });
     return product.save();
 }
@@ -109,13 +115,13 @@ export function deleteNote(id) {
 }
 
         export function ProductLikesInc(data) {
-            return User.update( { id : data.id } , { 
+            return Market.update( { "id" : data.id } , { 
                 $inc : { likes: 1 }
             } );
         }
 
         export function ProductLikesDec(data) {
-            return User.update( { id : data.id } , { 
+            return Market.update( { "id" : data.id } , { 
                 $inc : { likes: -1 }
             } );
         }

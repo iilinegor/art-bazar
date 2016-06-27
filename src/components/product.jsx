@@ -10,6 +10,31 @@ import './style.css';
 
 var currntImg = 0;
 
+var typeList = [	
+	"Аксессуары",
+	"Для дома и интерьера",
+	"Для домашних животных",
+	"Канцелярские товары",
+	"Картины и панно",
+	"Косметика ручной работы",
+	"Куклы и игрушки",
+	"Музыкальные инструменты",
+	"Обувь ручной работы",
+	"Одежда",
+	"Открытки",
+	"Подарки к праздникам",
+	"Посуда",
+	"Работы для детей",
+	"Национальный стиль",
+	"Свадебный салон",
+	"Субкультуры",
+	"Сувениры и подарки",
+	"Сумки и аксессуары",
+	"Украшения",
+	"Фен-шуй и эзотерика",
+	"Цветы и флористика"
+	];
+
 function getStateFromFlux(productId) {
     return {
 			productId: productId,
@@ -57,7 +82,7 @@ var ProductFull = React.createClass({
 
 							<Galery imagesArray={products.image}/>
 
-							<div className="price"><b>Цена</b> {products.price} р.</div>
+							<div className="price"><b>Цена</b> {products.price} ₸</div>
 							
 						 	<h2>Описание</h2>
 						 	<p>{products.description}</p>
@@ -66,7 +91,7 @@ var ProductFull = React.createClass({
 							<div className="field">
 								 <div className="subfield">
 									 <div className="subfield__title">Тип товара:</div> 
-									 {products.type}
+									 {typeList[products.type]}
 								 </div>
 								 <div className="subfield">
 								 	<div className="subfield__title">Срок изготовления: </div> 

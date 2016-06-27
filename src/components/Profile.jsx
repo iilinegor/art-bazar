@@ -25,18 +25,25 @@ var Profile = React.createClass({
 
     	getInitialState() {
 			const { userId } = this.props.params;
+			var user = UserStore.getUser(parseInt(userId));
 			if (userId === undefined)
 	    		this.context.router.push(`/all`)
 	    	else			
 				return {
 					userId: userId,
-					user: UserStore.getUser(parseInt(userId)),
+					user: user,
 					editMode: false
 				};
 		},
 
 		handleEdit() {
-			this.setState({ editMode: true });
+			var { user } = this.state;
+			this.setState({ editMode: true,
+							location: user.location, 
+			    			description: user.description,
+			    			photo: user.photo, 
+			    			lastName: user.lastName
+							 });
 		},
 
 		componentDidMount: function() {
@@ -81,7 +88,7 @@ var Profile = React.createClass({
 		},
 
 		handleSubmit() {
-	    	let {	    user, 
+	    	var {	    user, 
 		    			location, 
 		    			description,
 		    			photo, 
@@ -91,27 +98,34 @@ var Profile = React.createClass({
 	    	// if (name && email && password) {
 	    		console.log(user.id);
 	    		let newProduct = {
+	    				id : user.id,
 		    			location : location, 
 		    			description : description,
 		    			photo : photo, 
 		    			lastName : lastName
 	    		};
 			//this.setState({ userId : length});
+			console.log(newProduct);
     		UserActions.updateUser(newProduct);
 			//localStorage.setItem('userId', newUser.id);
-    		this.context.router.push(`/all`);
+    		// this.context.router.push(`/all`);
 	},
 
 		render: function() {
-			var { userId, editMode, user } = this.state;
+			var { userId, editMode, user, 
+		    			location, 
+		    			description,
+		    			photo, 
+		    			lastName } = this.state;
 			var info = [];
 			if (editMode) {
 
 			};
 
+			info.push();
+
 
 			if (user) {
-				console.log(user);
 				if (!editMode) {
 					info.push(<button className="upgrade" onClick={this.handleEdit}>Стать мастером</button>);
 					info.push(<img src={user.photo} />);
@@ -139,16 +153,16 @@ var Profile = React.createClass({
 						info.push(<h1>{user.name} </h1>);
 
 					info.push(<h2>Фамилия:</h2>);
-					info.push(<input type="text" id="price" onChange={this.handleNewLastName}/>);
+					info.push(<input type="text" id="price" onChange={this.handleNewLastName} value={lastName}/>);
 
 					info.push(<h2>О себе:</h2>);
-					info.push(<input type="text" id="price" onChange={this.handleNewDescription}/>);
+					info.push(<input type="text" id="price" onChange={this.handleNewDescription} value={description}/>);
 
 					info.push(<h2>Город:</h2>);
-					info.push(<input type="text" id="price" onChange={this.handleNewLocation}/>);
+					info.push(<input type="text" id="price" onChange={this.handleNewLocation} value={location}/>);
 
 					info.push(<h2>Ссылка на фотографию:</h2>);
-					info.push(<input type="text" id="price" onChange={this.handleNewPhoto}/>);
+					info.push(<input type="text" id="price" onChange={this.handleNewPhoto} value={photo}/>);
 
 					info.push(<button onClick={this.handleSubmit}>Готово!</button>);					
 				};
@@ -156,9 +170,13 @@ var Profile = React.createClass({
 
 
 				return (
-
-						<div className="profile">
-							{info}
+						<div className="profile_page">
+							<div className="profile_header" >
+								
+							</div>
+							<div className="profile">
+								{info}
+							</div>
 						</div>
 				)}
 			else

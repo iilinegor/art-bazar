@@ -105,8 +105,12 @@ var AuthButton = React.createClass({
 	    	this.setState({ user: undefined});
 	    },
 
+	    handleNew() {
+			this.context.router.push(`/add`);
+		},
+
 		render: function() {
-			var { user } = this.state;
+			var { user,  } = this.state;
 			if ( user === undefined)
 					return (
 							<div className="singIn"  >
@@ -116,7 +120,10 @@ var AuthButton = React.createClass({
 					)
 			else 
 					return (
-							<div className="logIn" >	
+							<div className="logIn" >
+								<div onClick={this.handleNew}>
+									<img src="https://habrastorage.org/files/e2b/b1e/484/e2bb1e48428848d5bf4b3b873f5becc1.png" /> 
+								</div>
 								<div onClick={this.handleLikes}>Избранное</div>
 								<div onClick={this.handleHelp}>Помощь</div>							
 								<img src={user.photo} onClick={this.handleProfile} />

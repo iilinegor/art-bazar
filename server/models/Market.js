@@ -17,7 +17,8 @@ var marketSchema = new Schema({
 				views: Number,
 				bays: Number,
 				likes: Number,
-				image: [ String ]
+				image: [ String ],
+				deleted: Boolean 
 			});
 
 mongoose.model('market', marketSchema, 'market');
