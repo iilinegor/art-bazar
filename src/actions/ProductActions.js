@@ -24,6 +24,26 @@ const ProductActions = {
         );
     },
 
+    gotProducts(id) {
+        AppDispatcher.dispatch({
+            type: Constants.LOAD_PRODUCT_REQUEST
+        });
+
+        api.gotProducts(id)
+        .then(({ data }) =>
+            AppDispatcher.dispatch({
+                type: Constants.LOAD_PRODUCT_SUCCESS,
+                products: data
+            })
+        )
+        .catch(err =>
+            AppDispatcher.dispatch({
+                type: Constants.LOAD_PRODUCT_FAIL,
+                error: err
+            })
+        );
+    },
+
     loadProduct(id) {
         AppDispatcher.dispatch({
             type: Constants.LOAD_PRODUCT_REQUEST

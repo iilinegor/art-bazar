@@ -35,6 +35,10 @@ var typeList = [
 	"Цветы и флористика"
 	];
 
+function got(thing) {
+	return (thing !== undefined);
+};
+
 function getStateFromFlux(productId) {
     return {
 			productId: productId,
@@ -74,52 +78,65 @@ var ProductFull = React.createClass({
 	render: function() {
 
 		const { productId, products } = this.state;
+		var prof = [];
+
 		if (products){
+				if (got(products.name))
+					prof.push(<h1>{products.name}</h1>);
+
+				if (got(products.image))
+					prof.push( <Galery imagesArray={products.image}/> );
+
+				if (got(products.price))
+					prof.push( <div className="price"><b>Цена</b> {products.price} ₸</div> );
+
+				if (got(products.description)){
+						prof.push(<h2>Описание</h2>);
+						prof.push(<p>{products.description}</p>);
+					};
+
 				
+					if (got(products.type))
+					prof.push( <div className="subfield">
+											 <div className="subfield__title">Тип товара:</div> 
+											 {typeList[products.type]}
+										 </div>);
+
+					if (got(products.craftTime))
+					prof.push( <div className="subfield">
+										 	<div className="subfield__title">Срок изготовления: </div> 
+										 	{products.craftTime}
+										 </div> );
+
+					if (got(products.pay))
+					prof.push( <div className="subfield">
+											 <div className="subfield__title">Оплата: </div> 
+											 {products.pay}
+										 </div> );
+
+					if (got(products.delivery))
+					prof.push( <div className="subfield">
+											 <div className="subfield__title">Доставка: </div>
+											 {products.delivery}
+										 </div> );
+
+					if (got(products.material))
+					prof.push( <div className="subfield">
+											 <div className="subfield__title">Материалы:</div> 
+											 {products.material}
+										 </div> );
+
+					if (got(products.size))
+					prof.push( <div className="subfield">
+											 <div className="subfield__title">Размер: </div>
+											 {products.size}
+										 </div>	 );
+		};
+		
+
+		if (products){
 				 return <div className="product" >
-				 			
-						 	<h1>{products.name}</h1>
-
-							<Galery imagesArray={products.image}/>
-
-							<div className="price"><b>Цена</b> {products.price} ₸</div>
-							
-						 	<h2>Описание</h2>
-						 	<p>{products.description}</p>
-
-
-							<div className="field">
-								 <div className="subfield">
-									 <div className="subfield__title">Тип товара:</div> 
-									 {typeList[products.type]}
-								 </div>
-								 <div className="subfield">
-								 	<div className="subfield__title">Срок изготовления: </div> 
-								 	{products.craftTime}
-								 </div>
-							 </div>
-
-							 <div className="field">
-								 <div className="subfield">
-									 <div className="subfield__title">Оплата: </div> 
-									 {products.pay}
-								 </div>
-								 <div className="subfield">
-									 <div className="subfield__title">Доставка: </div>
-									 {products.delivery}
-								 </div>
-							 </div>
-
-							 <div className="field">
-								 <div className="subfield">
-									 <div className="subfield__title">Материалы:</div> 
-									 {products.material}
-								 </div>
-								 <div className="subfield">
-									 <div className="subfield__title">Размер: </div>
-									 {products.size}
-								 </div>								 
-							 </div>
+							 {prof}
 					 	</div>}
 				else {
 					return false;
@@ -130,10 +147,5 @@ var ProductFull = React.createClass({
         this.setState(getStateFromFlux(this.props.params.productId));
     }
 });
-
-		/*ReactDOM.render(
-			<ProductFull number={Math.floor(Math.random() * (MARKET.length) + 0)} />,
-			document.getElementById("content")
-		);*/
 
 export default ProductFull;

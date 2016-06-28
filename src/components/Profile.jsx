@@ -1,16 +1,26 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 
+import Masonry from 'react-masonry-component';
+
 import UserStore from '../stores/UserStore';
 import UserActions from '../actions/UserActions';
 
+import ProductStore from '../stores/ProductStore';
+import ProductActions from '../actions/ProductActions';
 
 import './Profile.css';
+
+var masonryOptions = {
+	itemSelector: '.all__product',
+	gutter: 20
+};
 
 function getStateFromFlux(userId) {
     return {
 		isLoading: UserStore.isLoading(),
-		user: UserStore.getUser(parseInt(userId))
+		user: UserStore.getUser(parseInt(userId)),
+		products: ProductStore.getProducts()
 	};
 };
 
@@ -32,7 +42,8 @@ var Profile = React.createClass({
 				return {
 					userId: userId,
 					user: user,
-					editMode: false
+					editMode: false,
+					products: ProductStore.getProducts()
 				};
 		},
 
@@ -48,14 +59,21 @@ var Profile = React.createClass({
 
 		componentDidMount: function() {
 	        UserStore.addChangeListener(this._onChange);
+	        ProductStore.addChangeListener(this._onChange);
 		},
 
 		componentWillMount() {
 	        UserActions.loadUsers();
+			ProductActions.gotProducts(parseInt(this.props.params.userId));
 	    },
 
 	    componentWillUnmount() {
     		UserStore.removeChangeListener(this._onChange);
+	        ProductStore.removeChangeListener(this._onChange);
+	    },
+
+	    handleClick(productId) {
+	        this.context.router.push(`/product/${productId}`);
 	    },
 
 
@@ -99,6 +117,8 @@ var Profile = React.createClass({
 	    		console.log(user.id);
 	    		let newProduct = {
 	    				id : user.id,
+	    				password : user.password,
+	    				name : user.name,
 		    			location : location, 
 		    			description : description,
 		    			photo : photo, 
@@ -112,17 +132,14 @@ var Profile = React.createClass({
 	},
 
 		render: function() {
-			var { userId, editMode, user, 
+			var { userId, editMode, user, products, 
 		    			location, 
 		    			description,
 		    			photo, 
 		    			lastName } = this.state;
 			var info = [];
-			if (editMode) {
-
-			};
-
-			info.push();
+			var prod = [];
+			var tmpId = 0;
 
 
 			if (user) {
@@ -167,7 +184,12 @@ var Profile = React.createClass({
 					info.push(<button onClick={this.handleSubmit}>Готово!</button>);					
 				};
 
-
+			if (products[0]) {
+				for (let i of products)
+				{
+						prod.push(<Product onClick={this.handleClick.bind(null, i.id)} product={i} key={tmpId++} />);
+				};
+			};
 
 				return (
 						<div className="profile_page">
@@ -177,6 +199,14 @@ var Profile = React.createClass({
 							<div className="profile">
 								{info}
 							</div>
+							<Masonry
+				                className='NotesGrid-profile'
+				                options={this.state.isInsta ? instaMasonryOptions : masonryOptions }
+				                ref={function(c) {if (c) this.masonry = c.masonry;}.bind(this)}
+				            >
+			            
+								<div className="profile__grid" ref="grid">{prod}</div>
+							</Masonry>
 						</div>
 				)}
 			else
@@ -187,5 +217,21 @@ var Profile = React.createClass({
 	        this.setState(getStateFromFlux(this.state.userId));
 	    }
 });
+
+
+var Product = React.createClass({
+
+		render: function() {
+			 return <div className="all__product" onClick={this.props.onClick}>
+						 <div className="all__photo">
+							 <img src={this.props.product.image[0]} width="100%" /><div className="all__price">{this.props.product.price}₸</div>
+						 </div>
+						 <div className="all__info">
+						 	 <h2>{this.props.product.name}</h2>
+							 
+						 </div>
+				 	</div>
+			 }
+	});
 
 export default Profile;

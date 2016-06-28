@@ -20,7 +20,6 @@ var msnry;
 		        isLoading: ProductStore.isLoading(),
 		        Market: ProductStore.getProducts(),
 		        currentMarket: ProductStore.getProducts(),
-		        isInsta: true,
 		        users: UserStore.getUsers()
 			};
 	};

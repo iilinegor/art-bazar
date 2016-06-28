@@ -23,7 +23,7 @@ export default {
         return axios.get(`${apiPrefix}/user/inbase/${email}`);
     },
 
-    gotProducts(email) {
+    gotProducts(id) {
         return axios.get(`${apiPrefix}/user/products/${id}`);
     },
 
