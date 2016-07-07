@@ -4,6 +4,7 @@ import React from 'react';
 import ProductStore from '../stores/ProductStore';
 import ProductActions from '../actions/ProductActions';
 
+import typeList from './typeList.js';
 import Galery from './Galery.jsx';
 
 import './ProductAdd.css';
@@ -23,6 +24,17 @@ var ProductAdd = React.createClass({
 	},
 
 	getInitialState() {
+		let local = localStorage.getItem('userId');
+		if (local === ""){
+			local = -1;
+			localStorage.setItem("userId", local);
+		}
+		else {
+	    	local = parseInt(localStorage.getItem('userId'));
+	    };	
+
+	    if (local === -1 || local != 0)
+			this.context.router.push(`/all`);
 	    return {
 			productId: 0,
 			photos: [],
@@ -139,6 +151,16 @@ var ProductAdd = React.createClass({
 
 	render: function() {
 		const { productId, products, photos } = this.state;
+		var category = [];
+		var tmpId = 0;
+
+		for (let c of typeList) {
+				category.push( <option disabled>{c.group}</option> );
+				for (let cat of c.cats)
+					category.push( <option value={tmpId++}>{cat}</option> );
+
+			};
+
 		if (true){
 			return <div className="product" >
 			 			
@@ -195,28 +217,7 @@ var ProductAdd = React.createClass({
 							 <div className="subfield">
 								 <div className="subfield__title">Тип товара:</div> 
 								 <select onChange={this.handleNewType}>
-									<option value={0}>Аксессуары</option>
-									<option value={1}>Для дома и интерьера</option>
-									<option value={2}>Для домашних животных</option>
-									<option value={3}>Канцелярские товары</option>
-									<option value={4}>Картины и панно</option>
-									<option value={5}>Косметика ручной работы</option>
-									<option value={6}>Куклы и игрушки</option>
-									<option value={7}>Музыкальные инструменты</option>
-									<option value={8}>Обувь ручной работы</option>
-									<option value={9}>Одежда</option>
-									<option value={10}>Открытки</option>
-									<option value={11}>Подарки к праздникам</option>
-									<option value={12}>Посуда</option>
-									<option value={13}>Работы для детей</option>
-									<option value={14}>Национальный стиль</option>
-									<option value={15}>Свадебный салон</option>
-									<option value={16}>Субкультуры</option>
-									<option value={17}>Сувениры и подарки</option>
-									<option value={18}>Сумки и аксессуары</option>
-									<option value={19}>Украшения</option>
-									<option value={20}>Фен-шуй и эзотерика</option>
-									<option value={21}>Цветы и флористика</option>
+									{category}
 								</select>
 							 </div>
 						 </div>

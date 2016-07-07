@@ -61,6 +61,17 @@ var AuthButton = React.createClass({
 
 
 	    getInitialState: function() {
+	    	let local = localStorage.getItem('userId');
+			if (local === ""){
+				local = -1;
+				localStorage.setItem("userId", local);
+			}
+			else {
+		    	local = parseInt(localStorage.getItem('userId'));
+		    };
+
+		     if (local === -1 || local != 0)
+			    			this.context.router.push(`/all`)
 	    	return inLocalStorage();
 	    },
 
@@ -100,6 +111,10 @@ var AuthButton = React.createClass({
 	    	this.context.router.push("/help");
 	    },
 
+	    handlePromote: function() {
+	    	this.context.router.push("/Promoute");
+	    },
+
 	    handleLogOut: function() {
 	    	localStorage.setItem("userId", -1);
 	    	this.setState({ user: undefined});
@@ -110,7 +125,8 @@ var AuthButton = React.createClass({
 		},
 
 		render: function() {
-			var { user,  } = this.state;
+			var { user  } = this.state;
+			let useCase = [];
 			if ( user === undefined)
 					return (
 							<div className="singIn"  >
@@ -119,16 +135,24 @@ var AuthButton = React.createClass({
 							</div>
 					)
 			else 
+					if (user.access === 0)
+						useCase.push(<div onClick={this.handlePromote}>Одобрение</div>);
+
+					if (user.access < 2) 
+						useCase.push(<div onClick={this.handleNew}>
+										<img src="https://habrastorage.org/files/e2b/b1e/484/e2bb1e48428848d5bf4b3b873f5becc1.png" /> 
+									</div>);
+					if (user.likes === [])
+						useCase.push(<div onClick={this.handleLikes}>Избранное</div>);
+
+						useCase.push( <div onClick={this.handleHelp}>Помощь</div> );
+						useCase.push( <img src={user.photo} onClick={this.handleProfile} /> );
+						useCase.push( <div onClick={this.handleProfile} className="name"> {user.name}</div> );
+						useCase.push( <div onClick={this.handleLogOut}> Выйти</div> );
+
 					return (
 							<div className="logIn" >
-								<div onClick={this.handleNew}>
-									<img src="https://habrastorage.org/files/e2b/b1e/484/e2bb1e48428848d5bf4b3b873f5becc1.png" /> 
-								</div>
-								<div onClick={this.handleLikes}>Избранное</div>
-								<div onClick={this.handleHelp}>Помощь</div>							
-								<img src={user.photo} onClick={this.handleProfile} />
-								<div onClick={this.handleProfile} className="name"> {user.name}</div>
-								<div onClick={this.handleLogOut}> Выйти</div>
+								{useCase}
 							</div>
 					)
 		},

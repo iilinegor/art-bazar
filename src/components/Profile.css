@@ -42,15 +42,34 @@
 .profile .upgrade {
 	background: #baffaa;
 	border: 0px;
-	padding: 3px;
+	padding: 3px 10px;
 	position: absolute;
 	height: 30px;
 	border-radius: 10px;
+	opacity: 1;
+	transition: all 0.1s;
+}
+
+.profile .open_store {
+	background: #ffeeaa;
+	border: 0px;
+	padding: 3px 10px;
+	position: relative;
+	float: right;
+	height: 30px;
+	border-radius: 10px;
+	opacity: 1;
+	transition: all 0.1s;
+}
+
+.profile .open_store:hover {
+	opacity: 0.6;
+	transition: all 0.1s;
 }
 
 .profile .upgrade:hover {
-	opacity: 0.4;
-	transition: all 0.2s;
+	opacity: 0.6;
+	transition: all 0.1s;
 }
 
 
@@ -61,12 +80,12 @@
 .profile_header {
 	width: 100%;
 	height: 300px;
-	background: url(https://pbs.twimg.com/profile_banners/1359745651/1433972503/1500x500);
+	background: url(http://xn--interpretacion-sueos-tarot-yrc.com/wp-content/uploads/2013/01/Bazar_of_Athens.jpg);
 	background-size: cover;
 	background-position: center;
 }
 
-.profile__grid {
-	width: 800px;
-	margin-left: 0px;
+.NotesGrid-profile {
+	width: 660px;
+	margin: 0px auto;
 }

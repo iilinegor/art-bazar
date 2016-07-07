@@ -8,6 +8,7 @@ import Login from './components/Login.jsx';
 import Help from './components/Help.jsx';
 import Likes from './components/Likes.jsx';
 import Profile from './components/Profile.jsx';
+import Promoute from './components/Promoute.jsx';
 import ProductAdd from './components/ProductAdd.jsx';
 import UserAccepting from './components/UserAccepting.jsx';
 import App from './App.jsx';
@@ -23,6 +24,7 @@ ReactDOM.render(
 					<Route path="/add" component={ProductAdd}/>
 					<Route path="/users" component={UserAccepting}/>
 					<Route path="/profile/:userId" component={Profile}/>
+					<Route path="/Promoute" component={Promoute}/>
 				</Route>
 			</Router>,
 			document.getElementById("content")

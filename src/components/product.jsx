@@ -4,36 +4,15 @@ import React from 'react';
 import ProductStore from '../stores/ProductStore';
 import ProductActions from '../actions/ProductActions';
 
+import UserStore from '../stores/UserStore';
+import UserActions from '../actions/UserActions';
+
 import Galery from './Galery.jsx';
+import typeList from './typeList.js';
 
 import './style.css';
 
 var currntImg = 0;
-
-var typeList = [	
-	"Аксессуары",
-	"Для дома и интерьера",
-	"Для домашних животных",
-	"Канцелярские товары",
-	"Картины и панно",
-	"Косметика ручной работы",
-	"Куклы и игрушки",
-	"Музыкальные инструменты",
-	"Обувь ручной работы",
-	"Одежда",
-	"Открытки",
-	"Подарки к праздникам",
-	"Посуда",
-	"Работы для детей",
-	"Национальный стиль",
-	"Свадебный салон",
-	"Субкультуры",
-	"Сувениры и подарки",
-	"Сумки и аксессуары",
-	"Украшения",
-	"Фен-шуй и эзотерика",
-	"Цветы и флористика"
-	];
 
 function got(thing) {
 	return (thing !== undefined);
@@ -43,7 +22,9 @@ function getStateFromFlux(productId) {
     return {
 			productId: productId,
 	        isLoading: ProductStore.isLoading(),
-	        products: ProductStore.getProduct(productId)
+	        products: ProductStore.getProduct(productId),
+	        user: ProductStore.getProduct(productId)? UserStore.getUser(ProductStore.getProduct(productId).authorId) : "",
+
 		};
 };
 
@@ -58,10 +39,13 @@ var ProductFull = React.createClass({
 
     componentDidMount() {
         ProductStore.addChangeListener(this._onChange);
+        UserStore.addChangeListener(this._onChange);
+        // UserActions.getUsers();
     },
 
     componentWillUnmount() {
 		ProductStore.removeChangeListener(this._onChange);
+		UserStore.removeChangeListener(this._onChange);
     },
 
 	componentWillReciveProps(nextProps) {
@@ -71,24 +55,35 @@ var ProductFull = React.createClass({
 		if (prevId !== nextId) {
 			this.setState({
 				productId: nextId
-			})
+			});
 		}
 	},
 
 	render: function() {
 
-		const { productId, products } = this.state;
+		const { productId, products, user } = this.state;
 		var prof = [];
 
-		if (products){
+		if (products && user){
 				if (got(products.name))
 					prof.push(<h1>{products.name}</h1>);
+
+				prof.push( <div className="author">
+									<br/>
+									<img src={user.photo} onClick={this.handleProfile} /> 
+									<br/>
+										<h2>{user.name}</h2>
+								</div> );
 
 				if (got(products.image))
 					prof.push( <Galery imagesArray={products.image}/> );
 
 				if (got(products.price))
 					prof.push( <div className="price"><b>Цена</b> {products.price} ₸</div> );
+
+
+
+					prof.push( <div className="likes">{"❤"} {products.likes}</div> );
 
 				if (got(products.description)){
 						prof.push(<h2>Описание</h2>);

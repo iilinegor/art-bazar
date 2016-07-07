@@ -16,11 +16,13 @@ import './all.css';
 var msnry;
 
 	function getStateFromFlux(first) {
+		let local = parseInt(localStorage.getItem('userId'));
 	    return {
 		        isLoading: ProductStore.isLoading(),
 		        Market: ProductStore.getProducts(),
 		        currentMarket: ProductStore.getProducts(),
-		        users: UserStore.getUsers()
+		        users: UserStore.getUsers(),
+		        currentUser: UserStore.getUser(local)
 			};
 	};
 
@@ -56,6 +58,7 @@ var msnry;
 
 	    componentWillUnmount() {
     		ProductStore.removeChangeListener(this._onChange);
+    		UserStore.removeChangeListener(this._onChange);
 	    },
 
 		handleSearch: function(event) {
@@ -79,6 +82,7 @@ var msnry;
 
 		componentDidMount: function() {
 	        ProductStore.addChangeListener(this._onChange);
+	        UserStore.addChangeListener(this._onChange);
 		},
 
 		handleClick(productId) {
@@ -107,6 +111,8 @@ var msnry;
 			var tmpId = 0;
 			var Mark = this.state.currentMarket;
 			let { isInsta } = this.state; 
+
+			
 			for (let i of Mark) {
 				{
 					isInsta

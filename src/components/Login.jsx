@@ -70,7 +70,7 @@ var Login = React.createClass({
 
 	    handleSubmit() {
 	    	let { name, email, password, lastName, location, length } = this.state;
-	    	let access = 2;
+	    	let access = 3;
 	    	
 	    	if (length < 3) access = 0;
 	    	if (name && email && password) {

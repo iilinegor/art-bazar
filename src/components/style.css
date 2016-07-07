@@ -53,6 +53,11 @@ h1, h2, h3 {
 	position: absolute;
 }
 
+.likes {
+	position: relative;
+	left: 90%;
+}
+
 .galery {
 	display: flex;
 	width: 520px;
@@ -96,6 +101,24 @@ h1, h2, h3 {
 	font-size: 16px;
 	position: relative;
 	left: 40%;
+}
+
+.product .author {
+	position: relative;
+	display: block;
+	left: -130px;
+	text-align: center;
+	width: 100px;
+	margin-bottom: -80px;
+}
+
+.product .author img {
+	max-width: 50px;
+	border-radius: 50%;
+}
+
+.product .author h2{
+	margin: 0px;
 }
 /*.img {
 	width: 100%;

@@ -3,6 +3,7 @@ import React from 'react';
 import jquery from 'jquery';
 
 import Masonry from 'react-masonry-component';
+import typeList from './typeList.js';
 
 import ProductStore from '../stores/ProductStore';
 import ProductActions from '../actions/ProductActions';
@@ -13,25 +14,128 @@ import UserActions from '../actions/UserActions';
 
 import './all.css';
 
+// var typeList = [	
+// 	"Аксессуары",
+// 	"Для дома и интерьера",
+// 	"Для домашних животных",
+// 	"Канцелярские товары",
+// 	"Картины и панно",
+// 	"Косметика ручной работы",
+// 	"Куклы и игрушки",
+// 	"Музыкальные инструменты",
+// 	"Обувь ручной работы",
+// 	"Одежда",
+// 	"Открытки",
+// 	"Подарки к праздникам",
+// 	"Посуда",
+// 	"Работы для детей",
+// 	"Национальный стиль",
+// 	"Свадебный салон",
+// 	"Субкультуры",
+// 	"Сувениры и подарки",
+// 	"Сумки и аксессуары",
+// 	"Украшения",
+// 	"Фен-шуй и эзотерика",
+// 	"Цветы и флористика"
+// 	];
+
+// var typeList = [	
+// 		{
+// 			id: 0,
+// 			group: "Аксессуары",
+// 			cats: [
+// 				"Головные уборы",
+// 				"Брелоки",
+// 				"Галстуки",
+// 				"Наборы",
+// 				"Сумки"
+// 			]
+// 		},
+
+// 		{
+// 			id: 1,
+// 			group: "Интерьер",
+// 			cats: [
+// 				"Статуэтки",
+// 				"Картины",
+// 				"Светильники",
+// 				"Кухня",
+// 				"Прихожая"
+// 			]
+// 		},
+
+// 		{
+// 			id: 2,
+// 			group: "Косметика",
+// 			cats: [
+// 				"Тело",
+// 				"Лицо",
+// 				"Волосы",
+// 				"Наборы"
+// 			]
+// 		},
+
+// 		{
+// 			id: 3,
+// 			group: "Куклы и игрушки",
+// 			cats: [
+// 				"Тильды",
+// 				"Тыквоголовки",
+// 				"Животые",
+// 				"Развивающие"
+// 			]
+// 		},
+
+// 		{
+// 			id: 4,
+// 			group: "Обувь",
+// 			cats: [
+// 				"Летняя",
+// 				"Зимняя",
+// 				"Демисезонная"
+// 			]
+// 		},
+
+// 		{
+// 			id: 5,
+// 			group: "Материалы для творчества",
+// 			cats: [
+// 				"Шитьё",
+// 				"Вязание",
+// 				"Валяние",
+// 				"Скрапбукинг",
+// 				"Флористика",
+// 				"Упаковка",
+// 				"Куклы",
+// 				"Декупаж",
+// 				"Украшения",
+// 				"Вышивка",
+// 				"Обучающие материалы",
+// 				"Другое",
+// 			]
+// 		},
+// 	];
+
 var msnry;
 
+	function isBiggerThan10(element, index, array) {
+		  return element > 10;
+		};
+
 	function getStateFromFlux(first) {
+		let local = parseInt(localStorage.getItem('userId'));
 	    return {
 		        isLoading: ProductStore.isLoading(),
 		        Market: ProductStore.getProducts(),
 		        currentMarket: ProductStore.getProducts(),
-		        users: UserStore.getUsers()
+		        users: UserStore.getUsers(),
+		        currentUser: UserStore.getUser(local)
 			};
 	};
 
 
 	var masonryOptions = {
-			itemSelector: '.all__product',
-			gutter: 20
-		};
-
-	var instaMasonryOptions = {
-			itemSelector: '.all__product-insta',
+			itemSelector: '#asd',
 			gutter: 20
 		};
 
@@ -41,8 +145,18 @@ var msnry;
 	    },
 
 		getInitialState() {
+			let local = parseInt(localStorage.getItem('userId'));
+			if (local === undefined){
+				local = -1;
+				localStorage.setItem("userId", local);
+			}
+			else {
+		    	local = parseInt(localStorage.getItem('userId'));
+		    };
+
 		    return {
 		        currentMarket: [],
+		        currentUser: UserStore.getUser(local),
 		        users: UserStore.getUsers(),
 		        isInsta: false,
 		        type: -1
@@ -56,6 +170,7 @@ var msnry;
 
 	    componentWillUnmount() {
     		ProductStore.removeChangeListener(this._onChange);
+    		UserStore.removeChangeListener(this._onChange);
 	    },
 
 		handleSearch: function(event) {
@@ -64,8 +179,8 @@ var msnry;
 			var CurrentMarket = Market.filter( function (el){
 				// let location = el.location.toLowerCase();
 				let name = el.name.toLowerCase();
-				let description = el.description.toLowerCase();
-				let material = el.material ? el.material.toLowerCase() : "gggggggggggggggggggggggggggg";
+				let description = el.description ? el.description.toLowerCase() : "";
+				let material = el.material ? el.material.toLowerCase() : "";
 				return (((name.indexOf(searchQuery) !== -1) || (description.indexOf(searchQuery) !== -1) || (material.indexOf(searchQuery) !== -1)) && (type === el.type || type === -1));
 			});
 			this.setState({
@@ -75,10 +190,30 @@ var msnry;
 
 		componentDidMount: function() {
 	        ProductStore.addChangeListener(this._onChange);
+	        UserStore.addChangeListener(this._onChange);
 		},
 
 		handleClick(productId) {
 	        this.context.router.push(`/product/${productId}`);
+	    },
+
+	    handleLike(data) {
+	    	let { currentUser } = this.state;
+	    	if (data.authorId !== currentUser.id && currentUser !== undefined)
+		    	if (!currentUser.likes.some((x) => {return x === data.id}) || currentUser.likes === []){
+					ProductActions.ProductLikesInc(data);
+					currentUser.likes.push(data.id);
+					UserActions.updateUserLikes(currentUser);
+		    	}
+		    	else {
+		    		ProductActions.ProductLikesDec(data);
+		    		currentUser.likes = currentUser.likes.filter((x) => {return x !== data.id});
+					UserActions.updateUserLikes(currentUser);
+		    	}
+		},
+
+	    handleClickAuthor(authorId) {
+	        this.context.router.push(`/profile/${authorId}`);
 	    },
 
 	    handleChangeView() {
@@ -91,25 +226,41 @@ var msnry;
 	    	(type !== number  && number !== -1)
 	    		? this.setState({ Market : ProductStore.getProducts().filter(function (el){ return (parseInt(el.type) === number) }), currentMarket : ProductStore.getProducts().filter(function (el){ return (parseInt(el.type) === number) }), type : number })
 	    		: this.setState({ Market : ProductStore.getProducts(), currentMarket : ProductStore.getProducts(), type : -1 });
-	    	/*this.state.type 
-	    		? this.setState({ Market : ProductStore.getProducts().filter(function (el){ return (parseInt(el.type) === type) }) })
-	    		: this.setState({ Market : ProductStore.getProducts() });*/
 	    	this.render();
 
 	    },
 
 		render() {
 			var rows = [];
+			var category = [];
 			var viewButton = [];
 			var tmpId = 0;
 			var Mark = this.state.currentMarket;
 			let { isInsta } = this.state; 
+
 			for (let i of Mark)
 				{
 					isInsta
-						? rows.push(<InstaProduct onClick={this.handleClick.bind(null, i.id)} product={i} key={tmpId++} users={UserStore.getUsers()} />)
-						: rows.push(<Product onClick={this.handleClick.bind(null, i.id)} product={i} key={tmpId++} />);
+						? rows.push(<InstaProduct onClickProduct={this.handleClick.bind(null, i.id)} 
+												  onClickAuthor={this.handleClickAuthor.bind(null, i.authorId)} 
+												  onClickLike={this.handleLike.bind(null, i)} 
+												  product={i} 
+												  key={tmpId++} 
+												  users={UserStore.getUsers()} />)
+						: rows.push(<Product onClick={this.handleClick.bind(null, i.id)} 
+											 product={i} 
+											 key={tmpId++} />);
 				};
+			tmpId = 0;
+
+				category.push(<li onClick={this.handleCategory.bind(null, -1)}>Все</li>);
+
+			for (let c of typeList) {
+				category.push(<p>{c.group}</p>)
+				for (let cat of c.cats)
+					category.push(<li key={tmpId} onClick={this.handleCategory.bind(null, tmpId++)}>{cat}</li>);
+
+			}
 
 			!isInsta
 						? viewButton.push(<img src="https://habrastorage.org/files/252/597/360/2525973609d443808e4c7adff2f51635.png" />)
@@ -126,34 +277,12 @@ var msnry;
 						</div>
 						<div className="all__category">
 							<ul>
-								<li onClick={this.handleCategory.bind(null, -1)}>Все</li>
-								<li onClick={this.handleCategory.bind(null, 0)}>Аксессуары</li>
-								<li onClick={this.handleCategory.bind(null, 1)}>Для дома и интерьера</li>
-								<li onClick={this.handleCategory.bind(null, 2)}>Для домашних животных</li>
-								<li onClick={this.handleCategory.bind(null, 3)}>Канцелярские товары</li>
-								<li onClick={this.handleCategory.bind(null, 4)}>Картины и панно</li>
-								<li onClick={this.handleCategory.bind(null, 5)}>Косметика ручной работы</li>
-								<li onClick={this.handleCategory.bind(null, 6)}>Куклы и игрушки</li>
-								<li onClick={this.handleCategory.bind(null, 7)}>Музыкальные инструменты</li>
-								<li onClick={this.handleCategory.bind(null, 8)}>Обувь ручной работы</li>
-								<li onClick={this.handleCategory.bind(null, 9)}>Одежда</li>
-								<li onClick={this.handleCategory.bind(null, 10)}>Открытки</li>
-								<li onClick={this.handleCategory.bind(null, 11)}>Подарки к праздникам</li>
-								<li onClick={this.handleCategory.bind(null, 12)}>Посуда</li>
-								<li onClick={this.handleCategory.bind(null, 13)}>Работы для детей</li>
-								<li onClick={this.handleCategory.bind(null, 14)}>Национальный стиль</li>
-								<li onClick={this.handleCategory.bind(null, 15)}>Свадебный салон</li>
-								<li onClick={this.handleCategory.bind(null, 16)}>Субкультуры</li>
-								<li onClick={this.handleCategory.bind(null, 17)}>Сувениры и подарки</li>
-								<li onClick={this.handleCategory.bind(null, 18)}>Сумки и аксессуары</li>
-								<li onClick={this.handleCategory.bind(null, 19)}>Украшения</li>
-								<li onClick={this.handleCategory.bind(null, 20)}>Фен-шуй и эзотерика</li>
-								<li onClick={this.handleCategory.bind(null, 21)}>Цветы и флористика</li>
+								{category}
 							</ul>
 						</div>
 						<Masonry
 			                className='NotesGrid'
-			                options={this.state.isInsta ? instaMasonryOptions : masonryOptions }
+			                options={masonryOptions}
 			                ref={function(c) {if (c) this.masonry = c.masonry;}.bind(this)}
 			            >
 			            
@@ -171,7 +300,7 @@ var msnry;
 	var Product = React.createClass({
 
 		render: function() {
-			 return <div className="all__product" onClick={this.props.onClick}>
+			 return <div className="all__product" id="asd" onClick={this.props.onClick}>
 						 <div className="all__photo">
 							 <img src={this.props.product.image[0]} width="100%" /><div className="all__price">{this.props.product.price}₸</div>
 						 </div>
@@ -185,11 +314,6 @@ var msnry;
 
 	var InstaProduct = React.createClass({
 
-		handleLike() {
-			console.log(this.props.product);
-			ProductActions.ProductLikesInc(this.props.product);
-		},
-
 		render: function() {
 			let { users, product } = this.props;
 			let author;
@@ -197,16 +321,16 @@ var msnry;
 				? author = 0 
 				: author = product.authorId;
 			return (users[0] !== undefined)
-				? (<div className="all__product-insta" onClick={this.props.onClick}>
+				? (<div className="all__product-insta" id="asd">
 							<div className="all__author" >
-				 				<img src={users[author].photo} onClick={this.props.onClick} />
+				 				<img src={users[author].photo} onClick={this.props.onClickAuthor} />
 				 				<p>{users[author].name}</p>
 				 			</div>
 							<div className="all__photo-insta">
-								<img src={product.image[0]} width="100%" /><div className="all__price-insta">{product.price}₸</div>
+								<img src={product.image[0]} width="100%" onClick={this.props.onClickProduct} /><div className="all__price-insta">{product.price}₸</div>
 							</div>
 							<div className="all__info-insta">
-								<h2 onClick={this.handleLike}> {"<3"} {product.likes}</h2>
+								<h2 onClick={this.props.onClickLike}> {"❤"} {product.likes}</h2>
 								<h2>{product.name}</h2>
 								<p>{product.description}</p>
 							</div>

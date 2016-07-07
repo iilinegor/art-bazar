@@ -93,38 +93,6 @@ var Profile = React.createClass({
 	        ProductStore.removeChangeListener(this._onChange);
 	    },
 
-	    handleClick(productId) {
-	        this.context.router.push(`/product/${productId}`);
-	    },
-
-	    handleNewLocation(event) {
-	    	if (event.target.value !== "")
-				this.setState({ location : event.target.value })
-			else
-				this.setState({ location : user.location });
-		},
-
-	    handleNewDescription(event) {
-	    	if (event.target.value !== "")
-				this.setState({ description : event.target.value })
-			else
-				this.setState({ description : user.description });
-		},
-
-	    handleNewPhoto(event) {
-	    	if (event.target.value !== "")
-				this.setState({ photo : event.target.value })
-			else
-				this.setState({ photo : user.photo });
-		},
-
-		handleNewLastName(event) {
-	    	if (event.target.value !== "")
-				this.setState({ lastName : event.target.value })
-			else
-				this.setState({ lastName : user.lastName });
-		},
-
 		handleSubmit() {
 	    	var {	    user, 
 		    			location, 
@@ -132,20 +100,9 @@ var Profile = React.createClass({
 		    			photo, 
 		    			lastName
 		    					 		} = this.state;
-	    	
-	    	// if (name && email && password) {
-	    		console.log(user.id);
-	    		let newProduct = {
-	    				id : user.id,
-	    				password : user.password,
-	    				email : user.email,
-	    				name : user.name,
-		    			location : location, 
-		    			description : description,
-		    			photo : photo, 
-		    			lastName : lastName
-	    		};
-			//this.setState({ userId : length});
+	    		let newProduct = user;
+	    		newProduct.access = 2;
+	    		
 			console.log(newProduct);
     		UserActions.updateUser(newProduct);
     		this.setState({ editMode: false, user: newProduct });
