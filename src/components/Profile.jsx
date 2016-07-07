@@ -97,6 +97,14 @@ var Profile = React.createClass({
 	        this.context.router.push(`/product/${productId}`);
 	    },
 
+	    handleNewPay(event) {
+			this.setState({ pay : event.target.value.toString() });
+		},
+
+		handleNewDelivery(event) {
+			this.setState({ delivery : event.target.value.toString() });
+		},
+
 	    handleNewLocation(event) {
 	    	if (event.target.value !== "")
 				this.setState({ location : event.target.value })
@@ -130,7 +138,9 @@ var Profile = React.createClass({
 		    			location, 
 		    			description,
 		    			photo, 
-		    			lastName
+		    			lastName,
+		    			pay,
+		    			delivery
 		    					 		} = this.state;
 	    	
 	    	// if (name && email && password) {
@@ -143,7 +153,10 @@ var Profile = React.createClass({
 		    			location : location, 
 		    			description : description,
 		    			photo : photo, 
-		    			lastName : lastName
+		    			lastName : lastName,
+		    			pay : pay,
+		    			delivery : delivery
+
 	    		};
 			//this.setState({ userId : length});
 			console.log(newProduct);
@@ -208,7 +221,36 @@ var Profile = React.createClass({
 		
 							info.push(<h2>Ссылка на фотографию:</h2>);
 							info.push(<input type="text" id="price" onChange={this.handleNewPhoto} value={photo}/>);
-		
+							
+							if (user.access < 2){
+								let payList = ["Банковский перевод", "Денежный перевод", "Наложенный платёж", "Наличные"];
+								let deliveryList = ["Почтой по Казахстану", "Доставка по городу", "Самовывоз"];
+								
+								let pay, delivery, tmpId = 0;
+
+								for (let p of payList)
+									pay.push((tmpId.toString() === user.pay)
+										? <option selected value={tmpId++}>{p}</option>
+										: <option  value={tmpId++}>{p}</option>);
+
+								tmpId = 0;
+								for (let d of deliveryList)
+									delivery.push((tmpId.toString() === user.delivery)
+										? <option selected value={tmpId++}>{d}</option>
+										: <option  value={tmpId++}>{d}</option>);
+
+								info.push(<h2>Способ оплаты:</h2>);
+								info.push(<select onChange={this.handleNewPay}>
+									{pay}
+								</select>);
+
+								info.push(<h2>Способ доставки:</h2>);
+								info.push(<select onChange={this.handleNewDelivery}>
+									{delivery}
+								</select>);
+							}
+
+
 							info.push(<button onClick={this.handleSubmit}>Готово!</button>);	
 					} 
 					else {

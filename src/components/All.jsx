@@ -3,7 +3,7 @@ import React from 'react';
 import jquery from 'jquery';
 
 import Masonry from 'react-masonry-component';
-import typeList from './typeList.js';
+import typeList from './List.js';
 
 import ProductStore from '../stores/ProductStore';
 import ProductActions from '../actions/ProductActions';

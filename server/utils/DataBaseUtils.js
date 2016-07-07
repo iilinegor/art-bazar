@@ -18,15 +18,15 @@ export function listProducts(id) {
 }
 
 export function getProduct(id) {
-    return Market.find({ id : id });
+    return Market.find({ id : id }).sort({ id : 1});
 }
 
     export function listUsers(id) {
-        return User.find();
+        return User.find().sort({ id : 1});
     }
 
     export function getUser(id) {
-        return User.find({ id : id });
+        return User.find({ id : id }).sort({ id : 1});
     }
 
     export function inBase(email) {

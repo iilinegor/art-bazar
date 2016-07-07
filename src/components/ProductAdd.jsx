@@ -4,7 +4,7 @@ import React from 'react';
 import ProductStore from '../stores/ProductStore';
 import ProductActions from '../actions/ProductActions';
 
-import typeList from './typeList.js';
+import typeList from './List.js';
 import Galery from './Galery.jsx';
 
 import './ProductAdd.css';
@@ -90,14 +90,6 @@ var ProductAdd = React.createClass({
 		this.setState({ craftTime : event.target.value });
 	},
 
-	handleNewDelivery(event) {
-		this.setState({ delivery : event.target.value });
-	},
-
-	handleNewPay(event) {
-		this.setState({ pay : event.target.value });
-	},
-
 	handleNewPrice(event) {
 		this.setState({ price : event.target.value });
 	},
@@ -120,8 +112,6 @@ var ProductAdd = React.createClass({
 		    			size, 
 		    			material, 
 		    			craftTime, 
-		    			delivery, 
-		    			pay, 
 		    			price,
 		    			photos 		} = this.state;
 	    	
@@ -137,8 +127,6 @@ var ProductAdd = React.createClass({
 					size: size,
 					material: material,
 					craftTime: craftTime,
-					delivery: delivery,
-					pay: pay,
 					price: price,
 					image: photos,
 					likes: 0
@@ -195,17 +183,6 @@ var ProductAdd = React.createClass({
 							 <div className="subfield">
 							 	<div className="subfield__title">Срок изготовления: </div> 
 							 	<input type="text" id="craftTime" onChange={this.handleNewCraftTime}/>
-							 </div>
-						 </div>
-
-						 <div className="field">
-							 <div className="subfield">
-								 <div className="subfield__title">Методы оплаты: </div> 
-								 <input type="text" id="pay" onChange={this.handleNewPay}/>
-							 </div>
-							 <div className="subfield">
-								 <div className="subfield__title">Доставка: </div>
-								 <input type="text" id="delivery" onChange={this.handleNewDelivery}/>
 							 </div>
 						 </div>
 

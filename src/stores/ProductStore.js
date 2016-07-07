@@ -22,8 +22,6 @@ function formatProduct(data) {
             size: data.size,
             material: data.material,
             craftTime: data.craftTime,
-            delivery: data.delivery,
-            pay: data.pay,
             price: data.price,
             views: data.views,
             bays: data.bays,

@@ -21,6 +21,8 @@ function formatProduct(data) {
             location: data.location,
             basket: data.basket,
             likes: data.likes,
+            delivery: data.delivery,
+            pay: data.pay,
             access: data.access,
             registerAt: data.registerAt
     };
