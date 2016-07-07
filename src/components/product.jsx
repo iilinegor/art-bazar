@@ -63,19 +63,8 @@ var ProductFull = React.createClass({
 
 		const { productId, products, user } = this.state;
 		var prof = [];
-		var pay, delivery;
-		console.log(user);
-		switch (user.pay) {
-			case "0": {
-				pay = "Банковский перевод";
-			}
-		};
-
-		switch (user.delivery) {
-			case "0": {
-				delivery = "Почтой по Казахстану";
-			}
-		};
+		let payList = ["Банковский перевод", "Денежный перевод", "Наложенный платёж", "Наличные"];
+		let deliveryList = ["Почтой по Казахстану", "Доставка по городу", "Самовывоз"];
 
 		if (products && user){
 				if (got(products.name))
@@ -116,16 +105,16 @@ var ProductFull = React.createClass({
 										 	{products.craftTime}
 										 </div> );
 
-					if (got(products.pay))
+					if (got(user.pay))
 					prof.push( <div className="subfield">
 											 <div className="subfield__title">Оплата: </div> 
-											 {pay}
+											 {payList[parseInt(user.pay)]}
 										 </div> );
 
-					if (got(products.delivery))
+					if (got(user.delivery))
 					prof.push( <div className="subfield">
 											 <div className="subfield__title">Доставка: </div>
-											 {delivery}
+											 {deliveryList[parseInt(user.delivery)]}
 										 </div> );
 
 					if (got(products.material))
