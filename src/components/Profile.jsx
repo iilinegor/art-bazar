@@ -226,7 +226,9 @@ var Profile = React.createClass({
 								let payList = ["Банковский перевод", "Денежный перевод", "Наложенный платёж", "Наличные"];
 								let deliveryList = ["Почтой по Казахстану", "Доставка по городу", "Самовывоз"];
 								
-								let pay, delivery, tmpId = 0;
+								let pay = [], 
+								delivery = [], 
+								tmpId = 0;
 
 								for (let p of payList)
 									pay.push((tmpId.toString() === user.pay)

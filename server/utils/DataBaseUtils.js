@@ -65,7 +65,9 @@ export function createUser(data) {
                 "lastName": data.lastName , 
                 "description": data.description , 
                 "photo": data.photo , 
-                "location": data.location } },
+                "location": data.location , 
+                "pay": data.pay , 
+                "delivery": data.delivery } },
                 { upsert: true }, function(err, doc){ } 
             );
         }
