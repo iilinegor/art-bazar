@@ -232,6 +232,11 @@
 	transition: all 0.2s;
 }
 
+.all__category .list_title {
+	opacity: 0.8;
+	font-size: 18px;
+}
+
 
 
 

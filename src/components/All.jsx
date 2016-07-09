@@ -116,6 +116,10 @@ import './all.css';
 // 		},
 // 	];
 
+function got(thing) {
+	return (thing !== undefined);
+};
+
 var msnry;
 
 	function isBiggerThan10(element, index, array) {
@@ -233,6 +237,7 @@ var msnry;
 		render() {
 			var rows = [];
 			var category = [];
+			var tmpCat = [];
 			var viewButton = [];
 			var tmpId = 0;
 			var Mark = this.state.currentMarket;
@@ -254,12 +259,14 @@ var msnry;
 			tmpId = 0;
 
 				category.push(<li onClick={this.handleCategory.bind(null, -1)}>Все</li>);
-
+// tmpCat  
+<details><summary>Нажми на меня</summary> Скрытый текст!</details>
 			for (let c of typeList) {
-				category.push(<p>{c.group}</p>)
+				if (got(c.title)) category.push(<p className="list_title">{c.title}</p>)
 				for (let cat of c.cats)
-					category.push(<li key={tmpId} onClick={this.handleCategory.bind(null, tmpId++)}>{cat}</li>);
-
+					tmpCat.push(<li key={tmpId} onClick={this.handleCategory.bind(null, tmpId++)}>{cat}</li>);
+				category.push(<details><summary>{c.group}</summary> {tmpCat} </details> );
+				tmpCat = [];
 			}
 
 			!isInsta
