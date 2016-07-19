@@ -40,7 +40,7 @@ const TasksStore = Object.assign({}, EventEmitter.prototype, {
     },
 
     getProduct(id) {
-        return _products[0];
+        return _products[_products.length - 1 - id];
     },
 
     emitChange: function() {

@@ -11,7 +11,20 @@ var userSchema = new Schema({
 				description: String,
 				photo: String,
 				location: String,
-				basket: [ Number ],
+				basket: [ 
+					{ 
+						productId: Number,
+						authorId: Number,
+						isOrder: Boolean
+					}
+				],
+				order: [
+					{
+						productId: Number, 
+						userId: Number, 
+						status: Number
+					}
+				],
 				likes: [ Number ],
 				access: Number,
 				delivery: String,

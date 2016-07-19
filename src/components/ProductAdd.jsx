@@ -33,8 +33,8 @@ var ProductAdd = React.createClass({
 	    	local = parseInt(localStorage.getItem('userId'));
 	    };	
 
-	    if (local === -1 || local != 0)
-			this.context.router.push(`/all`);
+	  //   if (local === -1 || local != 0)
+			// this.context.router.push(`/all`);
 	    return {
 			productId: 0,
 			photos: [],
@@ -146,7 +146,6 @@ var ProductAdd = React.createClass({
 				category.push( <option disabled>{c.group}</option> );
 				for (let cat of c.cats)
 					category.push( <option value={tmpId++}>{cat}</option> );
-
 			};
 
 		if (true){

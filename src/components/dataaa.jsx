@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+/*import ReactDOM from 'react-dom';
 import React from 'react';
 
 import MARKET from './db.js';
@@ -6,7 +6,7 @@ import USERS from './users.js';
 import mongoose from "mongoose";
 
 import './Profile.css';
-
+*/
 var Dataaa = React.createClass({
 		contextTypes: {
 	        router: React.PropTypes.object.isRequired

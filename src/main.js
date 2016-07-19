@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-import { Router, Route, hashHistory } from 'react-router';
+import { Router, Route, hashHistory, IndexRedirect } from 'react-router';
 
 import All from './components/All.jsx';
 import ProductFull from './components/product.jsx';
@@ -17,6 +17,7 @@ ReactDOM.render(
 			<Router history={hashHistory}>
 				<Route path="/login" component={Login}/>
 				<Route path="/" component={App}>
+					<IndexRedirect to="/all" />
 					<Route path="/product/:productId" component={ProductFull}/>
 					<Route path="/all" component={All}/>
 					<Route path="/help" component={Help}/>

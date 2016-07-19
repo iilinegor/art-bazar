@@ -231,7 +231,11 @@ var msnry;
 	    		? this.setState({ Market : ProductStore.getProducts().filter(function (el){ return (parseInt(el.type) === number) }), currentMarket : ProductStore.getProducts().filter(function (el){ return (parseInt(el.type) === number) }), type : number })
 	    		: this.setState({ Market : ProductStore.getProducts(), currentMarket : ProductStore.getProducts(), type : -1 });
 	    	this.render();
+	    },
 
+	    handleDefaultType() {
+	    	this.setState({type : -1});
+	    	this.handleCategory(-1);
 	    },
 
 		render() {
@@ -239,9 +243,10 @@ var msnry;
 			var category = [];
 			var tmpCat = [];
 			var viewButton = [];
+			var catlist = [];
 			var tmpId = 0;
 			var Mark = this.state.currentMarket;
-			let { isInsta } = this.state; 
+			let { isInsta, type } = this.state; 
 
 			for (let i of Mark)
 				{
@@ -257,15 +262,16 @@ var msnry;
 											 key={tmpId++} />);
 				};
 			tmpId = 0;
-
-				category.push(<li onClick={this.handleCategory.bind(null, -1)}>Все</li>);
-// tmpCat  
-<details><summary>Нажми на меня</summary> Скрытый текст!</details>
 			for (let c of typeList) {
 				if (got(c.title)) category.push(<p className="list_title">{c.title}</p>)
-				for (let cat of c.cats)
-					tmpCat.push(<li key={tmpId} onClick={this.handleCategory.bind(null, tmpId++)}>{cat}</li>);
-				category.push(<details><summary>{c.group}</summary> {tmpCat} </details> );
+				for (let cat of c.cats){
+						tmpCat.push(<li key={tmpId} onClick={this.handleCategory.bind(null, tmpId++)}>{cat}</li>);
+						catlist.push(cat);
+					}
+				if ( c.group !== "")
+					category.push(<details><summary>{c.group}</summary> {tmpCat} </details> )
+				else 
+					category.push(tmpCat);
 				tmpCat = [];
 			}
 
@@ -282,6 +288,7 @@ var msnry;
 								<input type="text" onChange={this.handleSearch} />
 							</div>
 						</div>
+						<div className="all__category_title" onClick={this.handleDefaultType}> {type === -1 ? "Все" : "Все > " + catlist[type]}</div>
 						<div className="all__category">
 							<ul>
 								{category}

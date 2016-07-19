@@ -138,6 +138,7 @@
 		}
 
 .all__search{
+	margin-top: 15%;
 	width: 100%;
 	height: 70px;
 	/*background-color: rgba(255, 255, 70, 0.3);*/
@@ -146,9 +147,12 @@
 
 .all__searchField {
 	margin: 0 auto;
+	margin-left: 10%;
 	width: 600px;
+	height: 34px;
 	padding: 15px;
-	padding-top: 15px;
+	padding-top: 5px;
+	background-color: #3a5c2a;
 	font-size: 18px;
 }
 
@@ -162,6 +166,7 @@
 .all__viewButton img{
 	display: inline-block;
 	width: 30px;
+	filter: invert(90%) sepia(100%);
 }
 
 .all__searchField input {
@@ -171,6 +176,7 @@
 	padding: 5px 20px;
 	border: 0px;
 	box-shadow: 0 0 10px rgba(0,0,0,0.4);
+	background-color: #f9eac3;
 	transition: box-shadow 0.3s;
 }
 
@@ -206,7 +212,15 @@
 .all__category {
 	position: absolute;
 	font-family: "Segoe Ui";
+	color: #3d1d12;
+}
 
+.all__category_title {
+	margin-left: 20px;	
+	font-family: "Segoe Ui";
+	font-size: 20px;
+	position: absolute;
+	margin-top: -50px;
 }
 
 .all__category ul {
@@ -217,8 +231,20 @@
 	transition: all 0.2s;
 }
 
+.all__category details {
+	list-style-type: none;
+	cursor: pointer;
+	opacity: 0.8;
+	transition: all 0.2s;
+}
+
+.all__category details li{
+	opacity: 0.8;
+	transition: all 0.2s;
+}
+
 .all__category ul:hover {
-	opacity: 0.6;
+	opacity: 0.8;
 	transition: all 0.2s;
 }
 

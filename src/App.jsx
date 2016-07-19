@@ -22,7 +22,7 @@ var App = React.createClass({
 			return (
 					<div className="app">
 						<div className='header'>
-		                	<div className="logo" onClick={this.handleLogoClick}><img src="https://habrastorage.org/files/52c/1ab/9bd/52c1ab9bdd364f6e8a297aea7dd68684.png"/></div>
+		                	<div className="logo" onClick={this.handleLogoClick}><img src="https://habrastorage.org/files/8a3/902/733/8a390273365a4628a8cd17c54caf75c4.png"/></div>
 		                	<AuthButton />
 		                </div>
 
@@ -140,7 +140,7 @@ var AuthButton = React.createClass({
 
 					if (user.access < 2) 
 						useCase.push(<div onClick={this.handleNew}>
-										<img src="https://habrastorage.org/files/e2b/b1e/484/e2bb1e48428848d5bf4b3b873f5becc1.png" /> 
+										<img src="https://habrastorage.org/files/e2b/b1e/484/e2bb1e48428848d5bf4b3b873f5becc1.png" className="add_button" /> 
 									</div>);
 					if (user.likes === [])
 						useCase.push(<div onClick={this.handleLikes}>Избранное</div>);
