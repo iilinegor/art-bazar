@@ -3,8 +3,9 @@ body {
 	margin: 0px;
 	margin-bottom: 20px;
 	background-color: #efeae4;
-	background: url(https://habrastorage.org/files/aac/645/dc5/aac645dc5c55496291d651dd2a8dd41c.png) no-repeat  #efeae4;
+	background: url(https://habrastorage.org/files/bee/e0b/f47/beee0bf47a9f4954a1cb11fb619717d9.jpg) no-repeat  #efeae4;
 	background-size: 100% auto;
+	background-position: 50% -200px;
 }
 
 .header {

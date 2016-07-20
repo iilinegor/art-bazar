@@ -203,7 +203,7 @@ var Profile = React.createClass({
 
 					if (got(user.order))
 						for (let o of user.order)
-							info.push(<div className="subfield"> <h2>products[o.productId]</h2> <h3>UserStore.getUser(parseInt(o.userId))</h3> <h3></h3>Статус: {o.status}</div>);
+							info.push(<div className="subfield"> <h2>{products[0].name}</h2> <h3>UserStore.getUser(parseInt(o.userId))</h3> <h3></h3>Статус: {o.status}</div>);
 
 					if (got(user.email))
 						info.push(<h3>Почта: {user.email}</h3>);
