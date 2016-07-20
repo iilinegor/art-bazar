@@ -104,6 +104,16 @@ const UserActions = {
         );
     },
 
+    updateUserOrder(note) {
+        api.updateUserOrder(note)
+        .then(() =>
+            this.loadUsers()
+        )
+        .catch(err =>
+            console.error(err)
+        );
+    },
+
     updateUserAccess(note) {
         api.updateUserAccess(note)
         .then(() =>

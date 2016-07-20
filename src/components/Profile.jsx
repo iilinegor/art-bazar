@@ -200,6 +200,16 @@ var Profile = React.createClass({
 					if (got(user.description)) {
 						info.push(<h2>О себе</h2>);
 						info.push(<p>{user.description}</p>);
+
+					if (got(user.order))
+						for (let o of user.order)
+							info.push(<div className="subfield"> <h2>products[o.productId]</h2> <h3>UserStore.getUser(parseInt(o.userId))</h3> <h3></h3>Статус: {o.status}</div>);
+
+					if (got(user.email))
+						info.push(<h3>Почта: {user.email}</h3>);
+
+					if (got(user.email))
+						info.push(<h3>Почта: {user.email}</h3>);
 					};
 				}
 				else {

@@ -65,12 +65,16 @@ app.post('/user/update', (req, res) => {
     db.updateUser(req.body).then(data => res.send(data));
 });
 
-	app.post('/user/likes/update', (req, res) => {
-	    db.updateUserLikes(req.body).then(data => res.send(data));
-	});
-
 	app.post('/user/basket/update', (req, res) => {
 	    db.updateUserBasket(req.body).then(data => res.send(data));
+	});
+
+	app.post('/user/order/update', (req, res) => {
+	    db.updateUserOrder(req.body).then(data => res.send(data));
+	});
+
+	app.post('/user/likes/update', (req, res) => {
+	    db.updateUserLikes(req.body).then(data => res.send(data));
 	});
 
 	app.post('/user/access/update', (req, res) => {

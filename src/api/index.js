@@ -54,6 +54,10 @@ export default {
         return axios.post(`${apiPrefix}/user/basket/update`, data);
     },
 
+    updateUserOrder(data) {
+        return axios.post(`${apiPrefix}/user/order/update`, data);
+    },
+
     updateUserAccess(data) {
         return axios.post(`${apiPrefix}/user/access/update`, data);
     },

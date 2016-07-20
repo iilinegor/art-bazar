@@ -86,7 +86,26 @@ var ProductFull = React.createClass({
     },
 
     handleBasket() {
+    	let { user, currentUser, products } = this.state;
+
+    	currentUser.basket.push({
+    			productId: products.id,
+    			authorId: products.authorId,
+    			isOrder: false
+    	});
+    	UserActions.updateUserBasket(currentUser);
+
+    	user.order.push({
+    			productId: products.id,
+    			userId: currentUser.id,
+    			status: 0
+    	});
+    	UserActions.updateUserOrder(user);
+    	console.log(currentUser);
+    	console.log(user);
+
     	alert("Добавлено");
+
     },
 
     handleProduct(productId) {

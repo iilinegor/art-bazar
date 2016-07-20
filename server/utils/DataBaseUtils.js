@@ -48,6 +48,7 @@ export function createUser(data) {
             description: data.description,
             photo: data.photo,
             location: data.location,
+            order: data.order,
             basket: data.basket,
             likes: data.likes,
             delivery: data.delivery,
@@ -72,15 +73,21 @@ export function createUser(data) {
             );
         }
 
-        export function updateUserLikes(data) {
-            return User.update( { "id" : data.id } , { 
-                $set: { likes: data.likes }
-            } );
-        }
-
         export function updateUserBasket(data) {
             return User.update( { "id" : data.id } , { 
                 $set: { basket: data.basket }
+            } );
+        }
+
+         export function updateUserOrder(data) {
+            return User.update( { "id" : data.id } , { 
+                $set: { order: data.order }
+            } );
+        }
+
+         export function updateUserLikes(data) {
+            return User.update( { "id" : data.id } , { 
+                $set: { likes: data.likes }
             } );
         }
 
