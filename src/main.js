@@ -8,6 +8,10 @@ import Login from './components/Login.jsx';
 import Help from './components/Help.jsx';
 import Likes from './components/Likes.jsx';
 import Profile from './components/Profile.jsx';
+import Profile_basket from './components/Profile_basket.jsx';
+import Profile_products from './components/Profile_products.jsx';
+import Profile_order from './components/Profile_order.jsx';
+import Profile_likes from './components/Profile_likes.jsx';
 import Promoute from './components/Promoute.jsx';
 import ProductAdd from './components/ProductAdd.jsx';
 import UserAccepting from './components/UserAccepting.jsx';
@@ -24,7 +28,10 @@ ReactDOM.render(
 					<Route path="/likes" component={Likes}/>
 					<Route path="/add" component={ProductAdd}/>
 					<Route path="/users" component={UserAccepting}/>
-					<Route path="/profile/:userId" component={Profile}/>
+					<Route path="/profile/:userId" component={Profile} />
+						<Route path="/profile/basket/:userId" component={Profile_basket}/>
+						<Route path="/profile/order" component={Profile_order}/>
+						<Route path="/profile/likes" component={Profile_likes}/>
 					<Route path="/Promoute" component={Promoute}/>
 				</Route>
 			</Router>,

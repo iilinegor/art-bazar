@@ -33,7 +33,7 @@
 	/*margin: 10px;*/
 	min-height: 100px;
 	width: 200px;
-	border: 1px solid #dedede;
+	box-shadow: 0 0 10px rgba(0,0,0,0.6);
 	padding-bottom: 20px;
 	background-color: #ffffff;
 	max-width: 200px;
@@ -80,7 +80,7 @@
 			min-height: 100px;
 			width: 400px;
 			margin: 0px 40px;
-			border: 1px solid #dedede;
+			box-shadow: 0 0 10px rgba(0,0,0,0.6);
 			padding-bottom: 20px;
 			background-color: #ffffff;
 		}

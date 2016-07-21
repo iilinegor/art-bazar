@@ -9,10 +9,7 @@ import UserActions from '../actions/UserActions';
 import ProductStore from '../stores/ProductStore';
 import ProductActions from '../actions/ProductActions';
 
-import Profile_basket from './Profile_basket.jsx';
 import Profile_products from './Profile_products.jsx';
-import Profile_order from './Profile_order.jsx';
-import Profile_likes from './Profile_likes.jsx';
 
 import './Profile.css';
 
@@ -38,7 +35,7 @@ function inLocalStorage() {
     return ;
 };
 
-var Profile = React.createClass({
+var Profile_basket = React.createClass({
 		contextTypes: {
 	        router: React.PropTypes.object.isRequired
 	    },
@@ -295,4 +292,4 @@ var Profile = React.createClass({
 
 
 
-export default Profile;
+export default Profile_basket;

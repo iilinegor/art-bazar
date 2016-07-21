@@ -1,8 +1,10 @@
 .profile {
 	width: 500px;
-	margin: 10px auto;
+	margin: 0px 20px;
 	font-family: 'Segoe UI';
 	padding: 20px 20px;
+	display: inline-block;
+	vertical-align: top;
 	/*box-shadow: 0 0 5px rgba(0,0,0,0.5);*/
 }
 
@@ -87,5 +89,7 @@
 
 .NotesGrid-profile {
 	width: 660px;
+	padding-top: 30px;
 	margin: 0px auto;
+	display: inline-block;
 }
