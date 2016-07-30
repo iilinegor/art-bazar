@@ -345,14 +345,13 @@ var Basket = React.createClass({
 
 		handleBasketDelete(productId, authorId) {
 			let { users, currentUser, products} = this.state;
-			currentUser.basket = currentUser.basket.filter((x) => {return x.productId !== productId});
 			let user = users[authorId];
-
+			
+			currentUser.basket = currentUser.basket.filter((x) => {return x.productId !== productId});
 			user.order = user.order.filter((x) => {return !((x.productId == productId) && (x.userId == currentUser.id)) });
 			UserActions.updateUserBasket(currentUser);
 			UserActions.updateUserBasket(user);
-			// this.setState({user: UserStore.getUsers()[this.state.user.id],
-			// 		currentUser: UserStore.getUsers()[this.state.currentUser.id]});
+
 			users.map((x) => {if (x.id === currentUser.id) x = currentUser});
 			this.setState({users: users});
 		},
@@ -363,9 +362,11 @@ var Basket = React.createClass({
 
 			user.basket = user.basket.filter((x) => {return x.productId !== productId});
 			currentUser.order = currentUser.order.filter((x) => {return !((x.productId == productId) && (x.userId == user.id)) });
-
 			UserActions.updateUserOrder(currentUser);
 			UserActions.updateUserOrder(user);
+
+			users.map((x) => {if (x.id === currentUser.id) x = currentUser});
+			this.setState({users: users});
 		},
 
 		render() {

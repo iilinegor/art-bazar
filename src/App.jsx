@@ -21,8 +21,9 @@ var App = React.createClass({
 		render: function() {
 			return (
 					<div className="app">
+						<img className="sublogo" src="https://habrastorage.org/files/a73/493/c21/a73493c2123345fab0c322ae2dc39344.png"/>
 						<div className='header'>
-		                	<div className="logo" onClick={this.handleLogoClick}><img src="https://habrastorage.org/files/8a3/902/733/8a390273365a4628a8cd17c54caf75c4.png"/></div>
+		                	<div className="logo" onClick={this.handleLogoClick}><img src="https://habrastorage.org/files/302/4dd/3ff/3024dd3ff3a24343b13656329c9514ad.png"/></div>
 		                	<AuthButton />
 		                </div>
 

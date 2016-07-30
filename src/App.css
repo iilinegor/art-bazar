@@ -2,8 +2,8 @@ body {
 	padding: 0;
 	margin: 0px;
 	margin-bottom: 20px;
-	background-color: #efeae4;
-	background: url(https://habrastorage.org/files/bee/e0b/f47/beee0bf47a9f4954a1cb11fb619717d9.jpg) no-repeat  #efeae4;
+	background-color: #f1ecd9;
+	/*background: url(https://habrastorage.org/files/bee/e0b/f47/beee0bf47a9f4954a1cb11fb619717d9.jpg) no-repeat  #efeae4;*/
 	background-size: 100% auto;
 }
 
@@ -17,7 +17,7 @@ body {
 }
 
 .logIn, .singIn {
-	color: #faebc0;
+	color: #f9e9c5;
 	text-align: right;
 	font-family: "Segoe UI";
 	width: 40%;	
@@ -64,17 +64,24 @@ body {
 	font-family: "Segoe UI";
 	font-size: 80px;
 	width: 100%;
-	text-align: center;
 }
 
 .logo {
-	background-color: #5a462e;
+	background-color: #69573f;
 	margin-top: -25px;
 }
 
 .logo img{	
 	cursor: pointer;
 	width: 250px;
+	margin-left: 400px;
+}
+
+.sublogo {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 300px;
 }
 
 .bcolor {

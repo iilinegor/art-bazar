@@ -147,12 +147,12 @@
 
 .all__searchField {
 	margin: 0 auto;
-	margin-left: 10%;
+	margin-left: 20%;
 	width: 600px;
 	height: 34px;
 	padding: 15px;
 	padding-top: 5px;
-	background-color: #3a5c2a;
+	background-color: #466d66;
 	font-size: 18px;
 }
 
@@ -176,7 +176,7 @@
 	padding: 5px 20px;
 	border: 0px;
 	box-shadow: 0 0 10px rgba(0,0,0,0.4);
-	background-color: #f9eac3;
+	background-color: #f1ecd9;
 	transition: box-shadow 0.3s;
 }
 
