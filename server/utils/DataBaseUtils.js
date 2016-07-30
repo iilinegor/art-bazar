@@ -14,7 +14,7 @@ export function setUpConnection() {
 }
 
 export function listProducts(id) {
-    return Market.find().sort({ id : -1});
+    return Market.find().sort({ id : 1});
 }
 
 export function getProduct(id) {

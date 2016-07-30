@@ -65,7 +65,7 @@ var Profile_products = React.createClass({
 
 		componentWillMount() {
 	        UserActions.loadUsers();
-			ProductActions.gotProducts(parseInt(this.props.userId));
+			ProductActions.loadProducts();
 	    },
 
 	    componentWillUnmount() {

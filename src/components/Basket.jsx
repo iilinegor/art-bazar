@@ -53,19 +53,18 @@ var Profile = React.createClass({
 		    	local = parseInt(localStorage.getItem('userId'));
 		    };
 
-			const { userId } = this.props.params;
-			var user = UserStore.getUser(parseInt(userId));
-			if (userId === undefined)
+			var user = UserStore.getUser(local);
+			if (local === undefined)
 	    		this.context.router.push(`/all`)
 	    	else			
 				return {
-					userId: userId,
+					userId: local,
 					user: user,
 					editMode: false,
 					upgradeMode: false,
 					products: ProductStore.getProducts(),
 					currentUserId: local,
-					content: 0
+					content: 2
 				};
 		},
 
@@ -299,6 +298,9 @@ var Profile = React.createClass({
 					case 2 :
 						content.push(<Basket currentUser={ UserStore.getUser(parseInt(currentUserId)) } user={ this.state.user } />);
 						break;
+					case 3 :
+						this.context.router.push(`/Promoute`)
+						break;
 				};
 
 
@@ -357,11 +359,9 @@ var Basket = React.createClass({
 
 			user.basket = user.basket.filter((x) => {return x.productId !== productId});
 			currentUser.order = currentUser.order.filter((x) => {return !((x.productId == productId) && (x.userId == user.id)) });
-			console.log(currentUser);
-			console.log(user);
 
-			// UserActions.updateUserBasket(currentUser);
-			// UserActions.updateUserBasket(user);
+			UserActions.updateUserOrder(currentUser);
+			UserActions.updateUserOrder(user);
 		},
 
 		render() {
@@ -384,9 +384,7 @@ var Basket = React.createClass({
 								</div>
 									</div>);
 				}
-			// for (let o of user.order){
-			// 		orderList.push(<p className="order_item">Товар {products[o.productId].name} хочет пользователь {users[o.userId].name} {o.status === 0 ? "сейчас готов к отправке" : <button>Купить!</button>}</p>);
-			// 	}
+
 
 			for (let o of user.order){
 					orderList.push(<div className="basket_item">

@@ -93,3 +93,93 @@
 	margin: 0px auto;
 	display: inline-block;
 }
+
+.profile_menu {
+	width: 500px;
+	display: inline-block;
+	position: relative;
+	top: 240px;
+	left: calc(100% - 500px);
+}
+
+.profile_menu_item {
+	text-align: center;
+	width: 130px;
+	display: inline-block;	
+	font-size: 23px;
+	color: #fff;
+	font-family: "Segoe UI";
+	font-weight: lighter;
+}
+
+.profile_menu_item-selected {
+	text-align: center;
+	width: 130px;
+	display: inline-block;	
+	font-size: 25px;
+	color: #fff;
+	font-family: "Segoe UI";
+	font-weight: lighter;
+	border-bottom: 2px solid #fff;
+	border-radius: 30%;
+}
+
+.profile_menu_item-basket {
+	text-align: center;
+	width: 130px;
+	display: inline-block;	
+	font-size: 23px;
+	color: #fff;
+	font-family: "Segoe UI";
+	font-weight: lighter;
+	border: 1px solid #fff;
+	border-radius: 20px;
+}
+
+.basket {
+	width: 550px;
+	display: inline-block;
+	padding-top: 30px;
+}
+
+.basket_list {
+	vertical-align: top;
+	width: 550px;
+	display: inline-block;
+	margin-right: 20px
+}
+
+.basket_title {
+	text-align: center;
+	font-size: 20px;
+}
+
+.basket_item {
+	border: 1px solid #000;
+	margin: 10px;
+	height: 150px;
+	background: rgba(255, 255, 255, 0.8);
+}
+
+.basket_item div{
+	display: inline-block;
+	vertical-align: top;
+	padding-left: 10px;
+}
+
+.basket_item img {
+	max-height: 150px;
+	border-radius: 5%;
+	display: inline-block;
+	position: relative;
+}
+
+.basket_close {
+	position: relative;
+	left: 340px;
+}
+
+.basket_item button {
+	position: relative;
+	left: 200px;
+}

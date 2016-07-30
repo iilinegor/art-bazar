@@ -111,6 +111,10 @@ var AuthButton = React.createClass({
 	    	this.context.router.push("/help");
 	    },
 
+	    handleBasket: function() {
+	    	this.context.router.push("/basket");
+	    },
+
 	    handlePromote: function() {
 	    	this.context.router.push("/Promoute");
 	    },
@@ -145,6 +149,9 @@ var AuthButton = React.createClass({
 					if (user.likes === [])
 						useCase.push(<div onClick={this.handleLikes}>Избранное</div>);
 
+						//this.context.router.push(`/Promoute`)
+
+						useCase.push( <div onClick={this.handleBasket}>Корзина ({user.basket.length + user.order.length})</div> );
 						useCase.push( <div onClick={this.handleHelp}>Помощь</div> );
 						useCase.push( <img src={user.photo} onClick={this.handleProfile} /> );
 						useCase.push( <div onClick={this.handleProfile} className="name"> {user.name}</div> );
