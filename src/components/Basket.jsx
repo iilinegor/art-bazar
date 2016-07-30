@@ -84,8 +84,8 @@ var Profile = React.createClass({
 		},		
 
 		componentDidMount: function() {
-	        UserStore.addChangeListener(this._onChange());
-	        ProductStore.addChangeListener(this._onChange());
+	        UserStore.addChangeListener(this._onChange);
+	        ProductStore.addChangeListener(this._onChange);
 		},
 
 		componentWillMount() {
@@ -351,6 +351,10 @@ var Basket = React.createClass({
 			user.order = user.order.filter((x) => {return !((x.productId == productId) && (x.userId == currentUser.id)) });
 			UserActions.updateUserBasket(currentUser);
 			UserActions.updateUserBasket(user);
+			// this.setState({user: UserStore.getUsers()[this.state.user.id],
+			// 		currentUser: UserStore.getUsers()[this.state.currentUser.id]});
+			users.map((x) => {if (x.id === currentUser.id) x = currentUser});
+			this.setState({users: users});
 		},
 
 		handleOrderDelete(productId, userId) {
@@ -366,8 +370,7 @@ var Basket = React.createClass({
 
 		render() {
 			let { user } = this.state;
-			let users = UserStore.getUsers();
-			let products = ProductStore.getProducts().reverse();
+			let { users, products } = this.state;
 
 			//user = user.map((el) => {return <li>{el}</li>});
 			let basketList = [],

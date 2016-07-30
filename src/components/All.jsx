@@ -248,7 +248,7 @@ var msnry;
 			var Mark = this.state.currentMarket;
 			let { isInsta, type } = this.state; 
 
-			for (let i of Mark.reverse())
+			for (let i of Mark)
 				{
 					isInsta
 						? rows.push(<InstaProduct onClickProduct={this.handleClick.bind(null, i.id)} 
@@ -261,6 +261,8 @@ var msnry;
 											 product={i} 
 											 key={tmpId++} />);
 				};
+
+				
 			tmpId = 0;
 
 			for (let c of typeList) {
@@ -301,7 +303,7 @@ var msnry;
 			                ref={function(c) {if (c) this.masonry = c.masonry;}.bind(this)}
 			            >
 			            
-							<div className="all__all" ref="grid">{rows}</div>
+							<div className="all__all" ref="grid">{rows.reverse()}</div>
 						</Masonry>
 					</div>
 			

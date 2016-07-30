@@ -349,6 +349,7 @@ var Basket = React.createClass({
 			user.order = user.order.filter((x) => {return !((x.productId == productId) && (x.userId == currentUser.id)) });
 			UserActions.updateUserBasket(currentUser);
 			UserActions.updateUserBasket(user);
+			
 		},
 
 		handleOrderDelete(productId, userId) {
