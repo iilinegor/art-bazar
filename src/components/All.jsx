@@ -248,7 +248,7 @@ var msnry;
 			var Mark = this.state.currentMarket;
 			let { isInsta, type } = this.state; 
 
-			for (let i of Mark)
+			for (let i of Mark.reverse())
 				{
 					isInsta
 						? rows.push(<InstaProduct onClickProduct={this.handleClick.bind(null, i.id)} 
@@ -262,6 +262,7 @@ var msnry;
 											 key={tmpId++} />);
 				};
 			tmpId = 0;
+
 			for (let c of typeList) {
 				if (got(c.title)) category.push(<p className="list_title">{c.title}</p>)
 				for (let cat of c.cats){

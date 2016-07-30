@@ -109,7 +109,7 @@ var ProductFull = React.createClass({
     },
 
     handleProduct(productId) {
-    	let id = ProductStore.getProducts().length - 1 - productId;
+    	let id = productId;
         this.context.router.push(`/product/${productId}`);
         this.setState(getStateFromFlux(productId));
     },

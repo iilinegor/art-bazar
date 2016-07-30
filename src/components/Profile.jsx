@@ -367,7 +367,7 @@ var Basket = React.createClass({
 		render() {
 			let { user } = this.state;
 			let users = UserStore.getUsers();
-			let products = ProductStore.getProducts().reverse();
+			let products = ProductStore.getProducts();
 
 			//user = user.map((el) => {return <li>{el}</li>});
 			let basketList = [],
