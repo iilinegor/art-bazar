@@ -283,6 +283,7 @@ var msnry;
 						: viewButton.push(<img src="https://habrastorage.org/files/6ca/207/06d/6ca20706d9fe42dd8fe091ef308c830c.png" />);
 
 			return 	<div>
+						<div className="profile_header" >	</div>
 						<div className="all__search">
 							<div className="all__searchField">	
 								<div onClick={this.handleChangeView} className="all__viewButton">

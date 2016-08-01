@@ -110,6 +110,7 @@
 	color: #fff;
 	font-family: "Segoe UI";
 	font-weight: lighter;
+	cursor: pointer;
 }
 
 .profile_menu_item-selected {

@@ -2,7 +2,7 @@ body {
 	padding: 0;
 	margin: 0px;
 	margin-bottom: 20px;
-	background-color: #f1ecd9;
+	background-color: #ffffff;
 	/*background: url(https://habrastorage.org/files/bee/e0b/f47/beee0bf47a9f4954a1cb11fb619717d9.jpg) no-repeat  #efeae4;*/
 	background-size: 100% auto;
 }
@@ -93,4 +93,10 @@ body {
 
 .add_button {
 	filter: invert(90%) sepia(100%);
+}
+
+button {
+	background-color: #466d66;
+	color: #ffffff;
+	padding: 5px 10px;
 }
