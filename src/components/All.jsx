@@ -283,7 +283,17 @@ var msnry;
 						: viewButton.push(<img src="https://habrastorage.org/files/6ca/207/06d/6ca20706d9fe42dd8fe091ef308c830c.png" />);
 
 			return 	<div>
-						<div className="profile_header" >	</div>
+						<div className="profile_header" >
+							<div className="slider">
+								<div className="slider_header">
+									Заголовок
+								</div>
+								<div className="slider_text">
+									Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  
+								</div>
+								<button>Подписаться</button>
+							</div>
+						</div>
 						<div className="all__search">
 							<div className="all__searchField">	
 								<div onClick={this.handleChangeView} className="all__viewButton">
