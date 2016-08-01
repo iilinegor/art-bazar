@@ -11,120 +11,13 @@ import ProductActions from '../actions/ProductActions';
 import UserStore from '../stores/UserStore';
 import UserActions from '../actions/UserActions';
 
+import Notice from './Notice.jsx';
 
 import './all.css';
-
-// var typeList = [	
-// 	"Аксессуары",
-// 	"Для дома и интерьера",
-// 	"Для домашних животных",
-// 	"Канцелярские товары",
-// 	"Картины и панно",
-// 	"Косметика ручной работы",
-// 	"Куклы и игрушки",
-// 	"Музыкальные инструменты",
-// 	"Обувь ручной работы",
-// 	"Одежда",
-// 	"Открытки",
-// 	"Подарки к праздникам",
-// 	"Посуда",
-// 	"Работы для детей",
-// 	"Национальный стиль",
-// 	"Свадебный салон",
-// 	"Субкультуры",
-// 	"Сувениры и подарки",
-// 	"Сумки и аксессуары",
-// 	"Украшения",
-// 	"Фен-шуй и эзотерика",
-// 	"Цветы и флористика"
-// 	];
-
-// var typeList = [	
-// 		{
-// 			id: 0,
-// 			group: "Аксессуары",
-// 			cats: [
-// 				"Головные уборы",
-// 				"Брелоки",
-// 				"Галстуки",
-// 				"Наборы",
-// 				"Сумки"
-// 			]
-// 		},
-
-// 		{
-// 			id: 1,
-// 			group: "Интерьер",
-// 			cats: [
-// 				"Статуэтки",
-// 				"Картины",
-// 				"Светильники",
-// 				"Кухня",
-// 				"Прихожая"
-// 			]
-// 		},
-
-// 		{
-// 			id: 2,
-// 			group: "Косметика",
-// 			cats: [
-// 				"Тело",
-// 				"Лицо",
-// 				"Волосы",
-// 				"Наборы"
-// 			]
-// 		},
-
-// 		{
-// 			id: 3,
-// 			group: "Куклы и игрушки",
-// 			cats: [
-// 				"Тильды",
-// 				"Тыквоголовки",
-// 				"Животые",
-// 				"Развивающие"
-// 			]
-// 		},
-
-// 		{
-// 			id: 4,
-// 			group: "Обувь",
-// 			cats: [
-// 				"Летняя",
-// 				"Зимняя",
-// 				"Демисезонная"
-// 			]
-// 		},
-
-// 		{
-// 			id: 5,
-// 			group: "Материалы для творчества",
-// 			cats: [
-// 				"Шитьё",
-// 				"Вязание",
-// 				"Валяние",
-// 				"Скрапбукинг",
-// 				"Флористика",
-// 				"Упаковка",
-// 				"Куклы",
-// 				"Декупаж",
-// 				"Украшения",
-// 				"Вышивка",
-// 				"Обучающие материалы",
-// 				"Другое",
-// 			]
-// 		},
-// 	];
 
 function got(thing) {
 	return (thing !== undefined);
 };
-
-var msnry;
-
-	function isBiggerThan10(element, index, array) {
-		  return element > 10;
-		};
 
 	function getStateFromFlux(first) {
 		let local = parseInt(localStorage.getItem('userId'));
@@ -133,7 +26,8 @@ var msnry;
 		        Market: ProductStore.getProducts(),
 		        currentMarket: ProductStore.getProducts(),
 		        users: UserStore.getUsers(),
-		        currentUser: UserStore.getUser(local)
+		        currentUser: UserStore.getUser(local),
+		        is: true
 			};
 	};
 
@@ -163,7 +57,8 @@ var msnry;
 		        currentUser: UserStore.getUser(local),
 		        users: UserStore.getUsers(),
 		        isInsta: false,
-		        type: -1
+		        type: -1,
+		        is: true
 			};
 		},
 
@@ -238,6 +133,10 @@ var msnry;
 	    	this.handleCategory(-1);
 	    },
 
+	    handleTest() {
+	    	this.setState({is: !this.state.is});
+	    },
+
 		render() {
 			var rows = [];
 			var category = [];
@@ -246,7 +145,7 @@ var msnry;
 			var catlist = [];
 			var tmpId = 0;
 			var Mark = this.state.currentMarket;
-			let { isInsta, type } = this.state; 
+			let { isInsta, type, is } = this.state; 
 
 			for (let i of Mark)
 				{
@@ -294,6 +193,7 @@ var msnry;
 								<button>Подписаться</button>
 							</div>
 						</div>
+
 						<div className="all__search">
 							<div className="all__searchField">	
 								<div onClick={this.handleChangeView} className="all__viewButton">

@@ -99,4 +99,9 @@ button {
 	background-color: #466d66;
 	color: #ffffff;
 	padding: 5px 10px;
+	border: none;
+}
+
+button:hover {
+	background-color: #266d46;
 }

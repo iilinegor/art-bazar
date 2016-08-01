@@ -10,9 +10,8 @@ import ProductStore from '../stores/ProductStore';
 import ProductActions from '../actions/ProductActions';
 
 import Profile_basket from './Profile_basket.jsx';
-import Profile_products from './Profile_products.jsx';
-import Profile_order from './Profile_order.jsx';
-import Profile_likes from './Profile_likes.jsx';
+
+import Notice from './Notice.jsx';
 
 import './Profile.css';
 
@@ -172,6 +171,8 @@ var Profile = React.createClass({
     		// this.context.router.push(`/all`);
 	},
 
+	
+
 		render: function() {
 			var { userId, editMode, upgradeMode, user, products, currentUserId,
 		    			location, 
@@ -296,7 +297,7 @@ var Profile = React.createClass({
 						content.push(<Profile_likes userId={userId}/>);
 						break;
 					case 2 :
-						content.push(<Basket currentUser={ UserStore.getUser(parseInt(currentUserId)) } user={ this.state.user } />);
+						content.push(<Basket currentUser={ UserStore.getUser(parseInt(currentUserId)) } user={ this.state.user } bs={this.handleTest}/>);
 						break;
 					case 3 :
 						this.context.router.push(`/Promoute`)
@@ -339,7 +340,9 @@ var Basket = React.createClass({
 				user: this.props.user,
 				currentUser: this.props.currentUser,
 				users: UserStore.getUsers(),
-				products: ProductStore.getProducts()
+				products: ProductStore.getProducts(),
+				is: false,
+				code: 0
 			}
 		},
 
@@ -353,6 +356,7 @@ var Basket = React.createClass({
 			UserActions.updateUserBasket(user);
 
 			users.map((x) => {if (x.id === currentUser.id) x = currentUser});
+			
 			this.setState({users: users});
 		},
 
@@ -366,8 +370,12 @@ var Basket = React.createClass({
 			UserActions.updateUserOrder(user);
 
 			users.map((x) => {if (x.id === currentUser.id) x = currentUser});
-			this.setState({users: users});
+			this.setState({users: users, is: !this.state.is, code: 3});
 		},
+
+		handleTest(code) {
+	    	this.setState({is: !this.state.is, code: code});
+	    },
 
 		render() {
 			let { user } = this.state;
@@ -384,7 +392,7 @@ var Basket = React.createClass({
 								<div>
 									<p>{products[b.productId].name}</p> 
 									<p>{products[b.productId].price}₸</p> 
-									<p>от {users[b.authorId].name} <br/>{b.isOrder ? "сейчас готов к отправке" : <button>Заказать</button>}</p>
+									<p>от {users[b.authorId].name} <br/>{b.isOrder ? "сейчас готов к отправке" : <button onClick={this.handleTest.bind(null, 1)}>Заказать</button>}</p>
 								</div>
 									</div>);
 				}
@@ -398,13 +406,14 @@ var Basket = React.createClass({
 								<div>
 									<p>{products[o.productId].name}</p> 
 									<p>{products[o.productId].price}₸</p> 
-									<p>от {users[o.userId].name} <br/>{o.status ? "сейчас готов к отправке" : <button>Принять заказ</button>}</p>
+									<p>от {users[o.userId].name} <br/>{o.status ? "сейчас готов к отправке" : <button onClick={this.handleTest.bind(null, 2)}>Принять заказ</button>}</p>
 								</div>
 									</div>);
 				}
 
 			return (
 					<div className="basket">
+	 					{ this.state.is ?  <Notice close={this.handleTest} code={this.state.code}/> : "" }
 						<div className="basket_title">Корзина</div>
 						<div className="basket_list">					
 							<div className="basket_title">Список покупок</div>

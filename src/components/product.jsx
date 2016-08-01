@@ -10,6 +10,9 @@ import UserActions from '../actions/UserActions';
 import Galery from './Galery.jsx';
 import typeList from './List.js';
 
+import Notice from './Notice.jsx';
+
+
 import './style.css';
 
 var currntImg = 0;
@@ -104,7 +107,7 @@ var ProductFull = React.createClass({
     	console.log(currentUser);
     	console.log(user);
 
-    	alert("Добавлено");
+    	this.setState({is: true});
 
     },
 
@@ -112,6 +115,10 @@ var ProductFull = React.createClass({
     	let id = productId;
         this.context.router.push(`/product/${productId}`);
         this.setState(getStateFromFlux(productId));
+    },
+
+    handleTest() {
+    	this.setState({is: !this.state.is});
     },
 
 	render: function() {
@@ -204,6 +211,7 @@ var ProductFull = React.createClass({
 
 					if (currentUser.id !== products.authorId)
 						prof.push(<button onClick={this.handleBasket}> В корзину </button>);
+
 		};
 
 
@@ -211,7 +219,8 @@ var ProductFull = React.createClass({
 
 		if (products){
 				 return <div className="product" >
-							 {prof}
+			 				{ this.state.is ?  <Notice close={this.handleTest} code={0}/> : "" }
+							{prof}
 					 	</div>}
 				else {
 					return false;
