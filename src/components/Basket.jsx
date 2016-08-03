@@ -9,7 +9,8 @@ import UserActions from '../actions/UserActions';
 import ProductStore from '../stores/ProductStore';
 import ProductActions from '../actions/ProductActions';
 
-import Profile_basket from './Profile_basket.jsx';
+import Profile_products from './Profile_products.jsx';
+import Profile_likes from './Profile_likes.jsx';
 
 import Notice from './Notice.jsx';
 
@@ -388,10 +389,11 @@ var Basket = React.createClass({
 					basketList.push(<div className="basket_item">
 								<div style={{backgroundImage: 'url(' + products[b.productId].image[0] + ')', height: 150 + "px", width: 150 + "px", 
 												backgroundSize: 100 + "% auto", backgroundPosition: "0% 50%" }}></div>
-								<div onClick={this.handleBasketDelete.bind(null, b.productId, b.authorId)} className="basket_close">Х</div>
+								<div onClick={this.handleBasketDelete.bind(null, b.productId, b.authorId)} className="basket_close">✖</div>
 								<div>
-									<p>{products[b.productId].name}</p> 
-									<p>{products[b.productId].price}₸</p> 
+									<p><b>{products[b.productId].name}</b></p> 
+									<p>Цена: {products[b.productId].price}₸</p> 
+									<p>Почта: {users[b.authorId].email}</p> 
 									<p>от {users[b.authorId].name} <br/>{b.isOrder ? "сейчас готов к отправке" : <button onClick={this.handleTest.bind(null, 1)}>Заказать</button>}</p>
 								</div>
 									</div>);
@@ -402,7 +404,7 @@ var Basket = React.createClass({
 					orderList.push(<div className="basket_item">
 								<div style={{backgroundImage: 'url(' + products[o.productId].image[0] + ')', height: 150 + "px", width: 150 + "px", 
 												backgroundSize: 100 + "% auto", backgroundPosition: "0% 50%" }}></div>
-								<div onClick={this.handleOrderDelete.bind(null, o.productId, o.userId)} className="basket_close">Х</div>
+								<div onClick={this.handleOrderDelete.bind(null, o.productId, o.userId)} className="basket_close">✖</div>
 								<div>
 									<p>{products[o.productId].name}</p> 
 									<p>{products[o.productId].price}₸</p> 
@@ -414,14 +416,13 @@ var Basket = React.createClass({
 			return (
 					<div className="basket">
 	 					{ this.state.is ?  <Notice close={this.handleTest} code={this.state.code}/> : "" }
-						<div className="basket_title">Корзина</div>
 						<div className="basket_list">					
-							<div className="basket_title">Список покупок</div>
+							<h2 className="basket_title">Список покупок</h2>
 							{basketList}
 						</div>
 
 						<div className="basket_list">
-							<div className="basket_title">Список заказов</div>
+							<h2 className="basket_title">Список заказов</h2>
 							{orderList}
 						</div>
 					</div>

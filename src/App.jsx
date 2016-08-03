@@ -8,6 +8,7 @@ import UserStore from './stores/UserStore';
 import UserActions from './actions/UserActions';
 
 import './App.css';
+import './components/fonts/font.css';
 
 var App = React.createClass({
 		contextTypes: {
@@ -21,15 +22,21 @@ var App = React.createClass({
 		render: function() {
 			return (
 					<div className="app">
-						<img className="sublogo" src="https://habrastorage.org/files/a73/493/c21/a73493c2123345fab0c322ae2dc39344.png"/>
+						
 						<div className='header'>
-		                	<div className="logo" onClick={this.handleLogoClick}><img src="https://habrastorage.org/files/302/4dd/3ff/3024dd3ff3a24343b13656329c9514ad.png"/></div>
+		                	
+		                		<div className="logo" onClick={this.handleLogoClick}><img src="https://habrastorage.org/files/45b/28d/7ff/45b28d7ffebc4c5ea04db11ca5a66e6c.png"/></div>
+		                		
 		                	<AuthButton />
 		                </div>
 
 						<div className='content'>
 		                    {this.props.children}
 		                </div>
+
+		                <div className="all_footter">
+						
+						</div>
 					</div>
 			);
 		}

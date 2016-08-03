@@ -1,6 +1,5 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-import jquery from 'jquery';
 
 import Masonry from 'react-masonry-component';
 import typeList from './List.js';
@@ -182,7 +181,8 @@ function got(thing) {
 						: viewButton.push(<img src="https://habrastorage.org/files/6ca/207/06d/6ca20706d9fe42dd8fe091ef308c830c.png" />);
 
 			return 	<div>
-						<div className="profile_header" >
+						<img className="sublogo" src="https://habrastorage.org/files/a73/493/c21/a73493c2123345fab0c322ae2dc39344.png"/>
+						<div className="all_header" >
 							<div className="slider">
 								<div className="slider_header">
 									Заголовок

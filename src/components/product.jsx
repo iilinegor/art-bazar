@@ -210,7 +210,7 @@ var ProductFull = React.createClass({
 										 </div>	 );
 
 					if (currentUser.id !== products.authorId)
-						prof.push(<button onClick={this.handleBasket}> В корзину </button>);
+						prof.push(<div><br/><button onClick={this.handleBasket}> В корзину </button></div>);
 
 		};
 
@@ -219,6 +219,7 @@ var ProductFull = React.createClass({
 
 		if (products){
 				 return <div className="product" >
+				 			<img className="sublogo" src="https://habrastorage.org/files/a73/493/c21/a73493c2123345fab0c322ae2dc39344.png"/>
 			 				{ this.state.is ?  <Notice close={this.handleTest} code={0}/> : "" }
 							{prof}
 					 	</div>}

@@ -9,7 +9,9 @@ import './style.css';
 var ProductForm = React.createClass({
 
 	render() {
-		return <h1>Помощь. Полный справочник</h1>;
+		return <div className="help">
+					<h1>Помощь. Полный справочник <img className="sublogo" src="https://habrastorage.org/files/a73/493/c21/a73493c2123345fab0c322ae2dc39344.png"/></h1>
+			   </div>;
 	}
 });
 
