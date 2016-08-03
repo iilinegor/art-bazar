@@ -243,9 +243,14 @@
 	transition: all 0.2s;
 }
 
+.all__category summary:before {
+	content: " ";
+}
+
 .all__category details li{
 	opacity: 0.8;
 	transition: all 0.2s;
+	margin-left: 30px;
 }
 
 .all__category ul:hover {

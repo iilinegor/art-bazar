@@ -60,11 +60,6 @@ body {
 	vertical-align: middle;
 }
 
-.logIn .name:hover:after {
-	content: "▼";
-	margin-right: -15.5px;
-}
-
 .header .logo {
 	font-size: 80px;
 	width: 100%;

@@ -317,6 +317,7 @@ var Profile = React.createClass({
 							<div className="profile">
 								{info}
 							</div>	
+							
 							{content}
 						</div>
 				)}

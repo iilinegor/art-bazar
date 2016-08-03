@@ -202,7 +202,7 @@ function got(thing) {
 								<input type="text" onChange={this.handleSearch} />
 							</div>
 						</div>
-						<div className="all__category_title" onClick={this.handleDefaultType}> {type === -1 ? "Все" : "Все > " + catlist[type]}</div>
+						<div className="all__category_title" onClick={this.handleDefaultType}> {type === -1 ? "Каталог" : "Каталог > " + catlist[type]}</div>
 						<div className="all__category">
 							<ul>
 								{category}

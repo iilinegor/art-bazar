@@ -156,7 +156,7 @@ var AuthButton = React.createClass({
 
 					if (user.access < 2) 
 						useCase.push(<div onClick={this.handleNew}>
-										<img src="https://habrastorage.org/files/e2b/b1e/484/e2bb1e48428848d5bf4b3b873f5becc1.png" className="add_button" /> 
+										<img src="https://habrastorage.org/files/e2b/b1e/484/e2bb1e48428848d5bf4b3b873f5becc1.png" className="add_button" title="Добавить новый продукт" /> 
 									</div>);
 					if (user.likes === [])
 						useCase.push(<div onClick={this.handleLikes}>Избранное</div>);
@@ -200,7 +200,7 @@ var Footter = React.createClass({
 		render: function() {
 			
 					return 	<div className="footter_container">
-								<div onClick={this.handleAll}>Главная</div>
+								<div onClick={this.handleAll}>Каталог</div>
 								<div onClick={this.handleHelp}>Помощь</div>
 							</div>
 		}
