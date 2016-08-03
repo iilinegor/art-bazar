@@ -174,17 +174,18 @@ var Login = React.createClass({
 			switch ( isKnown ) {
 				case -1: {
 							return (
-		
-									<div className="auth">
-										<p className="first">Введите email</p>
-										<input type="text" onChange={this.handleCheck} />
-										
+									<div className="auth_container">
+										<div className="auth">
+											<p className="first">Введите email</p>
+											<input type="text" onChange={this.handleCheck} />
+										</div>
 									</div>
 								);
 						};
 
 				case 0: {
 							return (
+								<div className="auth_container">
 									<div className="auth">
 										<p className="first">Кажется, мы не знакомы</p>
 										<input type="text" onChange={this.handleCheck} />
@@ -200,18 +201,21 @@ var Login = React.createClass({
 										<input type="password" onChange={this.handlePassCheck} />				
 										<button onClick={this.handleSubmit}>Поехали!</button>
 									</div>
+								</div>
 							);
 						};
 
 				case 1: {
 							return (
+								<div className="auth_container">
 									<div className="auth">
 										<p className="first">Здравствуйте, {user.name}!</p>
 										<input type="text" onChange={this.handleCheck} />
 										<p>Введите пароль</p>
 										<input type="password" onChange={this.handleLogIn} />
 									</div>
-								);
+								</div>
+							);
 						};	
 			};	
 		},

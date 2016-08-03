@@ -1,7 +1,8 @@
 .product {
 	width: 520px;
 	margin: 0px auto;
-	font-family: 'Segoe UI';
+	font-family: "Myriad Set Pro";
+	color: #3d1d12;	
 }
 
 .product p {
@@ -42,6 +43,7 @@
 h1, h2, h3 {
 	text-align: center;
 	font-weight: lighter;
+	color: #3d1d12;	
 }
 
 .price b { 

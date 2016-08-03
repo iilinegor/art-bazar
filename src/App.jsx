@@ -35,7 +35,11 @@ var App = React.createClass({
 		                </div>
 
 		                <div className="all_footter">
-						
+							<div className="logo"> 
+								<Footter />
+								<p>Все права защищены.</p>
+								<p>Арт-Базар 2016</p>
+							</div>
 						</div>
 					</div>
 			);
@@ -147,8 +151,8 @@ var AuthButton = React.createClass({
 							</div>
 					)
 			else 
-					if (user.access === 0)
-						useCase.push(<div onClick={this.handlePromote}>Одобрение</div>);
+					// if (user.access === 0)
+					// 	useCase.push(<div onClick={this.handlePromote}>Одобрение</div>);
 
 					if (user.access < 2) 
 						useCase.push(<div onClick={this.handleNew}>
@@ -176,5 +180,33 @@ var AuthButton = React.createClass({
 	        this.setState(inLocalStorage());
 	    }
 });
+
+
+
+var Footter = React.createClass({
+		contextTypes: {
+	        router: React.PropTypes.object.isRequired
+	    },
+
+	    handleHelp: function() {
+	    	this.context.router.push("/help");
+	    },
+
+	    handleAll: function() {
+	    	this.context.router.push("/all");
+	    },
+
+
+		render: function() {
+			
+					return 	<div className="footter_container">
+								<div onClick={this.handleAll}>Главная</div>
+								<div onClick={this.handleHelp}>Помощь</div>
+							</div>
+		}
+});
+
+
+
 
 export default App;
