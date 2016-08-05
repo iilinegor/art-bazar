@@ -209,7 +209,7 @@ var ProductFull = React.createClass({
 											 {products.size}
 										 </div>	 );
 
-					if (currentUser.id !== products.authorId)
+					// if (currentUser.id !== products.authorId)
 						prof.push(<div><br/><button onClick={this.handleBasket}> В корзину </button></div>);
 
 		};
