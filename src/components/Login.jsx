@@ -161,14 +161,12 @@ var Login = React.createClass({
 	        UserActions.loadUsers();
 	    },
 
-	    componentWillUpdate() {
-			/*var { isKnown, user, isLoading, email } = this.state;
-	    	if (isKnown !== -1 && user !== UserStore.inBase(email)[0])
-				this.setState({user : UserStore.inBase(email)[0]});*/
-	    },
-
 	    componentWillUnmount() {
     		UserStore.removeChangeListener(this._onChange);
+	    },
+
+	    handleLogoClick: function(){
+	    	this.context.router.push(`/all`);
 	    },
 
 		render: function() {
@@ -205,6 +203,11 @@ var Login = React.createClass({
 				case 0: {
 							return (
 								<div className="auth_container">
+									<div className='header'>
+	                					<div className="logo" onClick={this.handleLogoClick}><img src="https://habrastorage.org/files/45b/28d/7ff/45b28d7ffebc4c5ea04db11ca5a66e6c.png"/></div>
+					                	<AuthButton />
+					                </div>		
+
 									<div className="auth">
 										<p className="first">Кажется, мы не знакомы</p>
 										<input type="text" onChange={this.handleCheck} />
@@ -220,6 +223,14 @@ var Login = React.createClass({
 										<input type="password" onChange={this.handlePassCheck} />				
 										<button onClick={this.handleSubmit}>Поехали!</button>
 									</div>
+
+									<div className="all_footter">
+										<div className="logo"> 
+											<Footter />
+											<p>Все права защищены.</p>
+											<p>Арт-Базар 2016</p>
+										</div>
+									</div>
 								</div>
 							);
 						};
@@ -227,11 +238,25 @@ var Login = React.createClass({
 				case 1: {
 							return (
 								<div className="auth_container">
+
+									<div className='header'>
+	                					<div className="logo" onClick={this.handleLogoClick}><img src="https://habrastorage.org/files/45b/28d/7ff/45b28d7ffebc4c5ea04db11ca5a66e6c.png"/></div>
+					                	<AuthButton />
+					                </div>	
+
 									<div className="auth">
 										<p className="first">Здравствуйте, {user.name}!</p>
 										<input type="text" onChange={this.handleCheck} />
 										<p>Введите пароль</p>
 										<input type="password" onChange={this.handleLogIn} />
+									</div>
+
+									<div className="all_footter">
+										<div className="logo"> 
+											<Footter />
+											<p>Все права защищены.</p>
+											<p>Арт-Базар 2016</p>
+										</div>
 									</div>
 								</div>
 							);

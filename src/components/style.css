@@ -94,6 +94,7 @@ h1, h2, h3 {
 .galery__minbox {
 	position: absolute;
 	width: 190px;
+	left: calc(50% + 280px)
 }
 
 .galery__min_current {
