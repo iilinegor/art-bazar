@@ -57,8 +57,8 @@ module.exports = {
 			},
 
 			{
-				test: /\.svg$/,
-				loader: "url-loader&limit=10000&mimetype=image/svg+xml"
+				test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+				loader: 'url-loader?limit=100000'
 			},
 
 			{
