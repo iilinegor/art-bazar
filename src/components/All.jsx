@@ -25,8 +25,7 @@ function got(thing) {
 		        Market: ProductStore.getProducts(),
 		        currentMarket: ProductStore.getProducts(),
 		        users: UserStore.getUsers(),
-		        currentUser: UserStore.getUser(local),
-		        is: true
+		        currentUser: UserStore.getUser(local)
 			};
 	};
 
@@ -57,7 +56,7 @@ function got(thing) {
 		        users: UserStore.getUsers(),
 		        isInsta: false,
 		        type: -1,
-		        is: true
+		        is: false
 			};
 		},
 
@@ -182,6 +181,7 @@ function got(thing) {
 
 			return 	<div>
 						<img className="sublogo" src="https://habrastorage.org/files/a73/493/c21/a73493c2123345fab0c322ae2dc39344.png"/>
+						{ this.state.is ?  <Notice close={this.handleTest} code={4}/> : "" }
 						<div className="all_header" >
 							<div className="slider">
 								<div className="slider_header">
@@ -190,7 +190,7 @@ function got(thing) {
 								<div className="slider_text">
 									Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  
 								</div>
-								<button>Подписаться</button>
+								<button onClick={this.handleTest}>Подписаться</button>
 							</div>
 						</div>
 

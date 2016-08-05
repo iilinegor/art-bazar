@@ -12,6 +12,7 @@ import ProductActions from '../actions/ProductActions';
 import Profile_products from './Profile_products.jsx';
 import Profile_likes from './Profile_likes.jsx';
 
+import Basket from './Basket_comp.jsx';
 import Notice from './Notice.jsx';
 
 import './Profile.css';
@@ -53,13 +54,12 @@ var Profile = React.createClass({
 		    	local = parseInt(localStorage.getItem('userId'));
 		    };
 
-			const { userId } = this.props.params;
-			var user = UserStore.getUser(parseInt(userId));
-			if (userId === undefined)
+			var user = UserStore.getUser(parseInt(this.props.params.userId));
+			if (parseInt(this.props.params.userId) === undefined)
 	    		this.context.router.push(`/all`)
 	    	else			
 				return {
-					userId: userId,
+					userId: parseInt(this.props.params.userId),
 					user: user,
 					editMode: false,
 					upgradeMode: false,
@@ -85,8 +85,8 @@ var Profile = React.createClass({
 		},		
 
 		componentDidMount: function() {
-	        UserStore.addChangeListener(this._onChange());
-	        ProductStore.addChangeListener(this._onChange());
+	        UserStore.addChangeListener(this._onChange);
+	        ProductStore.addChangeListener(this._onChange);
 		},
 
 		componentWillMount() {
@@ -109,7 +109,6 @@ var Profile = React.createClass({
 
 		handleMenu(number) {
 			this.setState({ content : number });
-			this.render();
 		},
 
 	    handleNewLocation(event) {
@@ -186,8 +185,6 @@ var Profile = React.createClass({
 			var menuList = ["Изделия", "Избранное", "Корзина", "Одобрение"];
 			var menu = [];
 
-
-
 			if (user) {
 				for (let ml of menuList) {
 					menu.push(<a className={tmpId === this.state.content ? "profile_menu_item-selected" : "profile_menu_item"} onClick={this.handleMenu.bind(null, tmpId)}>{menuList[tmpId++]}</a>);
@@ -206,9 +203,9 @@ var Profile = React.createClass({
 
 					info.push(<img src={user.photo} />);
 					if (got(user.lastName))
-						info.push(<h1>{user.lastName + " " + user.name}</h1>)
+						info.push(<h1>{"Мастер " + user.lastName + " " + user.name}</h1>)
 					else
-						info.push(<h1>{user.name} </h1>);
+						info.push(<h1>{"Мастер " + user.name} </h1>);
 
 					if (got(user.location))
 						info.push(<h3>Город: {user.location}</h3>);
@@ -336,96 +333,97 @@ var Profile = React.createClass({
 export default Profile;
 
 
-var Basket = React.createClass({
-		getInitialState() {
-			return {
-				user: this.props.user,
-				currentUser: this.props.currentUser,
-				users: UserStore.getUsers(),
-				products: ProductStore.getProducts(),
-				is: false,
-				code: 0
-			}
-		},
+// var Basket = React.createClass({
+// 		getInitialState() {
+// 			return {
+// 				user: this.props.user,
+// 				currentUser: this.props.currentUser,
+// 				users: UserStore.getUsers(),
+// 				products: ProductStore.getProducts(),
+// 				is: false,
+// 				code: 0
+// 			}
+// 		},
 
-		handleBasketDelete(productId, authorId) {
-			let { users, currentUser, products} = this.state;
-			let user = users[authorId];
+// 		handleBasketDelete(productId, authorId) {
+// 			let { users, currentUser, products} = this.state;
+// 			let user = users[authorId];
 			
-			currentUser.basket = currentUser.basket.filter((x) => {return x.productId !== productId});
-			user.order = user.order.filter((x) => {return !((x.productId == productId) && (x.userId == currentUser.id)) });
-			UserActions.updateUserBasket(currentUser);
-			UserActions.updateUserBasket(user);
+// 			currentUser.basket = currentUser.basket.filter((x) => {return x.productId !== productId});
+// 			user.order = user.order.filter((x) => {return !((x.productId == productId) && (x.userId == currentUser.id)) });
+// 			UserActions.updateUserBasket(currentUser);
+// 			UserActions.updateUserBasket(user);
 
-			users.map((x) => {if (x.id === currentUser.id) x = currentUser});
+// 			users.map((x) => {if (x.id === currentUser.id) x = currentUser});
 			
-			this.setState({users: users});
-		},
+// 			this.setState({users: users});
+// 		},
 
-		handleOrderDelete(productId, userId) {
-			let { users, currentUser, products} = this.state;
-			let user = users[userId];
+// 		handleOrderDelete(productId, userId) {
+// 			let { users, currentUser, products} = this.state;
+// 			let user = users[userId];
 
-			user.basket = user.basket.filter((x) => {return x.productId !== productId});
-			currentUser.order = currentUser.order.filter((x) => {return !((x.productId == productId) && (x.userId == user.id)) });
-			UserActions.updateUserOrder(currentUser);
-			UserActions.updateUserOrder(user);
+// 			user.basket = user.basket.filter((x) => {return x.productId !== productId});
+// 			currentUser.order = currentUser.order.filter((x) => {return !((x.productId == productId) && (x.userId == user.id)) });
+// 			UserActions.updateUserOrder(currentUser);
+// 			UserActions.updateUserOrder(user);
 
-			users.map((x) => {if (x.id === currentUser.id) x = currentUser});
-			this.setState({users: users, is: !this.state.is, code: 3});
-		},
+// 			users.map((x) => {if (x.id === currentUser.id) x = currentUser});
+// 			this.setState({users: users, is: !this.state.is, code: 3});
+// 		},
 
-		handleTest(code) {
-	    	this.setState({is: !this.state.is, code: code});
-	    },
+// 		handleTest(code) {
+// 	    	this.setState({is: !this.state.is, code: code});
+// 	    },
 
-		render() {
-			let { user } = this.state;
-			let { users, products } = this.state;
 
-			//user = user.map((el) => {return <li>{el}</li>});
-			let basketList = [],
-				orderList = [];
-			for (let b of user.basket){
-					basketList.push(<div className="basket_item">
-								<div style={{backgroundImage: 'url(' + products[b.productId].image[0] + ')', height: 150 + "px", width: 150 + "px", 
-												backgroundSize: 100 + "% auto", backgroundPosition: "0% 50%" }}></div>
-								<div onClick={this.handleBasketDelete.bind(null, b.productId, b.authorId)} className="basket_close">✖</div>
-								<div>
-									<p><b>{products[b.productId].name}</b></p> 
-									<p>Цена: {products[b.productId].price}₸</p> 
-									<p>Почта: {users[b.authorId].email}</p> 
-									<p>от {users[b.authorId].name} <br/>{b.isOrder ? "сейчас готов к отправке" : <button onClick={this.handleTest.bind(null, 1)}>Заказать</button>}</p>
-								</div>
-									</div>);
-				}
+// 		render() {
+// 			let { user } = this.state;
+// 			let { users, products } = this.state;
 
-			for (let o of user.order){
-					orderList.push(<div className="basket_item">
-								<div style={{backgroundImage: 'url(' + products[o.productId].image[0] + ')', height: 150 + "px", width: 150 + "px", 
-												backgroundSize: 100 + "% auto", backgroundPosition: "0% 50%" }}></div>
-								<div onClick={this.handleOrderDelete.bind(null, o.productId, o.userId)} className="basket_close">✖</div>
-								<div>
-									<p>{products[o.productId].name}</p> 
-									<p>{products[o.productId].price}₸</p> 
-									<p>от {users[o.userId].name} <br/>{o.status ? "сейчас готов к отправке" : <button onClick={this.handleTest.bind(null, 2)}>Принять заказ</button>}</p>
-								</div>
-									</div>);
-				}
+// 			//user = user.map((el) => {return <li>{el}</li>});
+// 			let basketList = [],
+// 				orderList = [];
+// 			for (let b of user.basket){
+// 					basketList.push(<div className="basket_item">
+// 								<div style={{backgroundImage: 'url(' + products[b.productId].image[0] + ')', height: 150 + "px", width: 150 + "px", 
+// 												backgroundSize: 100 + "% auto", backgroundPosition: "0% 50%" }}></div>
+// 								<div onClick={this.handleBasketDelete.bind(null, b.productId, b.authorId)} className="basket_close">✖</div>
+// 								<div>
+// 									<p><b>{products[b.productId].name}</b></p> 
+// 									<p>Цена: {products[b.productId].price}₸</p> 
+// 									<p>Почта: {users[b.authorId].email}</p> 
+// 									<p>от {users[b.authorId].name} <br/>{b.isOrder ? "сейчас готов к отправке" : <button onClick={this.handleTest.bind(null, 1)}>Заказать</button>}</p>
+// 								</div>
+// 									</div>);
+// 				}
 
-			return (
-					<div className="basket">
-	 					{ this.state.is ?  <Notice close={this.handleTest} code={this.state.code}/> : "" }
-						<div className="basket_list">					
-							<h2 className="basket_title">Список покупок</h2>
-							{basketList}
-						</div>
+// 			for (let o of user.order){
+// 					orderList.push(<div className="basket_item">
+// 								<div style={{backgroundImage: 'url(' + products[o.productId].image[0] + ')', height: 150 + "px", width: 150 + "px", 
+// 												backgroundSize: 100 + "% auto", backgroundPosition: "0% 50%" }}></div>
+// 								<div onClick={this.handleOrderDelete.bind(null, o.productId, o.userId)} className="basket_close">✖</div>
+// 								<div>
+// 									<p>{products[o.productId].name}</p> 
+// 									<p>{products[o.productId].price}₸</p> 
+// 									<p>от {users[o.userId].name} <br/>{o.status ? "сейчас готов к отправке" : <button onClick={this.handleTest.bind(null, 2)}>Принять заказ</button>}</p>
+// 								</div>
+// 									</div>);
+// 				}
 
-						<div className="basket_list">
-							<h2 className="basket_title">Список заказов</h2>
-							{orderList}
-						</div>
-					</div>
-				);
-		}
-	});
+// 			return (
+// 					<div className="basket">
+// 	 					{ this.state.is ?  <Notice close={this.handleTest} code={this.state.code}/> : "" }
+// 						<div className="basket_list">					
+// 							<h2 className="basket_title">Список покупок</h2>
+// 							{basketList}
+// 						</div>
+
+// 						<div className="basket_list">
+// 							<h2 className="basket_title">Список заказов</h2>
+// 							{orderList}
+// 						</div>
+// 					</div>
+// 				);
+// 		}
+// 	});

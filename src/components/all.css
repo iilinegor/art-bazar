@@ -226,6 +226,7 @@
 	font-size: 20px;
 	position: relative;
 	top: -50px;
+	display: inline-block;
 }
 
 .all__category ul {
@@ -327,12 +328,13 @@
 .notice p {
 	margin: 70px 20px;
 	font-size: 16px;
+	text-align: center;
 }
 
 
 .notice button {
 	text-align: center;
-	margin: 30px 200px;
+	margin: 0px 200px;
 }
 
 
@@ -351,9 +353,9 @@
 .all_footter {
 	width: 100%;
 	/*height: 200px;*/
-	background: url(https://habrastorage.org/files/148/ae8/886/148ae8886fc54365a02b7c5a02ce5869.png);
+	/*background: url(https://habrastorage.org/files/148/ae8/886/148ae8886fc54365a02b7c5a02ce5869.png);*/
 	margin-top: 50px;
-	padding-top: 200px;
+	padding-top: 100px;
 }
 
 .all_footter p{

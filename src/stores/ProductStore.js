@@ -3,7 +3,7 @@ import { EventEmitter } from 'events';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import AppConstants from '../constants/AppConstants';
 
-const CHANGE_EVENT = 'change';
+var CHANGE_EVENT = 'change';
 
 let _products = [];
 let _loadingError = null;

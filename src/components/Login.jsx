@@ -1,6 +1,9 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 
+import ProductStore from '../stores/ProductStore';
+import ProductActions from '../actions/ProductActions';
+
 import UserStore from '../stores/UserStore';
 import UserActions from '../actions/UserActions';
 
@@ -175,9 +178,25 @@ var Login = React.createClass({
 				case -1: {
 							return (
 									<div className="auth_container">
+
+										<div className='header'>
+		                					<div className="logo" onClick={this.handleLogoClick}><img src="https://habrastorage.org/files/45b/28d/7ff/45b28d7ffebc4c5ea04db11ca5a66e6c.png"/></div>
+						                	<AuthButton />
+						                </div>					                
+
+
 										<div className="auth">
 											<p className="first">Введите email</p>
 											<input type="text" onChange={this.handleCheck} />
+										</div>
+
+
+										<div className="all_footter">
+											<div className="logo"> 
+												<Footter />
+												<p>Все права защищены.</p>
+												<p>Арт-Базар 2016</p>
+											</div>
 										</div>
 									</div>
 								);
@@ -226,3 +245,58 @@ var Login = React.createClass({
 });
 
 export default Login;
+
+
+
+
+
+
+
+
+var AuthButton = React.createClass({
+		contextTypes: {
+	        router: React.PropTypes.object.isRequired
+	    },
+
+	    handleSingIn: function() {
+	    	this.context.router.push("/logIn");
+	    },
+
+	    handleHelp: function() {
+	    	this.context.router.push("/help");
+	    },
+
+		render: function() {
+				return  (
+							<div className="singIn"  >
+								<div onClick={this.handleHelp}>Помощь</div>
+								<div onClick={this.handleSingIn}> Войти </div>
+							</div>
+						)
+		}
+});
+
+
+
+var Footter = React.createClass({
+		contextTypes: {
+	        router: React.PropTypes.object.isRequired
+	    },
+
+	    handleHelp: function() {
+	    	this.context.router.push("/help");
+	    },
+
+	    handleAll: function() {
+	    	this.context.router.push("/all");
+	    },
+
+
+		render: function() {
+			
+					return 	<div className="footter_container">
+								<div onClick={this.handleAll}>Каталог</div>
+								<div onClick={this.handleHelp}>Помощь</div>
+							</div>
+		}
+});

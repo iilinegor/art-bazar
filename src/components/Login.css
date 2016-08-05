@@ -2,25 +2,31 @@
 .auth_container {
 	height: 2000px;
 	width: 100%;
-	background-image: url(https://habrastorage.org/files/526/953/060/526953060dea47c28d5c3761dcef6c8c.png);
+	background-image: url(https://habrastorage.org/files/550/171/78e/55017178e9b54bd487116e8598e04b98.png);
 	position: fixed;
 	background-position: 50% 0%;
-	background-size: 100% auto;
+	background-size: 30%;
 }
+
+.auth_container .all_footter {
+	position: fixed;
+	top: calc(100% - 200px);
+}
+
 
 .auth {
 	position: absolute;
 	left: calc(50% - 150px);
 	top: 250px;
 	width: 300px;
-	border: 1px solid #9e9e9e;
-	background-color: #ffffff;
+	background-color: #466e66;
+	color: #fff;
 	font-family: 'Segoe UI';
 	padding: 10px 10px;
 	padding-top: 0px;
 	animation-name: auth;
 	animation-duration: 0.5s;
-	border-radius: 5px;
+	border-radius: 10px;
 }
 
 @keyframes auth {

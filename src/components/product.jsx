@@ -104,8 +104,6 @@ var ProductFull = React.createClass({
     			status: 0
     	});
     	UserActions.updateUserOrder(user);
-    	console.log(currentUser);
-    	console.log(user);
 
     	this.setState({is: true});
 
@@ -210,7 +208,7 @@ var ProductFull = React.createClass({
 										 </div>	 );
 
 					// if (currentUser.id !== products.authorId)
-						prof.push(<div><br/><button onClick={this.handleBasket}> В корзину </button></div>);
+						prof.push(<div><br/><button onClick={this.handleBasket} className="toBasket"> В корзину </button></div>);
 
 		};
 
