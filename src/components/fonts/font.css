@@ -1,11 +1,11 @@
-@font-face {
+/*@font-face {
 	font-family:'Myriad Set Pro';
 	font-style:normal;
 	font-weight:100;
 	src:local('☺︎'), url("myriad-set-pro_ultralight.woff") format("woff"), url("myriad-set-pro_ultralight.ttf") format("truetype");
-}
+}*/
 
-@font-face {
+/*@font-face {
 	font-family:'Myriad Set Pro';
 	font-style:italic;
 	font-weight:100;
@@ -60,7 +60,7 @@
 @font-face {
 	font-family:'Myriad Set Pro 500';
 	src:url("myriad-set-pro_medium.eot");
-}
+}*/
 
 @font-face {
 	font-family:'Myriad Set Pro';
@@ -69,7 +69,7 @@
 	src:local('☺︎'), url("myriad-set-pro_semibold.woff") format("woff"), url("myriad-set-pro_semibold.ttf") format("truetype");
 }
 
-@font-face {
+/*@font-face {
 	font-family:'Myriad Set Pro';
 	font-style:italic;
 	font-weight:600;
@@ -107,5 +107,5 @@
 	src:url("myriad-set-pro_text.eot");
 	src:local('☺︎'), url("myriad-set-pro_text.woff") format("woff"), url("myriad-set-pro_text.ttf") format("truetype");
 }
-
+*/
 

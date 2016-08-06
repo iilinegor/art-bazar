@@ -1,6 +1,6 @@
 .profile {
-	width: 300px;
-	margin: 0px 20px;
+	width: 350px;
+	margin: 0px 100px;
 	font-family: 'Segoe UI';
 	padding: 20px 20px;
 	display: inline-block;
@@ -8,11 +8,12 @@
 	margin-top: 30px;
 	background-color: #cbe5e6;
 	border-radius: 10px;
-	/*box-shadow: 0 0 5px rgba(0,0,0,0.5);*/
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .profile h1 {
 	text-align: center;
+	margin-top: -30px;
 }
 
 .profile h2 {
@@ -34,8 +35,8 @@
 .profile img {
 	display: inline-block;
 	position: relative;
-	left: calc(50% - 100px);
-	top: -130px;
+	left: calc(50% - 125px);
+	top: -155px;
 	transition: all 0.3s;
 	border-radius: 50%;
 	margin: 0px auto;
@@ -46,28 +47,38 @@
 }
 
 .profile .upgrade {
-	background: #baffaa;
+	background: none;
+	font-size: 21px;
+	font-family: "Segoe UI";
+	padding: 3px 0px;
+	top: -69px;
+
+	color: #000000;
 	border: 0px;
-	padding: 3px 10px;
-	position: absolute;
+	position: relative;
 	height: 30px;
-	border-radius: 10px;
 	opacity: 1;
 	transition: all 0.1s;
-	color: #000000;
 	font-weight: lighter;
+	margin-bottom: -60px;
+	cursor: pointer;
 }
 
 .profile .open_store {
-	background: #ffeeaa;
-	border: 0px;
-	padding: 3px 10px;
 	position: relative;
 	float: right;
 	height: 30px;
 	border-radius: 10px;
 	opacity: 1;
 	transition: all 0.1s;
+
+	color: #000000;
+	background: none;
+	font-size: 21px;
+	font-family: "Segoe UI";
+	padding: 3px 0px;
+	top: -69px;
+	cursor: pointer;
 }
 
 .profile .open_store:hover {
@@ -78,6 +89,7 @@
 .profile .upgrade:hover {
 	opacity: 0.6;
 	transition: all 0.1s;
+	border-bottom: 1px solid #000000;
 }
 
 
@@ -115,7 +127,7 @@
 	text-align: center;
 	width: 130px;
 	display: inline-block;	
-	font-size: 23px;
+	font-size: 20px;
 	color: #000000;
 	font-family: "Segoe UI";
 	font-weight: lighter;
@@ -126,10 +138,10 @@
 	text-align: center;
 	width: 130px;
 	display: inline-block;	
-	font-size: 25px;
+	font-size: 21px;
 	font-family: "Segoe UI";
 	font-weight: lighter;
-	border-bottom: 2px solid #000000;
+	border-bottom: 1px solid #888888;
 	cursor: pointer;
 }
 

@@ -91,21 +91,26 @@ var ProductFull = React.createClass({
     handleBasket() {
     	let { user, currentUser, products } = this.state;
 
-    	currentUser.basket.push({
-    			productId: products.id,
-    			authorId: products.authorId,
-    			isOrder: false
-    	});
-    	UserActions.updateUserBasket(currentUser);
-
-    	user.order.push({
-    			productId: products.id,
-    			userId: currentUser.id,
-    			status: 0
-    	});
-    	UserActions.updateUserOrder(user);
-
-    	this.setState({is: true});
+    	if ( currentUser !== undefined ) {
+		    	currentUser.basket.push({
+		    			productId: products.id,
+		    			authorId: products.authorId,
+		    			isOrder: false
+		    	});
+		    	UserActions.updateUserBasket(currentUser);
+		
+		    	user.order.push({
+		    			productId: products.id,
+		    			userId: currentUser.id,
+		    			status: 0
+		    	});
+		    	UserActions.updateUserOrder(user);
+		
+		    	this.setState({is: true});
+			}
+			else {
+				this.context.router.push(`/login`);
+			};
 
     },
 
@@ -139,15 +144,15 @@ var ProductFull = React.createClass({
 		if (products && user){
 				for (let p of ProductStore.getProducts()) {
 					if (p.authorId === products.authorId)
-						other.push(<img src={p.image[0]} onClick={this.handleProduct.bind(null, p.id)} className="other__min" title={p.name}/>);
+						other.push(<img src={p.image[0]} onClick={this.handleProduct.bind(null, p.id)} key={p.id} className="other__min" title={p.name}/>);
 				};
 
 				// prof.push(<div className="other__minbox">{other}</div>);
 
 				if (got(products.name))
-					prof.push(<h1>{products.name}</h1>);
+					prof.push(<h1 key={products.name}>{products.name}</h1>);
 
-				prof.push( <div className="author" >
+				prof.push( <div key={9} className="author" >
 									<br/>
 									<img src={user.photo} className="img" onClick={this.handleClickAuthor.bind(null, products.authorId)}/> 
 									<br/>
@@ -156,14 +161,14 @@ var ProductFull = React.createClass({
 								</div> );
 
 				if (got(products.image))
-					prof.push( <Galery imagesArray={products.image}/> );
+					prof.push( <Galery key={10}imagesArray={products.image}/> );
 
 				if (got(products.price))
-					prof.push( <div className="price"><b>Цена</b> {products.price} ₸</div> );
+					prof.push( <div key={8} className="price"><b>Цена</b> {products.price} ₸</div> );
 
 
 
-					prof.push( <div className="likes" onClick={this.handleLike.bind(null, products)} >{"❤"} {products.likes}</div> );
+					prof.push( <div key={7} className="likes" onClick={this.handleLike.bind(null, products)} >{"❤"} {products.likes}</div> );
 
 				if (got(products.description)){
 						prof.push(<h2>Описание</h2>);
@@ -172,43 +177,43 @@ var ProductFull = React.createClass({
 
 				
 					if (got(products.type))
-					prof.push( <div className="subfield">
+					prof.push( <div key={0} className="subfield">
 											 <div className="subfield__title">Тип товара:</div> 
 											 {category[products.type]}
 										 </div>);
 
 					if (got(products.craftTime))
-					prof.push( <div className="subfield">
+					prof.push( <div key={1} className="subfield">
 										 	<div className="subfield__title">Срок изготовления: </div> 
 										 	{products.craftTime}
 										 </div> );
 
 					if (got(user.pay))
-					prof.push( <div className="subfield">
+					prof.push( <div key={2} className="subfield">
 											 <div className="subfield__title">Оплата: </div> 
 											 {payList[parseInt(user.pay)]}
 										 </div> );
 
 					if (got(user.delivery))
-					prof.push( <div className="subfield">
+					prof.push( <div key={3} className="subfield">
 											 <div className="subfield__title">Доставка: </div>
 											 {deliveryList[parseInt(user.delivery)]}
 										 </div> );
 
 					if (got(products.material))
-					prof.push( <div className="subfield">
+					prof.push( <div key={4} className="subfield">
 											 <div className="subfield__title">Материалы:</div> 
 											 {products.material}
 										 </div> );
 
 					if (got(products.size))
-					prof.push( <div className="subfield">
+					prof.push( <div key={5} className="subfield">
 											 <div className="subfield__title">Размер: </div>
 											 {products.size}
 										 </div>	 );
 
 					// if (currentUser.id !== products.authorId)
-						prof.push(<div><br/><button onClick={this.handleBasket} className="toBasket"> В корзину </button></div>);
+					prof.push(<div key={6} ><br/><button onClick={this.handleBasket} className="toBasket"> В корзину </button></div>);
 
 		};
 

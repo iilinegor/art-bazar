@@ -150,7 +150,8 @@ function got(thing) {
 					isInsta
 						? rows.push(<InstaProduct onClickProduct={this.handleClick.bind(null, i.id)} 
 												  onClickAuthor={this.handleClickAuthor.bind(null, i.authorId)} 
-												  onClickLike={this.handleLike.bind(null, i)} 
+												  onClickLike={this.handleLike.bind(null, i)}
+												  currentUser={this.state.currentUser} 
 												  product={i} 
 												  key={tmpId++} 
 												  users={UserStore.getUsers()} />)
@@ -163,24 +164,24 @@ function got(thing) {
 			tmpId = 0;
 
 			for (let c of typeList) {
-				if (got(c.title)) category.push(<p className="list_title">{c.title}</p>)
+				if (got(c.title)) category.push(<p key={tmpId} className="list_title">{c.title}</p>)
 				for (let cat of c.cats){
 						tmpCat.push(<li key={tmpId} onClick={this.handleCategory.bind(null, tmpId++)}>{cat}</li>);
 						catlist.push(cat);
 					}
 				if ( c.group !== "")
-					category.push(<details><summary>{c.group}</summary> {tmpCat} </details> )
+					category.push(<details key={c.group}><summary>{c.group}</summary> {tmpCat} </details> )
 				else 
 					category.push(tmpCat);
 				tmpCat = [];
 			}
 
 			!isInsta
-						? viewButton.push(<img src="https://habrastorage.org/files/252/597/360/2525973609d443808e4c7adff2f51635.png" />)
-						: viewButton.push(<img src="https://habrastorage.org/files/6ca/207/06d/6ca20706d9fe42dd8fe091ef308c830c.png" />);
+						? viewButton.push(<img key={0} src="https://habrastorage.org/files/252/597/360/2525973609d443808e4c7adff2f51635.png" />)
+						: viewButton.push(<img key={1} src="https://habrastorage.org/files/6ca/207/06d/6ca20706d9fe42dd8fe091ef308c830c.png" />);
 
 			return 	<div>
-						<img className="sublogo" src="https://habrastorage.org/files/a73/493/c21/a73493c2123345fab0c322ae2dc39344.png"/>
+						<img key={2} className="sublogo" src="https://habrastorage.org/files/a73/493/c21/a73493c2123345fab0c322ae2dc39344.png"/>
 						{ this.state.is ?  <Notice close={this.handleTest} code={4}/> : "" }
 						<div className="all_header" >
 							<div className="slider">
@@ -243,7 +244,7 @@ function got(thing) {
 	var InstaProduct = React.createClass({
 
 		render: function() {
-			let { users, product } = this.props;
+			let { users, product, currentUser } = this.props;
 			let author;
 			( product.authorId === undefined ) 
 				? author = 0 
@@ -251,14 +252,15 @@ function got(thing) {
 			return (users[0] !== undefined)
 				? (<div className="all__product-insta" id="asd">
 							<div className="all__author" >
-				 				<img src={users[author].photo} onClick={this.props.onClickAuthor} />
+				 				<img key={users[author].photo} src={users[author].photo} onClick={this.props.onClickAuthor} />
 				 				<p>{users[author].name}</p>
 				 			</div>
 							<div className="all__photo-insta">
-								<img src={product.image[0]} width="100%" onClick={this.props.onClickProduct} /><div className="all__price-insta">{product.price}₸</div>
+								<img key={product.image[0]} src={product.image[0]} width="100%" onClick={this.props.onClickProduct} /><div className="all__price-insta">{product.price}₸</div>
 							</div>
 							<div className="all__info-insta">
-								<h2 onClick={this.props.onClickLike}> {"❤"} {product.likes}</h2>
+								<h2 onClick={this.props.onClickLike} 
+									className={currentUser.likes.some( x => {return x === product.id}) ? "all__liked" : "all__like"}>{product.likes}</h2>
 								<h2>{product.name}</h2>
 								<p>{product.description}</p>
 							</div>

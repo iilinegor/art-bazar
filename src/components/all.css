@@ -139,6 +139,20 @@
 			text-align: left;
 		}
 
+		.all__like, .all__liked {
+			cursor: pointer;
+		}
+
+		.all__liked:before {
+			content: "❤";
+			color: #ff3333;
+		}
+
+		.all__like:before {
+			content: "❤";
+			color: #000;
+		}
+
 .all__search{
 	margin-top: 2%;
 	width: 100%;
@@ -353,7 +367,15 @@
 .all_footter {
 	width: 100%;
 	/*height: 200px;*/
-	/*background: url(https://habrastorage.org/files/148/ae8/886/148ae8886fc54365a02b7c5a02ce5869.png);*/
+	background: url(https://habrastorage.org/files/148/ae8/886/148ae8886fc54365a02b7c5a02ce5869.png);
+	margin-top: 50px;
+	padding-top: 100px;
+}
+
+ .bgless {
+	width: 100%;
+	/*height: 200px;*/
+	background: none;
 	margin-top: 50px;
 	padding-top: 100px;
 }

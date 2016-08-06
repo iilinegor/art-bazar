@@ -189,7 +189,7 @@ var Login = React.createClass({
 										</div>
 
 
-										<div className="all_footter">
+										<div className="all_footter bgless">
 											<div className="logo"> 
 												<Footter />
 												<p>Все права защищены.</p>
@@ -224,7 +224,7 @@ var Login = React.createClass({
 										<button onClick={this.handleSubmit}>Поехали!</button>
 									</div>
 
-									<div className="all_footter">
+									<div className="all_footter bgless">
 										<div className="logo"> 
 											<Footter />
 											<p>Все права защищены.</p>
@@ -251,7 +251,7 @@ var Login = React.createClass({
 										<input type="password" onChange={this.handleLogIn} />
 									</div>
 
-									<div className="all_footter">
+									<div className="all_footter bgless">
 										<div className="logo"> 
 											<Footter />
 											<p>Все права защищены.</p>

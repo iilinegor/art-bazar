@@ -140,14 +140,18 @@ var AuthButton = React.createClass({
 			this.context.router.push(`/add`);
 		},
 
+		handleLikes() { 
+			this.context.router.push(`/likes`);
+		},
+
 		render: function() {
 			var { user  } = this.state;
 			let useCase = [];
 			if ( user === undefined)
 					return (
 							<div className="singIn"  >
-								<div onClick={this.handleHelp}>Помощь</div>
-								<div onClick={this.handleSingIn}> Войти </div>
+								<div key={0} onClick={this.handleHelp}>Помощь</div>
+								<div key={1} onClick={this.handleSingIn}> Войти </div>
 							</div>
 					)
 			else 
@@ -155,19 +159,19 @@ var AuthButton = React.createClass({
 					// 	useCase.push(<div onClick={this.handlePromote}>Одобрение</div>);
 
 					if (user.access < 2) 
-						useCase.push(<div onClick={this.handleNew}>
+						useCase.push(<div key={2} onClick={this.handleNew}>
 										<img src="https://habrastorage.org/files/e2b/b1e/484/e2bb1e48428848d5bf4b3b873f5becc1.png" className="add_button" title="Добавить новый продукт" /> 
 									</div>);
 					if (user.likes === [])
-						useCase.push(<div onClick={this.handleLikes}>Избранное</div>);
+						useCase.push(<div key={3} onClick={this.handleLikes}>Избранное</div>);
 
 						//this.context.router.push(`/Promoute`)
 
-						useCase.push( <div onClick={this.handleBasket}>Корзина ({user.basket.length + user.order.length})</div> );
-						useCase.push( <div onClick={this.handleHelp}>Помощь</div> );
-						useCase.push( <img src={user.photo} onClick={this.handleProfile} /> );
-						useCase.push( <div onClick={this.handleProfile} className="name"> {user.name}</div> );
-						useCase.push( <div onClick={this.handleLogOut}> Выйти</div> );
+						useCase.push( <div key={4} onClick={this.handleBasket}>Корзина ({user.basket.length + user.order.length})</div> );
+						useCase.push( <div key={5} onClick={this.handleLikes}> Избранное </div> );
+						useCase.push( <img key={6} onClick={this.handleProfile} src={user.photo}  /> );
+						useCase.push( <div key={7} onClick={this.handleProfile} className="name"> {user.name}</div> );
+						useCase.push( <div key={8} onClick={this.handleLogOut}> Выйти</div> );
 
 					return (
 							<div className="logIn" >
