@@ -181,10 +181,12 @@ var Profile = React.createClass({
 			var menuList = ["Изделия", "Избранное", "Корзина", "Одобрение"];
 			var menu = [];
 
+
+
 			if (user) {
 				for (let ml of menuList) {
-					menu.push(<a key={tmpId} className={tmpId === this.state.content ? "profile_menu_item-selected" : "profile_menu_item"} onClick={this.handleMenu.bind(null, tmpId)}>{menuList[tmpId++]}</a>);
-					if (currentUserId === -1 && tmpId === 1) break;
+					menu.push(<a className={tmpId === this.state.content ? "profile_menu_item-selected" : "profile_menu_item"} onClick={this.handleMenu.bind(null, tmpId)}>{menuList[tmpId++]}</a>);
+					if ((currentUserId === -1 || currentUserId === undefined) && tmpId === 1) break;
 					if (currentUserId !== parseInt(userId) && tmpId === 2) break;
 					if (UserStore.getUser(currentUserId).access !== 0 && tmpId === 3) break;
 				};
@@ -193,47 +195,47 @@ var Profile = React.createClass({
 
 				if (!editMode && !upgradeMode) {
 					if (user.id === currentUserId) {
-						info.push(<button key={0} className="upgrade" onClick={this.handleEdit}>Редактировать</button>);
+						info.push(<button className="upgrade" onClick={this.handleEdit}>Редактировать</button>);
 						if (user.access > 1)
-						info.push(<button key={1} className="open_store" onClick={this.handleUpgrade}>Открыть лавку</button>);
+						info.push(<button className="open_store" onClick={this.handleUpgrade}>Открыть лавку</button>);
 					};
 
-					info.push(<img key={0} src={user.photo} />);
+					info.push(<img src={user.photo} />);
 					if (got(user.lastName))
-						info.push(<h1 key={0}>{"Мастер " + user.lastName + " " + user.name}</h1>)
+						info.push(<h1>{user.lastName + " " + user.name}</h1>)
 					else
-						info.push(<h1 key={0}>{"Мастер " + user.name} </h1>);
+						info.push(<h1>{user.name} </h1>);
 
 					if (got(user.location))
-						info.push(<h3 key={0}>Город: {user.location}</h3>);
+						info.push(<h3>Город: {user.location}</h3>);
 
 					if (got(user.email))
-						info.push(<h3 key={1}>Почта: {user.email}</h3>);
+						info.push(<h3>Почта: {user.email}</h3>);
 
 					if (got(user.description)) {
-						info.push(<h2 key={0}>О себе</h2>);
-						info.push(<p key={0}>{user.description}</p>);
+						info.push(<h2>О себе</h2>);
+						info.push(<p>{user.description}</p>);
 
 					};
 				}
 				else {
 					if (editMode){
-							info.push(<img key={tmpId} src={user.photo} />);
+							info.push(<img src={user.photo} />);
 							if (got(user.lastName))
-								info.push(<h1 key={0}>{user.lastName + " " + user.name}</h1>)
+								info.push(<h1>{user.lastName + " " + user.name}</h1>)
 							else
-								info.push(<h1 key={0}>{user.name} </h1>);
+								info.push(<h1>{user.name} </h1>);
 		
-							info.push(<h2 key={1}>Фамилия:</h2>);
+							info.push(<h2>Фамилия:</h2>);
 							info.push(<input type="text" id="price" onChange={this.handleNewLastName} value={lastName}/>);
 		
-							info.push(<h2 key={2}>О себе:</h2>);
+							info.push(<h2>О себе:</h2>);
 							info.push(<input type="text" id="price" onChange={this.handleNewDescription} value={description}/>);
 		
-							info.push(<h2 key={3}>Город:</h2>);
+							info.push(<h2>Город:</h2>);
 							info.push(<input type="text" id="price" onChange={this.handleNewLocation} value={location}/>);
 		
-							info.push(<h2 key={4}>Ссылка на фотографию:</h2>);
+							info.push(<h2>Ссылка на фотографию:</h2>);
 							info.push(<input type="text" id="price" onChange={this.handleNewPhoto} value={photo}/>);
 							
 							if (user.access < 2){
@@ -255,26 +257,26 @@ var Profile = React.createClass({
 										? <option selected value={tmpId++}>{d}</option>
 										: <option  value={tmpId++}>{d}</option>);
 
-								info.push(<h2 key={5}>Способ оплаты:</h2>);
+								info.push(<h2>Способ оплаты:</h2>);
 								info.push(<select onChange={this.handleNewPay}>
 									{pay}
 								</select>);
 
-								info.push(<h2 key={6}>Способ доставки:</h2>);
+								info.push(<h2>Способ доставки:</h2>);
 								info.push(<select onChange={this.handleNewDelivery}>
 									{delivery}
 								</select>);
 							}
 
 
-							info.push(<button key={2} onClick={this.handleSubmit}>Готово!</button>);	
+							info.push(<button onClick={this.handleSubmit}>Готово!</button>);	
 					} 
 					else {
-							info.push(<img key={tmpId} src={user.photo} />);
+							info.push(<img src={user.photo} />);
 							if (got(user.lastName))
-								info.push(<h1 key={0}>{user.lastName + " " + user.name}</h1>)
+								info.push(<h1>{user.lastName + " " + user.name}</h1>)
 							else
-								info.push(<h1 key={0}>{user.name} </h1>);
+								info.push(<h1>{user.name} </h1>);
 							info.push(<iframe frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/shop.xml?account=410011343826671&quickpay=shop&payment-type-choice=on&writer=seller&targets=%D0%98%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5+%D1%82%D0%B8%D0%BF%D0%B0+%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D0%B0&default-sum=250&button-text=01&comment=on&hint=%D0%A7%D1%82%D0%BE+%D0%B2%D1%8B+%D0%BF%D0%BB%D0%B0%D0%BD%D0%B8%D1%80%D1%83%D0%B5%D1%82%D0%B5+%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B0%D1%82%D1%8C+%D0%BD%D0%B0+%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D0%B5%3F&fio=on&mail=on&successURL=%2Fsuccess" width="450" height="268"></iframe>);
 					}				
 				};
@@ -282,7 +284,7 @@ var Profile = React.createClass({
 				content = [];
 				switch(this.state.content) {
 					case 0 : 
-						content.push(<Profile_products key={0} userId={userId}/>);
+						content.push(<Profile_products userId={userId}/>);
 						break;
 					case 1 :
 						content.push(<Profile_likes userId={userId}/>);
@@ -298,17 +300,15 @@ var Profile = React.createClass({
 
 
 				return (
-						<div key={3} className="profile_page">
-							
-							<div key={0} className="profile_header" >
-								<div key={1} className="profile_menu">
+						<div className="profile_page">
+							<div className="profile_header" >
+								<div className="profile_menu">
 									{menu}
 								</div>
 							</div>
-							<div key={2} className="profile">
+							<div className="profile">
 								{info}
 							</div>	
-							
 							{content}
 						</div>
 				)}
@@ -320,6 +320,8 @@ var Profile = React.createClass({
 	        this.setState(getStateFromFlux(this.state.userId));
 	    }
 });
+
+
 
 
 export default Profile;
