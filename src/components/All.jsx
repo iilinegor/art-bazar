@@ -42,7 +42,7 @@ function got(thing) {
 
 		getInitialState() {
 			let local = localStorage.getItem('userId');
-			if (local === undefined){
+			if (!local){
 				local = -1;
 				localStorage.setItem("userId", local);
 			}
