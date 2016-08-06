@@ -149,7 +149,6 @@ var Profile = React.createClass({
 		    			delivery
 		    					 		} = this.state;
 	    	
-	    	// if (name && email && password) {
 	    		console.log(user.id);
 	    		let newProduct = {
 	    				id : user.id,
@@ -164,12 +163,9 @@ var Profile = React.createClass({
 		    			delivery : delivery
 
 	    		};
-			//this.setState({ userId : length});
 			console.log(newProduct);
     		UserActions.updateUser(newProduct);
     		this.setState({ editMode: false, user: newProduct });
-			//localStorage.setItem('userId', newUser.id);
-    		// this.context.router.push(`/all`);
 	},
 
 		render: function() {
@@ -218,9 +214,6 @@ var Profile = React.createClass({
 						info.push(<h2 key={0}>О себе</h2>);
 						info.push(<p key={0}>{user.description}</p>);
 
-					// if (got(user.order))
-					// 	for (let o of user.order)
-							// info.push(<div className="subfield"> <h2 key={0}>{products[o.productId].name}</h2> <h3 key={0}>{UserStore.getUser(parseInt(o.userId)).name}</h3> <h3 key={0}>Статус: {o.status}</h3> </div>);
 					};
 				}
 				else {
@@ -329,102 +322,4 @@ var Profile = React.createClass({
 });
 
 
-
-
 export default Profile;
-
-
-// var Basket = React.createClass({
-// 		getInitialState() {
-// 			return {
-// 				user: this.props.user,
-// 				currentUser: this.props.currentUser,
-// 				users: UserStore.getUsers(),
-// 				products: ProductStore.getProducts(),
-// 				is: false,
-// 				code: 0
-// 			}
-// 		},
-
-// 		handleBasketDelete(productId, authorId) {
-// 			let { users, currentUser, products} = this.state;
-// 			let user = users[authorId];
-			
-// 			currentUser.basket = currentUser.basket.filter((x) => {return x.productId !== productId});
-// 			user.order = user.order.filter((x) => {return !((x.productId == productId) && (x.userId == currentUser.id)) });
-// 			UserActions.updateUserBasket(currentUser);
-// 			UserActions.updateUserBasket(user);
-
-// 			users.map((x) => {if (x.id === currentUser.id) x = currentUser});
-			
-// 			this.setState({users: users});
-// 		},
-
-// 		handleOrderDelete(productId, userId) {
-// 			let { users, currentUser, products} = this.state;
-// 			let user = users[userId];
-
-// 			user.basket = user.basket.filter((x) => {return x.productId !== productId});
-// 			currentUser.order = currentUser.order.filter((x) => {return !((x.productId == productId) && (x.userId == user.id)) });
-// 			UserActions.updateUserOrder(currentUser);
-// 			UserActions.updateUserOrder(user);
-
-// 			users.map((x) => {if (x.id === currentUser.id) x = currentUser});
-// 			this.setState({users: users, is: !this.state.is, code: 3});
-// 		},
-
-// 		handleTest(code) {
-// 	    	this.setState({is: !this.state.is, code: code});
-// 	    },
-
-
-// 		render() {
-// 			let { user } = this.state;
-// 			let { users, products } = this.state;
-
-// 			//user = user.map((el) => {return <li>{el}</li>});
-// 			let basketList = [],
-// 				orderList = [];
-// 			for (let b of user.basket){
-// 					basketList.push(<div className="basket_item">
-// 								<div style={{backgroundImage: 'url(' + products[b.productId].image[0] + ')', height: 150 + "px", width: 150 + "px", 
-// 												backgroundSize: 100 + "% auto", backgroundPosition: "0% 50%" }}></div>
-// 								<div onClick={this.handleBasketDelete.bind(null, b.productId, b.authorId)} className="basket_close">✖</div>
-// 								<div>
-// 									<p key={0}><b>{products[b.productId].name}</b></p> 
-// 									<p key={0}>Цена: {products[b.productId].price}₸</p> 
-// 									<p key={0}>Почта: {users[b.authorId].email}</p> 
-// 									<p key={0}>от {users[b.authorId].name} <br/>{b.isOrder ? "сейчас готов к отправке" : <button onClick={this.handleTest.bind(null, 1)}>Заказать</button>}</p>
-// 								</div>
-// 									</div>);
-// 				}
-
-// 			for (let o of user.order){
-// 					orderList.push(<div className="basket_item">
-// 								<div style={{backgroundImage: 'url(' + products[o.productId].image[0] + ')', height: 150 + "px", width: 150 + "px", 
-// 												backgroundSize: 100 + "% auto", backgroundPosition: "0% 50%" }}></div>
-// 								<div onClick={this.handleOrderDelete.bind(null, o.productId, o.userId)} className="basket_close">✖</div>
-// 								<div>
-// 									<p key={0}>{products[o.productId].name}</p> 
-// 									<p key={0}>{products[o.productId].price}₸</p> 
-// 									<p key={0}>от {users[o.userId].name} <br/>{o.status ? "сейчас готов к отправке" : <button onClick={this.handleTest.bind(null, 2)}>Принять заказ</button>}</p>
-// 								</div>
-// 									</div>);
-// 				}
-
-// 			return (
-// 					<div className="basket">
-// 	 					{ this.state.is ?  <Notice close={this.handleTest} code={this.state.code}/> : "" }
-// 						<div className="basket_list">					
-// 							<h2 key={0} className="basket_title">Список покупок</h2>
-// 							{basketList}
-// 						</div>
-
-// 						<div className="basket_list">
-// 							<h2 key={0} className="basket_title">Список заказов</h2>
-// 							{orderList}
-// 						</div>
-// 					</div>
-// 				);
-// 		}
-// 	});
