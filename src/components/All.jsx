@@ -41,7 +41,7 @@ function got(thing) {
 	    },
 
 		getInitialState() {
-			let local = parseInt(localStorage.getItem('userId'));
+			let local = localStorage.getItem('userId');
 			if (local === undefined){
 				local = -1;
 				localStorage.setItem("userId", local);

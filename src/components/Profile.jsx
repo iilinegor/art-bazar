@@ -45,7 +45,7 @@ var Profile = React.createClass({
 	    },
 
     	getInitialState() {
-    		let local = parseInt(localStorage.getItem('userId'));
+    		let local = localStorage.getItem('userId');
 			if (local === undefined){
 				local = -1;
 				localStorage.setItem("userId", local);
@@ -186,7 +186,7 @@ var Profile = React.createClass({
 			if (user) {
 				for (let ml of menuList) {
 					menu.push(<a className={tmpId === this.state.content ? "profile_menu_item-selected" : "profile_menu_item"} onClick={this.handleMenu.bind(null, tmpId)}>{menuList[tmpId++]}</a>);
-					if ((currentUserId === -1 || currentUserId === undefined) && tmpId === 1) break;
+					if ((currentUserId === -1 || currentUserId === 0) && tmpId === 1) break;
 					if (currentUserId !== parseInt(userId) && tmpId === 2) break;
 					if (UserStore.getUser(currentUserId).access !== 0 && tmpId === 3) break;
 				};
