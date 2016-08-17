@@ -12,11 +12,7 @@ import './Login.css';
 
 
 function getStateFromFlux() {
-	/*let isKnown;
-	if (UserStore.inBase(-1) !== [])
-		isKnown = 1
-	else 
-		isKnown = 0;*/
+	
     return {
 				users: UserStore.getUsers(),
 	        isLoading: UserStore.isLoading(),

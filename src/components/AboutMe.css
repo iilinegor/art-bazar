@@ -1,0 +1,41 @@
+html, body {
+	height: 100%;
+}
+
+#content {
+	height: 100%;
+}
+
+.me_back {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background-color: #272822;
+}
+
+.me_back h1, .me_back h2, .me_back a {
+	color: #ffffff;
+	font-family: "Segoe UI";
+	text-align: left;
+	text-decoration: none;
+}
+
+.me_card a {
+	margin: 5px 10px;
+}
+
+.me_card a:hover {
+	color: #aaaaff;
+}
+
+.me_card {
+	width: 700px;
+	display: inline-block;
+	padding: 10px 50px;
+	border: 1px solid #fff;
+}
+
+.me_card img {
+	position: relative;
+	
+}

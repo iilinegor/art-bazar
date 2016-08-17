@@ -13,6 +13,7 @@ import Profile_likes from './components/Likes.jsx';
 import Promoute from './components/Promoute.jsx';
 import ProductAdd from './components/ProductAdd.jsx';
 import UserAccepting from './components/UserAccepting.jsx';
+import AboutMe from './components/AboutMe.jsx';
 import App from './App.jsx';
 
 ReactDOM.render(
@@ -30,6 +31,8 @@ ReactDOM.render(
 					<Route path="/basket" component={Profile_basket}/>
 					<Route path="/Promoute" component={Promoute}/>
 				</Route>
+				<Route path="/about" component={AboutMe}/>
+
 			</Router>,
 			document.getElementById("content")
 		);
