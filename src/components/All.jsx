@@ -35,6 +35,7 @@ function got(thing) {
 			gutter: 20
 		};
 
+
 	var All = React.createClass({
 		contextTypes: {
 	        router: React.PropTypes.object.isRequired
@@ -195,6 +196,8 @@ function got(thing) {
 							</div>
 						</div>
 
+						
+		                       
 						<div className="all__search">
 							<div className="all__searchField">	
 								<div onClick={this.handleChangeView} className="all__viewButton">
@@ -209,6 +212,7 @@ function got(thing) {
 								{category}
 							</ul>
 						</div>
+						
 						<Masonry
 			                className='NotesGrid'
 			                options={masonryOptions}

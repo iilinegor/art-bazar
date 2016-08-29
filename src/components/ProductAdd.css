@@ -119,6 +119,27 @@ input, select {
 	background: #fdf4ec;
 	color: #000;
 }
+
+.dz-preview {
+	display: none;
+	visibility: hidden;
+}
+
+.dz-default {
+	border: dashed 2px #000000;
+	border-radius: 5px;
+	width: 200px;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	transition: all 0.5s;
+	margin: 5px auto;
+}
+
+.dz-default:hover {
+	background-color: rgba(255, 255, 255, 0.2);
+	transition: all 0.2s;
+
+}
 /*.img {
 	width: 100%;
 	position: relative;

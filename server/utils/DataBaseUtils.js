@@ -5,6 +5,7 @@ import config from '../../etc/config.json';
 import '../models/Market';
 import '../models/User';
 
+mongoose.Promise = global.Promise;
 
 const Market = mongoose.model('market');
 const User = mongoose.model('user');

@@ -1,5 +1,7 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
+import DropzoneComponent from 'react-dropzone-component/lib/react-dropzone'
+import { apiPrefix } from '../../etc/config.json';
 
 import ProductStore from '../stores/ProductStore';
 import ProductActions from '../actions/ProductActions';
@@ -7,16 +9,23 @@ import ProductActions from '../actions/ProductActions';
 import typeList from './List.js';
 import Galery from './Galery.jsx';
 
+
+
 import './ProductAdd.css';
 
 var currntImg = 0;
-var tmpPhotos = ["", "", "", "", "", ""]
+var tmpPhotos = ["", "", "", "", "", ""];
+			var inputs = [];
+// tmpPhotos.addChangeListener(function ());
+
 
 function getStateFromFlux() {
     return {
 			length: ProductStore.getProducts().length
 		};
 };
+
+	
 
 var ProductAdd = React.createClass({
 	contextTypes: {
@@ -103,6 +112,19 @@ var ProductAdd = React.createClass({
 		this.setState({ photos : tmp });
 	},
 
+	handleTmpUpdate(value){
+		let searching = true;
+		inputs = [];
+		for (let i = 0; i < 6; i++) {
+				if (tmpPhotos[i] === "" && searching){
+					searching = false;
+					tmpPhotos[i] = value;
+				};
+
+				inputs.push(<input type="text" id={`photo-${i}`} onChange={this.handlePushPhoto.bind(null, i)} value={tmpPhotos[i]}/>);
+			};
+	},
+
 	handleSubmit() {
 	    	let {	    length, 
 		    			name, 
@@ -142,6 +164,53 @@ var ProductAdd = React.createClass({
 		var category = [];
 		var tmpId = 0;
 
+
+
+
+
+var componentConfig = {
+	    iconFiletypes: ['.jpg', '.png', '.gif'],
+	    showFiletypeIcon: true,
+	    postUrl: `${apiPrefix}/upload`
+	};
+
+	var djsConfig = {
+	    addRemoveLinks: true,
+	    acceptedFiles: "image/jpeg,image/png,image/gif"
+	};
+
+	function sucRes(props, res){
+		let searching = true;
+		inputs = [];
+		for (let i = 0; i < 6; i++) {
+				if (tmpPhotos[i] === "" && searching){
+					searching = false;
+					tmpPhotos[i] = res.responseText;
+				};
+				let tmp = [];
+				for (let photo of tmpPhotos)
+					if (photo !== "")
+						tmp.push(photo);
+				scope.setState({ photos : tmp });
+				// inputs.push(<input type="text" id={`photo-${i}`} onChange={this.handlePushPhoto.bind(null, i)} value={tmpPhotos[i]}/>);
+			};
+
+		console.log(res.responseText);
+	};
+
+	var scope = this;
+
+	var eventHandlers = {
+	    success: sucRes
+	};
+
+
+
+
+
+
+
+
 		for (let c of typeList) {
 				category.push( <option disabled>{c.group}</option> );
 				for (let cat of c.cats)
@@ -149,6 +218,12 @@ var ProductAdd = React.createClass({
 			};
 
 		if (true){
+				inputs = [];
+				for (let i = 0; i < 6; i++) {
+					inputs.push(<input type="text" id={`photo-${i}`} onChange={this.handlePushPhoto.bind(null, i)} value={tmpPhotos[i]}/>);
+				};
+
+			
 			return <div className="product" >
 			 			
 					 	<h1>Наименование продукта</h1>
@@ -156,15 +231,16 @@ var ProductAdd = React.createClass({
 
 						<div className="photofield">
 							<h2>Ссылки на фотографии</h2>
-							<input type="text" id="photo-0" onChange={this.handlePushPhoto.bind(null, 0)}/>
-							<input type="text" id="photo-1" onChange={this.handlePushPhoto.bind(null, 1)}/>
-							<input type="text" id="photo-2" onChange={this.handlePushPhoto.bind(null, 2)}/>
-							<input type="text" id="photo-3" onChange={this.handlePushPhoto.bind(null, 3)}/>
-							<input type="text" id="photo-4" onChange={this.handlePushPhoto.bind(null, 4)}/>
-							<input type="text" id="photo-5" onChange={this.handlePushPhoto.bind(null, 5)}/>
+							<DropzoneComponent config={componentConfig}
+		                       eventHandlers={eventHandlers}
+		                       djsConfig={djsConfig} />
+							{inputs}
 						</div>
 						
-						
+						<button className="toBasket" onClick={this.handleUpload} >Загрузить</button>
+						<br/>
+						<br/>
+						<br/>
 						<Galery imagesArray={photos}/>
 
 						<h2>Цена</h2>
@@ -197,7 +273,7 @@ var ProductAdd = React.createClass({
 								</select>
 							 </div>
 						 </div>
-						 <button onClick={this.handleSubmit}>Поехали!</button>
+						 <button className="toBasket" onClick={this.handleSubmit}>Поехали!</button>
 				 	</div>
 				 }
 				 else return false;

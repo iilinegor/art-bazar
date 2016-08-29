@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import fs from 'fs';
+import multer from 'multer';
 
 import { serverPort } from '../etc/config.json';
 
@@ -86,9 +88,37 @@ app.post('/products/likes/inc', (req, res) => {
 });	
 
 app.post('/products/likes/dec', (req, res) => {
-    db.ProductLikesDec(req.body).then(data => res.send(data));
+    db.ProductLikesDec(req.body).then(data => c);
 });	
 
+var ext, name;
+const storage = multer.diskStorage({
+    destination: './public/uploads/', // Specifies upload location...
+
+    filename: function (req, file, cb) {
+      switch (file.mimetype) { // *Mimetype stores the file type, set extensions according to filetype
+        case 'image/jpeg':
+          ext = '.jpeg';
+          break;
+        case 'image/png':
+          ext = '.png';
+          break;
+        case 'image/gif':
+          ext = '.gif';
+          break;
+      }
+      name = Date.now() + ext;
+
+      cb(null, name);
+    }
+  });
+
+  const upload = multer({ storage:  storage});
+
+  app.post('/upload', upload.single('file'), function (req, res, next) {
+    res.send({ responseText: `./uploads/${name}`}); // You can send any response to the user here
+
+  });
 
 
 const server = app.listen(serverPort, function() {

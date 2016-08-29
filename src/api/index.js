@@ -68,5 +68,9 @@ export default {
 
     ProductLikesDec(data) {
         return axios.post(`${apiPrefix}/products/likes/dec`, data);
-    }
+    },
+
+    upload(data) {
+        return axios.post(`${apiPrefix}/upload`, data);
+    },
 }
