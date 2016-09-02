@@ -75,7 +75,7 @@ function got(thing) {
 			var searchQuery = event.target.value.toLowerCase();
 			var { Market, type } = this.state;
 			var CurrentMarket = Market.filter( function (el){
-				// let location = el.location.toLowerCase();
+				let location = el.location.toLowerCase();
 				let name = el.name.toLowerCase();
 				let description = el.description ? el.description.toLowerCase() : "";
 				let material = el.material ? el.material.toLowerCase() : "";

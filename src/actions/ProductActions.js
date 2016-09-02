@@ -94,15 +94,25 @@ const ProductActions = {
         );
     },
 
-    deleteProduct(noteId) {
-        api.deleteProduct(noteId)
+    deleteProduct(id) {
+        api.deleteProduct(id)
         .then(() =>
             this.loadProducts()
         )
         .catch(err =>
             console.error(err)
         );
-    }
+    },
+
+    updateProduct(data) {
+        api.deleteProduct(data)
+        .then(() =>
+            this.loadProducts()
+        )
+        .catch(err =>
+            console.error(err)
+        );
+    },
 };
 
 export default ProductActions;

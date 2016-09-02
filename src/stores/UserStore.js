@@ -39,7 +39,7 @@ const TasksStore = Object.assign({}, EventEmitter.prototype, {
     },
 
     getUser(id) {
-        return _users[id];
+        return _users.filter((x) => { return x.id === id})[0];
     },
 
     inBase(email) {

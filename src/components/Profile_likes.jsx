@@ -105,7 +105,11 @@ var Profile_likes = React.createClass({
         
 				<div className="profile__grid" ref="grid">{prod}</div>
 			</Masonry>);
-		}
+		},
+
+		_onChange() {
+	        this.setState(getStateFromFlux(this.state.userId));
+	    }
 
 	});
 

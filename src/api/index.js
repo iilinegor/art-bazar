@@ -35,10 +35,13 @@ export default {
         return axios.post(`${apiPrefix}/user/new`, data);
     },
 
-    deleteProduct(noteId) {
-        return axios.delete(`${apiPrefix}/products/${noteId}`);
+    deleteProduct() {
+        return axios.post(`${apiPrefix}/products/delete`, id);
     },
 
+    updateProduct(data) {
+        return axios.post(`${apiPrefix}/products/update`, data);
+    },
 
 
 

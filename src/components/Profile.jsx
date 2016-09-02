@@ -23,8 +23,8 @@ var masonryOptions = {
 };
 
 function getStateFromFlux(userId) {
+	console.log(userId);
     return {
-		isLoading: UserStore.isLoading(),
 		user: UserStore.getUser(parseInt(userId)),
 		products: ProductStore.getProducts()
 	};
@@ -55,6 +55,11 @@ var Profile = React.createClass({
 		    };
 
 			var user = UserStore.getUser(parseInt(this.props.params.userId));
+			console.log(this.props.params.userId);
+			console.log(parseInt(this.props.params.userId));
+			console.log(UserStore.getUser(parseInt(this.props.params.userId)));
+			console.log(UserStore.getUsers());
+
 			if (parseInt(this.props.params.userId) === undefined)
 	    		this.context.router.push(`/all`)
 	    	else			
@@ -317,7 +322,7 @@ var Profile = React.createClass({
 		},
 
 		_onChange() {
-	        this.setState(getStateFromFlux(this.state.userId));
+	        this.setState(getStateFromFlux(parseInt(this.props.params.userId)));
 	    }
 });
 

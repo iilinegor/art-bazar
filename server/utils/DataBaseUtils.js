@@ -120,18 +120,62 @@ export function createProduct(data) {
     return product.save();
 }
 
-export function deleteNote(id) {
-    return Market.findById(id).remove();
+
+export function updateProduct(data) {
+            return Market.update( { "id" : data.id } , { 
+                $set: { "name": data.name,
+                        "description": data.description,
+                        "authorId": data.authorId,
+                        "type": data.type,
+                        "subtype": data.subtype,
+                        "color": data.color,
+                        "size": data.size,
+                        "material": data.material,
+                        "craftTime": data.craftTime,
+                        "likes": 0,
+                        "price": data.price,
+                        "views": data.views,
+                        "bays": data.bays,
+                        "image": data.image,
+                        "delete": false } },
+                { upsert: true }, function(err, doc){ } 
+            );
+        }
+
+export function deleteProduct(data) {
+    return Market.remove({ "id" : data.id });
 }
 
-        export function ProductLikesInc(data) {
-            return Market.update( { "id" : data.id } , { 
-                $inc : { likes: 1 }
-            } );
-        }
+export function updateProduct(data) {
+     const product = new Market({
+            id: data.id,
+            name: data.name,
+            description: data.description,
+            authorId: data.authorId,
+            type: data.type,
+            subtype: data.subtype,
+            color: data.color,
+            size: data.size,
+            material: data.material,
+            craftTime: data.craftTime,
+            likes: 0,
+            price: data.price,
+            views: data.views,
+            bays: data.bays,
+            image: data.image,
+            delete: false
+    });
+    return product.save();
+}
 
-        export function ProductLikesDec(data) {
-            return Market.update( { "id" : data.id } , { 
-                $inc : { likes: -1 }
-            } );
-        }
+export function ProductLikesInc(data) {
+    return Market.update( { "id" : data.id } , { 
+        $inc : { likes: 1 }
+    } );
+}
+
+export function ProductLikesDec(data) {
+    return Market.update( { "id" : data.id } , { 
+        $inc : { likes: -1 }
+    } );
+}

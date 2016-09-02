@@ -44,10 +44,11 @@ var ProductAdd = React.createClass({
 
 	  //   if (local === -1 || local != 0)
 			// this.context.router.push(`/all`);
+			console.log(ProductStore.getProduct(ProductStore.getProducts().length - 1).id + 1);
 	    return {
 			productId: 0,
 			photos: [],
-			length: ProductStore.getProducts().length,
+			length: ProductStore.getProduct(ProductStore.getProducts().length - 1).id + 1,
 			user: localStorage.getItem('userId')
 		};
 	},
@@ -138,7 +139,7 @@ var ProductAdd = React.createClass({
 		    			photos 		} = this.state;
 	    	
 	    	// if (name && email && password) {
-	    		console.log(user.id);
+	    		console.log(user);
 	    		let newProduct = {
 					id: length,
 					name : name,
@@ -230,16 +231,13 @@ var componentConfig = {
 					 	<input type="text" id="name" onChange={this.handleNewName} />
 
 						<div className="photofield">
-							<h2>Ссылки на фотографии</h2>
+							<h2>Фотографии</h2>
 							<DropzoneComponent config={componentConfig}
 		                       eventHandlers={eventHandlers}
 		                       djsConfig={djsConfig} />
 							{inputs}
 						</div>
 						
-						<button className="toBasket" onClick={this.handleUpload} >Загрузить</button>
-						<br/>
-						<br/>
 						<br/>
 						<Galery imagesArray={photos}/>
 

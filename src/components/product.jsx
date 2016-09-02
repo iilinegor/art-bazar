@@ -23,6 +23,8 @@ function got(thing) {
 
 function getStateFromFlux(productId) {
 		let local = parseInt(localStorage.getItem('userId'));
+		productId = parseInt(productId);
+		console.log(productId);
     return {
 			productId: productId,
 	        isLoading: ProductStore.isLoading(),
@@ -112,6 +114,12 @@ var ProductFull = React.createClass({
 				this.context.router.push(`/login`);
 			};
 
+    },
+
+    handleDelete() {
+    	let { products } = this.state;
+    	console.log(products.id);
+    	ProductActions.deleteProduct(products.id);
     },
 
     handleProduct(productId) {
@@ -212,8 +220,10 @@ var ProductFull = React.createClass({
 											 {products.size}
 										 </div>	 );
 
-					// if (currentUser.id !== products.authorId)
-					prof.push(<div key={6} ><br/><button onClick={this.handleBasket} className="toBasket"> В корзину </button></div>);
+					if (currentUser.id !== products.authorId)
+						prof.push(<div key={6} ><br/><button onClick={this.handleBasket} className="toBasket"> В корзину </button></div>);
+					
+						prof.push(<div key={6} ><br/><button onClick={this.handleDelete} className="toBasket"> Удалить </button></div>);
 
 		};
 

@@ -91,6 +91,15 @@ app.post('/products/likes/dec', (req, res) => {
     db.ProductLikesDec(req.body).then(data => c);
 });	
 
+
+app.post('/products/delete', (req, res) => {
+    db.deleteProduct(req.body).then(data => res.send(data));
+});
+
+app.post('/products/update', (req, res) => {
+    db.updateProduct(req.body).then(data => res.send(data));
+});
+
 var ext, name;
 const storage = multer.diskStorage({
     destination: './public/uploads/', // Specifies upload location...
