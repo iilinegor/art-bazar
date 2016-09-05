@@ -144,6 +144,14 @@ h1, h2, h3 {
 .product .author h2{
 	margin: 0px;
 }
+
+.product .all__like, .product .all__liked {
+	width: 50px;
+	display: inline-block;
+	position: relative;
+	left: calc(100% - 50px);
+	top: -40px;
+}
 /*.img {
 	width: 100%;
 	position: relative;

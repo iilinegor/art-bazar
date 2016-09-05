@@ -14,8 +14,16 @@ import Notice from './Notice.jsx';
 
 import './all.css';
 
+var truth = false;
+
 function got(thing) {
 	return (thing !== undefined);
+};
+
+function searchTruth(param, query){
+	if (got(param))
+		return param.toLowerCase().indexOf(query) !== -1;
+	return false;
 };
 
 	function getStateFromFlux(first) {
@@ -73,13 +81,18 @@ function got(thing) {
 
 		handleSearch: function(event) {
 			var searchQuery = event.target.value.toLowerCase();
-			var { Market, type } = this.state;
+			var { Market, type, users } = this.state;
+
+			truth = false;
 			var CurrentMarket = Market.filter( function (el){
-				let location = el.location.toLowerCase();
-				let name = el.name.toLowerCase();
-				let description = el.description ? el.description.toLowerCase() : "";
-				let material = el.material ? el.material.toLowerCase() : "";
-				return (((name.indexOf(searchQuery) !== -1) || (description.indexOf(searchQuery) !== -1) || (material.indexOf(searchQuery) !== -1)) && (type === el.type || type === -1));
+				if (searchTruth(UserStore.getUser(el.authorId).location, searchQuery)) return true;
+				if (searchTruth(el.name, searchQuery)) return true;
+				if (searchTruth(el.description, searchQuery)) return true;
+				if (searchTruth(UserStore.getUser(el.authorId).name, searchQuery)) return true;
+				if (searchTruth(UserStore.getUser(el.authorId).lastName, searchQuery)) return true;
+				if (searchTruth(el.material, searchQuery)) return true;
+				
+				return false;
 			});
 			this.setState({
 				currentMarket: CurrentMarket

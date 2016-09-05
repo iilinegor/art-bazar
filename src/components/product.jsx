@@ -31,7 +31,6 @@ function getStateFromFlux(productId) {
 	        products: ProductStore.getProduct(productId),
 	        user: ProductStore.getProduct(productId)? UserStore.getUser(ProductStore.getProduct(productId).authorId) : "",
 		    currentUser: UserStore.getUser(local)
-
 		};
 };
 
@@ -118,8 +117,12 @@ var ProductFull = React.createClass({
 
     handleDelete() {
     	let { products } = this.state;
-    	console.log(products.id);
-    	ProductActions.deleteProduct(products.id);
+    	ProductActions.deleteProduct(products);
+    	this.context.router.push("/all");
+    },
+
+    handleEdit() {
+    	this.context.router.push(`/edit/${this.state.productId}`);
     },
 
     handleProduct(productId) {
@@ -175,9 +178,8 @@ var ProductFull = React.createClass({
 					prof.push( <div key={8} className="price"><b>Цена</b> {products.price} ₸</div> );
 
 
-
-					prof.push( <div key={7} className="likes" onClick={this.handleLike.bind(null, products)} >{"❤"} {products.likes}</div> );
-
+					prof.push(<div><br/><br/></div>);
+					prof.push( <div key={7} className={currentUser.likes.some( x => {return x === products.id}) ? "all__liked" : "all__like"} onClick={this.handleLike.bind(null, products)} > {products.likes}</div> );
 				if (got(products.description)){
 						prof.push(<h2>Описание</h2>);
 						prof.push(<p>{products.description}</p>);
@@ -222,8 +224,9 @@ var ProductFull = React.createClass({
 
 					if (currentUser.id !== products.authorId)
 						prof.push(<div key={6} ><br/><button onClick={this.handleBasket} className="toBasket"> В корзину </button></div>);
-					
-						prof.push(<div key={6} ><br/><button onClick={this.handleDelete} className="toBasket"> Удалить </button></div>);
+					else
+						prof.push(<div key={6} ><br/><button onClick={this.handleDelete} className="toBasket"> Удалить </button>
+													<button onClick={this.handleEdit} className="toBasket"> Редактировать </button></div>);
 
 		};
 

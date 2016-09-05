@@ -35,8 +35,8 @@ export default {
         return axios.post(`${apiPrefix}/user/new`, data);
     },
 
-    deleteProduct() {
-        return axios.post(`${apiPrefix}/products/delete`, id);
+    deleteProduct(data) {
+        return axios.post(`${apiPrefix}/products/delete`, data);
     },
 
     updateProduct(data) {

@@ -12,6 +12,7 @@ import Profile_basket from './components/Basket.jsx';
 import Profile_likes from './components/Likes.jsx';
 import Promoute from './components/Promoute.jsx';
 import ProductAdd from './components/ProductAdd.jsx';
+import ProductEdit from './components/ProductEdit.jsx';
 import UserAccepting from './components/UserAccepting.jsx';
 import AboutMe from './components/AboutMe.jsx';
 import App from './App.jsx';
@@ -26,6 +27,7 @@ ReactDOM.render(
 					<Route path="/help" component={Help}/>
 					<Route path="/likes" component={Profile_likes}/>
 					<Route path="/add" component={ProductAdd}/>
+					<Route path="/edit/:productId" component={ProductEdit}/>
 					<Route path="/users" component={UserAccepting}/>
 					<Route path="/profile/:userId" component={Profile} />
 					<Route path="/basket" component={Profile_basket}/>

@@ -6,29 +6,36 @@ import { apiPrefix } from '../../etc/config.json';
 import ProductStore from '../stores/ProductStore';
 import ProductActions from '../actions/ProductActions';
 
-import typeList from './List.js';
+import UserStore from '../stores/UserStore';
+import UserActions from '../actions/UserActions';
+
 import Galery from './Galery.jsx';
+import typeList from './List.js';
+
+import Notice from './Notice.jsx';
 
 
+import './style.css';
 
-import './ProductAdd.css';
+var currntImg = 0;
+
+function got(thing) {
+	return (thing !== undefined);
+};
 
 var currntImg = 0;
 var tmpPhotos = ["", "", "", "", "", ""];
 var inputs = [];
-let max = 0;
-
 
 
 function getStateFromFlux() {
     return {
-			length: max + 1
+
 		};
 };
 
-	
 
-var ProductAdd = React.createClass({
+var ProductEdit = React.createClass({
 	contextTypes: {
 		router: React.PropTypes.object.isRequired
 	},
@@ -43,17 +50,29 @@ var ProductAdd = React.createClass({
 	    	local = parseInt(localStorage.getItem('userId'));
 	    };	
 
-	  //   if (local === -1 || local != 0)
-			// this.context.router.push(`/all`);
 
-		ProductStore.getProducts().filter((x) => {if (x.id > max) max = x.id});
-			console.log(max + 1);	
-			
+		// ProductStore.getProducts().filter((x) => {if (x.id > max) max = x.id});
+		// 	console.log(max + 1);	
+		
+		console.log(ProductStore.getProduct(parseInt(this.props.params.productId)));
+		console.log(this.props.params.productId);
+		let product = ProductStore.getProduct(parseInt(this.props.params.productId));
+		tmpPhotos = product.image;
 	    return {
 			productId: 0,
-			photos: [],
-			length: max + 1,
-			user: localStorage.getItem('userId')
+			// photos: [],
+			user: localStorage.getItem('userId'),
+			product: product,
+			id: product.id,
+			name: product.name ,
+			description: product.description,
+			authorId: product.authorId,
+			type: product.type,
+			size: product.size,
+			material: product.material,
+			craftTime: product.craftTime,
+			price: product.price,
+			image: product.image,
 		};
 	},
 
@@ -114,14 +133,14 @@ var ProductAdd = React.createClass({
 		for (let photo of tmpPhotos)
 			if (photo !== "")
 				tmp.push(photo);
-		this.setState({ photos : tmp });
+		this.setState({ image : tmp });
 	},
 
 	handleTmpUpdate(value){
 		let searching = true;
 		inputs = [];
 		for (let i = 0; i < 6; i++) {
-				if (tmpPhotos[i] === "" && searching){
+				if ((tmpPhotos[i] === "" || tmpPhotos[i] === undefined) && searching){
 					searching = false;
 					tmpPhotos[i] = value;
 				};
@@ -131,7 +150,7 @@ var ProductAdd = React.createClass({
 	},
 
 	handleSubmit() {
-	    	let {	    length, 
+	    	let {	    id, 
 		    			name, 
 		    			description,
 		    			user, 
@@ -140,80 +159,80 @@ var ProductAdd = React.createClass({
 		    			material, 
 		    			craftTime, 
 		    			price,
-		    			photos 		} = this.state;
+		    			image 		} = this.state;
 	    	
 	    	// if (name && email && password) {
 	    		console.log(user);
 	    		let newProduct = {
-					id: length,
+					id: id,
 					name : name,
 					description: description,
 					authorId: user,
 					type: type,
-					/*location: data.location,*/
 					size: size,
 					material: material,
 					craftTime: craftTime,
 					price: price,
-					image: photos,
+					image: image,
 					likes: 0
 	    		};
 			//this.setState({ userId : length});
-    		ProductActions.createProduct(newProduct);
+    		ProductActions.updateProduct(newProduct);
 			//localStorage.setItem('userId', newUser.id);
     		this.context.router.push(`/all`);
 	},
 
 	render: function() {
-		const { productId, products, photos } = this.state;
+		const { productId, products, image } = this.state;
 		var category = [];
 		var tmpId = 0;
 
+		// let {	    length, 
+		//     			name, 
+		//     			description,
+		//     			user, 
+		//     			type, 
+		//     			size, 
+		//     			material, 
+		//     			craftTime, 
+		//     			price	} = this.state;
 
 
+					var componentConfig = {
+					    iconFiletypes: ['.jpg', '.png', '.gif'],
+					    showFiletypeIcon: true,
+					    postUrl: `${apiPrefix}/upload`
+					};
 
+					var djsConfig = {
+					    addRemoveLinks: true,
+					    acceptedFiles: "image/jpeg,image/png,image/gif"
+					};
 
-var componentConfig = {
-	    iconFiletypes: ['.jpg', '.png', '.gif'],
-	    showFiletypeIcon: true,
-	    postUrl: `${apiPrefix}/upload`
-	};
+					function sucRes(props, res){
+						let searching = true;
+						inputs = [];
+						for (let i = 0; i < 6; i++) {
+								if (tmpPhotos[i] === "" && searching){
+									searching = false;
+									tmpPhotos[i] = res.responseText;
+								};
+								let tmp = [];
+								for (let photo of tmpPhotos)
+									if (photo !== "")
+										tmp.push(photo);
+								scope.setState({ image : tmp });
+								// inputs.push(<input type="text" id={`photo-${i}`} onChange={this.handlePushPhoto.bind(null, i)} value={tmpPhotos[i]}/>);
+							};
 
-	var djsConfig = {
-	    addRemoveLinks: true,
-	    acceptedFiles: "image/jpeg,image/png,image/gif"
-	};
+						console.log(res.responseText);
+					};
 
-	function sucRes(props, res){
-		let searching = true;
-		inputs = [];
-		for (let i = 0; i < 6; i++) {
-				if (tmpPhotos[i] === "" && searching){
-					searching = false;
-					tmpPhotos[i] = res.responseText;
-				};
-				let tmp = [];
-				for (let photo of tmpPhotos)
-					if (photo !== "")
-						tmp.push(photo);
-				scope.setState({ photos : tmp });
-				// inputs.push(<input type="text" id={`photo-${i}`} onChange={this.handlePushPhoto.bind(null, i)} value={tmpPhotos[i]}/>);
-			};
+					var scope = this;
 
-		console.log(res.responseText);
-	};
-
-	var scope = this;
-
-	var eventHandlers = {
-	    success: sucRes
-	};
-
-
-
-
-
-
+					var eventHandlers = {
+					    success: sucRes
+					};
 
 
 		for (let c of typeList) {
@@ -232,7 +251,7 @@ var componentConfig = {
 			return <div className="product" >
 			 			
 					 	<h1>Наименование продукта</h1>
-					 	<input type="text" id="name" onChange={this.handleNewName} />
+					 	<input type="text" id="name" onChange={this.handleNewName} value={this.state.name}/>
 
 						<div className="photofield">
 							<h2>Фотографии</h2>
@@ -243,34 +262,34 @@ var componentConfig = {
 						</div>
 						
 						<br/>
-						<Galery imagesArray={photos}/>
+						<Galery imagesArray={image}/>
 
 						<h2>Цена</h2>
-						<input type="text" id="price" onChange={this.handleNewPrice}/>
+						<input type="text" id="price" onChange={this.handleNewPrice} value={this.state.price}/>
 						
 					 	<h2>Описание</h2>
-					 	<input type="text" id="description" onChange={this.handleNewDescription}/>
+					 	<input type="text" id="description" onChange={this.handleNewDescription} value={this.state.description}/>
 
 
 						<div className="field">
 							 <div className="subfield">
 								 <div className="subfield__title">Размер: </div>
-								 <input type="text" id="eurosize" onChange={this.handleNewSize}/>
+								 <input type="text" id="eurosize" onChange={this.handleNewSize} value={this.state.size}/>
 							 </div>
 							 <div className="subfield">
 							 	<div className="subfield__title">Срок изготовления: </div> 
-							 	<input type="text" id="craftTime" onChange={this.handleNewCraftTime}/>
+							 	<input type="text" id="craftTime" onChange={this.handleNewCraftTime} value={this.state.craftTime}/>
 							 </div>
 						 </div>
 
 						 <div className="field">
 							 <div className="subfield">
 								 <div className="subfield__title">Материалы:</div> 
-								 <input type="text" id="material" onChange={this.handleNewMaterial}/>
+								 <input type="text" id="material" onChange={this.handleNewMaterial} value={this.state.material}/>
 							 </div>
 							 <div className="subfield">
 								 <div className="subfield__title">Тип товара:</div> 
-								 <select onChange={this.handleNewType}>
+								 <select onChange={this.handleNewType} value={this.state.type}> 
 									{category}
 								</select>
 							 </div>
@@ -286,9 +305,4 @@ var componentConfig = {
     }
 });
 
-		/*ReactDOM.render(
-			<ProductAdd number={Math.floor(Math.random() * (MARKET.length) + 0)} />,
-			document.getElementById("content")
-		);*/
-
-export default ProductAdd;
+export default ProductEdit;

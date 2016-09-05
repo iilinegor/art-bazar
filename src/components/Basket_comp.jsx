@@ -83,7 +83,8 @@ var Basket = React.createClass({
 								<div>
 									<p>{products[o.productId].name}</p> 
 									<p>{products[o.productId].price}₸</p> 
-									<p>от {users[o.userId].name} <br/>{o.status ? "сейчас готов к отправке" : <button onClick={this.handleTest.bind(null, 2)}>Принять заказ</button>}</p>
+									<br/>
+									<p>от {users[o.userId].name} <br/>{o.status ? "сейчас готов к отправке" : <button onClick={this.handleTest.bind(null, 2)}>Принять</button>}</p>
 								</div>
 									</div>);
 				}

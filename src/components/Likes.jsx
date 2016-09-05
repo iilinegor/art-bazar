@@ -168,6 +168,19 @@ var Profile = React.createClass({
     		this.setState({ editMode: false, user: newProduct });
 	},
 
+	handleLikeDelete(productId) {
+		let { users, currentUserId, products} = this.state;
+		let currentUser = UserStore.getUser(currentUserId);
+		currentUser.likes = currentUser.likes.filter((x) => {return (x !== productId.id)});
+		ProductActions.ProductLikesDec(productId);
+		UserActions.updateUserLikes(currentUser);
+		console.log(currentUser.likes);
+		console.log(productId.id);
+		products.map((x) => {if (x.id === currentUser.id) x = currentUser});
+		this.setState({products: products});
+	},
+		
+
 		render: function() {
 			var { userId, editMode, upgradeMode, user, products, currentUserId,
 		    			location, 
@@ -286,7 +299,7 @@ var Profile = React.createClass({
 						content.push(<Profile_products userId={userId}/>);
 						break;
 					case 1 :
-						content.push(<Profile_likes userId={userId}/>);
+						content.push(<Profile_likes userId={userId} onDelete={this.handleLikeDelete}/>);
 						break;
 					case 2 :
 						content.push(<Basket currentUser={ UserStore.getUser(parseInt(currentUserId)) } user={ this.state.user } bs={this.handleTest}/>);

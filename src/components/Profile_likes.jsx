@@ -78,6 +78,8 @@ var Profile_likes = React.createClass({
 	        this.context.router.push(`/product/${productId}`);
 	    },
 
+	    
+
 		render() {
 			var { userId, editMode, upgradeMode, user, products, currentUserId,
 		    			location, 
@@ -92,7 +94,7 @@ var Profile_likes = React.createClass({
 				for (let i of products)
 					for (let id of user.likes)
 						if (i.id === id)
-							prod.push(<Product onClick={this.handleClick.bind(null, i.id)} product={i} key={tmpId++} />);
+							prod.push(<Product onDelete={this.props.onDelete} onClick={this.handleClick.bind(null, i.id)} product={i} key={tmpId++} />);
 			};
 
 
@@ -116,13 +118,13 @@ var Profile_likes = React.createClass({
 var Product = React.createClass({
 
 		render: function() {
-			 return <div className="all__product" onClick={this.props.onClick}>
+			 return <div className="all__product" >
+						 <div onClick={this.props.onDelete.bind(null, this.props.product)} className="like_close">✖</div>
 						 <div className="all__photo">
-							 <img src={this.props.product.image[0]} width="100%" /><div className="all__price">{this.props.product.price}₸</div>
+							 <img src={this.props.product.image[0]} width="100%" onClick={this.props.onClick}/><div className="all__price">{this.props.product.price}₸</div>
 						 </div>
 						 <div className="all__info">
 						 	 <h2>{this.props.product.name}</h2>
-							 
 						 </div>
 				 	</div>
 			 }

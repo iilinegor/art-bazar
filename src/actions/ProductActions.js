@@ -105,7 +105,7 @@ const ProductActions = {
     },
 
     updateProduct(data) {
-        api.deleteProduct(data)
+        api.updateProduct(data)
         .then(() =>
             this.loadProducts()
         )

@@ -200,6 +200,12 @@
 	cursor: pointer;
 }
 
+.like_close {
+	position: relative;
+	left: 90%;
+	cursor: pointer;
+}
+
 .basket_item button {
 	position: relative;
 	left: 190px;
