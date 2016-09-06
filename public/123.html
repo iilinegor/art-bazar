@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>CMDmedia</title>
+		<style>
+			body {
+				background-color: #d0c09d;
+				padding: 0px;
+				overflow: hidden;
+				font-family: "Arial";
+			}
+			.scene {
+				/*perspective: 200px;*/
+				text-align: center;
+				margin-left: -10px;
+			}
+
+			.cube {
+				position: relative;
+				width: 100vw;
+				height: 100vh;
+				transform-style: preserve-3d;
+				animation: a 10s linear infinite;
+				transform: perspective(200px) rotateY(44deg) translateZ(0px);
+				margin: 0px;
+			}
+
+			@keyframes a{
+				from  {transform: rotateX(360deg) perspective(0px) }
+				to  {transform: rotateX(0deg)  perspective(0px) }
+			}
+			.side {
+				position: absolute;
+				/*border: 1px dotted #rgba(250, 250, 250, 0.3);*/
+				width: 100vw;
+				height: 100vh;
+				background-color: rgba(250, 150, 150, 0.9);
+				background: url(https://pbs.twimg.com/media/CqzHB9MWEAA2mvi.jpg) ;
+				background-size: cover;
+				transform-origin: 50% 50% 0px;
+				color: #fff;
+				backface-visibility: hidden;
+			}
+
+			.back {
+				background-image: url(http://wallpaper.zone/img/2757928.jpg);
+				transform: translateZ(-50vh) perspective(0px) rotateX(180deg);
+			}
+
+			.top {
+				background-image: url(https://www.walldevil.com/wallpapers/h14/samsung-wallpapers-wallpaper.jpg);
+				transform: translateY(-50vh) perspective(0px) rotateX(90deg);
+			}
+
+			.bottom {
+				background-image: url(http://boombob.ru/img/picture/Oct/21/e6b9bc343c1d227fd59543c5552d4218/12.jpg);
+				transform: translateY(50vh) perspective(0px) rotateX(-90deg);
+			}
+
+			.front {
+				background-image: url(http://ihdimages.com/wp-content/uploads/2014/12/house_made_of_nature_hd_wallpapers.jpg);
+				transform: translateZ(50vh) perspective(0px);
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			.cube_text {
+				position: relative;
+				width: 100vw;
+				height: 100vh;
+				transform-style: preserve-3d;
+				animation: aa 10s linear infinite;
+				transform: perspective(0px) rotateY(44deg) translateZ(0px);
+				margin: 50px auto;
+			}
+
+			@keyframes aa{
+				from  {transform: rotateX(360deg) perspective(0px) }
+				to  {transform: rotateX(0deg)  perspective(0px) }
+			}
+			.side_text {
+				position: absolute;
+				border: 1px dotted rgba(250, 250, 250, 0.4);
+				width: 100vw;
+				height: 100vh;
+				background-color: rgba(150, 150, 250, 0.15);
+				transform-origin: 50% 50% 0px;
+				color: #fff;
+				backface-visibility: hidden;
+			}
+
+			.back_text {
+				transform: translateZ(-60vh) perspective(0px) rotateX(180deg);
+			}
+
+			.top_text {
+				transform: translateY(-60vh) perspective(0px) rotateX(90deg);
+			}
+
+			.bottom_text {
+				transform: translateY(60vh) perspective(0px) rotateX(-90deg);
+			}
+
+			.front_text {
+				transform: translateZ(60vh) perspective(0px);
+			}
+
+			.container { 
+				margin: 30vh auto;
+			}
+
+			.top_text img {
+				margin: 20px;
+			}
+
+			.top_text .labels {
+				width: 100%;
+				display: inline-block;
+				font-weight: bolder;
+			}
+
+			.top_text .labels div {
+				display: inline-block;
+				width: 150px;
+				margin: 20px ;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="scene">
+			<div class="cube">
+				<div class="side front"> </div>
+				<div class="side top"> </div>
+				<div class="side back"> </div>
+				<div class="side bottom"> </div>
+				<!-- <div class="side right">5</div>
+				<div class="side left">6</div> -->
+				<div class="side_text front_text">
+					<div class="container">
+						<h1 style="font-size: 120px; font-family: 'Tahoma'; text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);">COMmedia</h1>
+						<h2>Разработка Web-приложений любой сложности</h2>
+					</div>
+				</div>
+				<div class="side_text back_text">
+					<div class="container">
+						<h1>Вверх</h1>
+						<b>Мы сосредоточили свое внимание на инновациях.<br>
+								Совершенные технологии и международный опыт позволяют нам задавать новые стандарты в строительстве.</b>
+					</div>
+				</div>
+				<div class="side_text top_text">
+					<div class="container">
+						<h1>Зад</h1>
+						<img src="http://portfolio.systemotechnika.kz/03/images/img0005.png" alt="">
+						<img src="http://portfolio.systemotechnika.kz/03/images/img0023.png" alt="">
+						<img src="http://portfolio.systemotechnika.kz/03/images/img0008.png" alt="">
+						<div class="labels">
+							<div>Индивидуальный <br> подход</div>
+							<div>Всегда готовы <br> обсудить</div>
+							<div>Официальный <br> договор</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="side_text bottom_text">
+					<div class="container">
+						<h1>Дно</h1>
+						<h2>Продам гараж. Недорого.</h2>
+						<h2>+79994680034</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
