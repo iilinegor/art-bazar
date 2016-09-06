@@ -30,7 +30,7 @@ function getStateFromFlux(productId) {
 	        isLoading: ProductStore.isLoading(),
 	        products: ProductStore.getProduct(productId),
 	        user: ProductStore.getProduct(productId)? UserStore.getUser(ProductStore.getProduct(productId).authorId) : "",
-		    currentUser: UserStore.getUser(local)
+		    currentUser: local ? UserStore.getUser(local) : undefined
 		};
 };
 
@@ -72,6 +72,7 @@ var ProductFull = React.createClass({
 
 	handleLike(data) {
 		let { currentUser } = this.state;
+		if ( currentUser !== undefined)
 		if (data.authorId !== currentUser.id && currentUser !== undefined)
 	    	if (!currentUser.likes.some((x) => {return x === data.id}) || currentUser.likes === []){
 				ProductActions.ProductLikesInc(data);
@@ -179,7 +180,8 @@ var ProductFull = React.createClass({
 
 
 					prof.push(<div><br/><br/></div>);
-					prof.push( <div key={7} className={currentUser.likes.some( x => {return x === products.id}) ? "all__liked" : "all__like"} onClick={this.handleLike.bind(null, products)} > {products.likes}</div> );
+					if (currentUser !== undefined)
+						prof.push( <div key={7} className={currentUser.likes.some( x => {return x === products.id}) ? "all__liked" : "all__like"} onClick={this.handleLike.bind(null, products)} > {products.likes}</div> );
 				if (got(products.description)){
 						prof.push(<h2>Описание</h2>);
 						prof.push(<p>{products.description}</p>);
@@ -221,12 +223,12 @@ var ProductFull = React.createClass({
 											 <div className="subfield__title">Размер: </div>
 											 {products.size}
 										 </div>	 );
-
-					if (currentUser.id !== products.authorId)
-						prof.push(<div key={6} ><br/><button onClick={this.handleBasket} className="toBasket"> В корзину </button></div>);
-					else
-						prof.push(<div key={6} ><br/><button onClick={this.handleDelete} className="toBasket"> Удалить </button>
-													<button onClick={this.handleEdit} className="toBasket"> Редактировать </button></div>);
+					if (currentUser !== undefined)
+						if (currentUser.id !== products.authorId)
+							prof.push(<div key={6} ><br/><button onClick={this.handleBasket} className="toBasket"> В корзину </button></div>);
+						else
+							prof.push(<div key={6} ><br/><button onClick={this.handleDelete} className="toBasket"> Удалить </button>
+														<button onClick={this.handleEdit} className="toBasket"> Редактировать </button></div>);
 
 		};
 

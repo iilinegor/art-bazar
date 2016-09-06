@@ -200,10 +200,10 @@ function searchTruth(param, query){
 						<div className="all_header" >
 							<div className="slider">
 								<div className="slider_header">
-									Заголовок
+									Привет! 
 								</div>
 								<div className="slider_text">
-									Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  
+									Подпишитесь на обновления и первыми узнавайте о новых материалах сайта!
 								</div>
 								<button onClick={this.handleTest}>Подписаться</button>
 							</div>
@@ -276,8 +276,8 @@ function searchTruth(param, query){
 								<img key={product.image[0]} src={product.image[0]} width="100%" onClick={this.props.onClickProduct} /><div className="all__price-insta">{product.price}₸</div>
 							</div>
 							<div className="all__info-insta">
-								<h2 onClick={this.props.onClickLike} 
-									className={currentUser.likes.some( x => {return x === product.id}) ? "all__liked" : "all__like"}>{product.likes}</h2>
+								<h2 onClick={(currentUser !== undefined) ? this.props.onClickLike : ""} 
+									className={ (currentUser !== undefined) ? (currentUser.likes.some( x => {return x === product.id}) ? "all__liked" : "all__like") : "all__like"}>{product.likes}</h2>
 								<h2>{product.name}</h2>
 								<p>{product.description}</p>
 							</div>
