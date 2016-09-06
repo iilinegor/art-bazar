@@ -30,7 +30,7 @@ function getStateFromFlux(productId) {
 	        isLoading: ProductStore.isLoading(),
 	        products: ProductStore.getProduct(productId),
 	        user: ProductStore.getProduct(productId)? UserStore.getUser(ProductStore.getProduct(productId).authorId) : "",
-		    currentUser: local ? UserStore.getUser(local) : undefined
+		    currentUser: UserStore.getUser(local)
 		};
 };
 
@@ -180,13 +180,14 @@ var ProductFull = React.createClass({
 
 
 					prof.push(<div><br/><br/></div>);
-					if (currentUser !== undefined)
-						prof.push( <div key={7} className={currentUser.likes.some( x => {return x === products.id}) ? "all__liked" : "all__like"} onClick={this.handleLike.bind(null, products)} > {products.likes}</div> );
+					
+					prof.push( <div key={7} className={(currentUser !== undefined) ? (currentUser.likes.some( x => {return x === products.id}) ? "all__liked" : "all__like") : "all__like"} onClick={(currentUser !== undefined) ? (this.handleLike.bind(null, products)) : ""} > {products.likes}</div> );
 				if (got(products.description)){
 						prof.push(<h2>Описание</h2>);
 						prof.push(<p>{products.description}</p>);
 					};
 
+					prof.push(<br/>);
 				
 					if (got(products.type))
 					prof.push( <div key={0} className="subfield">

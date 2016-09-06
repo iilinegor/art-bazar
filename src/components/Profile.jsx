@@ -312,6 +312,15 @@ var Profile = React.createClass({
 				return (
 						<div className="profile_page">
 							<div className="profile_header" >
+											<div className="slider">
+											<div className="slider_header">
+												Привет! 
+											</div>
+											<div className="slider_text">
+												Подпишитесь на обновления и первыми узнавайте о новых материалах сайта!
+											</div>
+											<button onClick={this.handleTest}>Подписаться</button>
+										</div>
 								<div className="profile_menu">
 									{menu}
 								</div>

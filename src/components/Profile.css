@@ -100,7 +100,7 @@
 .profile_header {
 	width: 100%;
 	height: 300px;
-	background: url(http://xn--interpretacion-sueos-tarot-yrc.com/wp-content/uploads/2013/01/Bazar_of_Athens.jpg);
+	background-color: #a6c0af;
 	background-size: cover;
 	background-position: center;
 	margin-bottom: 30px;
@@ -119,7 +119,7 @@
 	width: 530px;
 	display: inline-block;
 	position: relative;
-	top: 310px;
+	top: 155px;
 	left: calc(100% - 530px);
 }
 

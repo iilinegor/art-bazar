@@ -150,7 +150,7 @@ var AuthButton = React.createClass({
 			if ( user === undefined)
 					return (
 							<div className="singIn"  >
-								<div key={0} onClick={this.handleHelp}>Помощь</div>
+								<div key={0} onClick={this.handleHelp}>Правила</div>
 								<div key={1} onClick={this.handleSingIn}> Войти </div>
 							</div>
 					)
@@ -205,7 +205,7 @@ var Footter = React.createClass({
 			
 					return 	<div className="footter_container">
 								<div onClick={this.handleAll}>Каталог</div>
-								<div onClick={this.handleHelp}>Помощь</div>
+								<div onClick={this.handleHelp}>Правила</div>
 							</div>
 		}
 });
