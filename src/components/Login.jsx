@@ -316,8 +316,7 @@ var Footter = React.createClass({
 		render: function() {
 			
 					return 	<div className="footter_container">
-								<div onClick={this.handleAll}>Каталог</div>
-								<div onClick={this.handleHelp}>Помощь</div>
+								<br/>
 							</div>
 		}
 });

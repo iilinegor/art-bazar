@@ -225,15 +225,16 @@ function searchTruth(param, query){
 								{category}
 							</ul>
 						</div>
-						
-						<Masonry
-			                className='NotesGrid'
-			                options={masonryOptions}
-			                ref={function(c) {if (c) this.masonry = c.masonry;}.bind(this)}
-			            >
-			            
-							<div className="all__all" ref="grid">{rows.reverse()}</div>
-						</Masonry>
+						<div className="all_page_long">
+							<Masonry
+				                className='NotesGrid'
+				                options={masonryOptions}
+				                ref={function(c) {if (c) this.masonry = c.masonry;}.bind(this)}
+				            >
+				            
+								<div className="all__all" ref="grid">{rows.reverse()}</div>
+							</Masonry>
+						</div>
 					</div>
 			
 		},

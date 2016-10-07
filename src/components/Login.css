@@ -10,14 +10,14 @@
 
 .auth_container .all_footter {
 	position: fixed;
-	top: calc(100% - 200px);
+	top: calc(100% - 170px);
 }
 
 
 .auth {
 	position: absolute;
 	left: calc(50% - 150px);
-	top: 250px;
+	top: 15vh;
 	width: 300px;
 	background-color: #466e66;
 	color: #fff;

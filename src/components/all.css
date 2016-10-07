@@ -1,7 +1,7 @@
 .NotesGrid {
 	margin: 0px auto;
-	/*width: 1000px;*/
-	margin-left: 300px;
+	max-width: 1100px;
+	/*margin-left: calc(50%-500px);*/
 	min-height: 650px;
 	margin-bottom: 20px;
 }
@@ -24,9 +24,12 @@
 	}
 }*/
 
+.all_page_long{
+	padding: 0px 300px;
+}
 
 .all__all{
-	/*background-color: #fafafa;*/
+	background-color: #fafafa;
 }
 
 .all__product {
