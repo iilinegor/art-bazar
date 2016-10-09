@@ -1,28 +1,10 @@
 .NotesGrid {
-	margin: 0px auto;
-	max-width: 1100px;
-	/*margin-left: calc(50%-500px);*/
+	margin: 0px;
+	margin-left: calc(50vw - 745px);
+	max-width: 890px;
 	min-height: 650px;
 	margin-bottom: 20px;
 }
-/*
-@media screen and (min-device-width: 1090px){
-    .NotesGrid {
-		width: 1090px;
-	}
-}
-
-@media screen and (max-device-width: 1089px) and (min-device-width: 870px){
-    .NotesGrid {
-		width: 870px;
-	}
-}
-
-@media screen and (max-device-width: 650px) {
-    .NotesGrid {
-		width: 650px;
-	}
-}*/
 
 .all_page_long{
 	padding: 0px 300px;
@@ -33,9 +15,7 @@
 }
 
 .all__product {
-	/*max-width: 300px;*/
 	font-family: Arial;
-	/*margin: 10px;*/
 	min-height: 100px;
 	width: 200px;
 	box-shadow: 0 0 10px rgba(0,0,0,0.6);
@@ -234,10 +214,11 @@
 	font-weight: 500;
 	color: #3d1d12;	
 	margin-top: -30px;
+	margin-left: calc(50vw - 700px);
 }
 
 .all__category_title {
-	margin-left: 20px;	
+	margin-left: calc(50vw - 680px);
 	font-family: "Myriad Set Pro";
 	font-weight: 500;
 	font-size: 20px;
